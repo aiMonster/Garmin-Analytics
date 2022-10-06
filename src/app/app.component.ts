@@ -9,7 +9,7 @@ import { ActivitiesMock } from './mocks/activities.mock';
 })
 export class AppComponent implements OnInit {
   loading: boolean = true;
-  activities: IActivity[] | undefined;
+  activities: IActivity[] = [];
 
   /** On Init */
   ngOnInit(): void {

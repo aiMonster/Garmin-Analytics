@@ -2,7 +2,7 @@ export enum ActivityType {
     Run = 1,
     Bike = 2,
     Hike = 3,
-    ContrastShower = 4, // TODO: Rename to other
+    Other = 4,
     MountainBike = 5,
     Strength = 13,
     Swimming = 27,

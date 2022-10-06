@@ -1,0 +1,18 @@
+<div>
+    <table class="table table-striped" style="font-size: 14px; width: 750px; margin: 25px;">
+        <thead>
+            <tr style="color: lightslategray;"> 
+                <th></th>
+                <th *ngFor="let month of months">{{ month }}</th>
+                <th style="text-align: right;">TOTAL</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let yearSummary of summaries">
+                <th>{{ yearSummary.year }}</th>
+                <td *ngFor="let monthSummary of yearSummary.months">{{ monthSummary.value }}</td>
+                <td style="text-align: right;">{{ yearSummary.total }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

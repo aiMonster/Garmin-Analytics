@@ -11,118 +11,12 @@
         <img src="assets/icons/trophy.png" height="20px" style="margin-right: 10px;">
         <p><b>124</b> The best Streak Days result (10 May 2021 - 3 October 2022)</p>
     </div>
-    <table class="table table-striped" style="font-size: 14px; width: 750px; margin: 25px;">
-        <thead>
-            <tr style="color: lightslategray;"> 
-              <th></th>
-              <th>JAN</th>
-              <th>FEB</th>
-              <th>MAR</th>
-              <th>APR</th>
-              <th>MAY</th>
-              <th>JUN</th>
-              <th>JUL</th>
-              <th>AUG</th>
-              <th>SEP</th>
-              <th>OCT</th>
-              <th>NOV</th>
-              <th>DEC</th>
-              <th style="text-align: right;">TOTAL</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th>2022</th>
-              <td>10/31</td>
-              <td>21/28</td>
-              <td>31/31</td>
-              <td>22/30</td>
-              <td>24/31</td>
-              <td>28/30</td>
-              <td>1/31</td>
-              <td>18/31</td>
-              <td>22/30</td>
-              <td>N/A</td>
-              <td>N/A</td>
-              <td>N/A</td>
-              <td style="text-align: right;">313/365</td>
-            </tr>
-            <tr>
-                <th>2021</th>
-                <td>10/31</td>
-                <td>21/28</td>
-                <td>31/31</td>
-                <td>22/30</td>
-                <td>24/31</td>
-                <td>28/30</td>
-                <td>1/31</td>
-                <td>18/31</td>
-                <td>22/30</td>
-                <td>31/31</td>
-                <td>29/30</td>
-                <td>30/31</td>
-                <td style="text-align: right;">324/365</td>
-          </tr>
-        </tbody>
-    </table>
+    <app-years-summary [activities]="runActivities"></app-years-summary>
 </div>
 <div style="margin: 25px; border: 1px solid darkgrey; width: fit-content;">
     <div style="margin: 25px; display: flex;">
         <p class="h3">Contrast Shower</p>
         <img src="assets/icons/shower.png" height="20px" style="margin-top: 4px; margin-left: 15px;">
     </div>
-    <table class="table table-striped" style="font-size: 14px; width: 750px; margin: 25px;">
-        <thead>
-            <tr style="color: lightslategray;"> 
-              <th></th>
-              <th>JAN</th>
-              <th>FEB</th>
-              <th>MAR</th>
-              <th>APR</th>
-              <th>MAY</th>
-              <th>JUN</th>
-              <th>JUL</th>
-              <th>AUG</th>
-              <th>SEP</th>
-              <th>OCT</th>
-              <th>NOV</th>
-              <th>DEC</th>
-              <th style="text-align: right;">TOTAL</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th>2022</th>
-              <td>N/A</td>
-              <td>N/A</td>
-              <td>N/A</td>
-              <td>4</td>
-              <td>11</td>
-              <td>14</td>
-              <td>11</td>
-              <td>9</td>
-              <td>4</td>
-              <td>N/A</td>
-              <td>N/A</td>
-              <td>N/A</td>
-              <td style="text-align: right;">44</td>
-            </tr>
-            <tr>
-                <th>2021</th>
-                <td>N/A</td>
-                <td>N/A</td>
-                <td>N/A</td>
-                <td>N/A</td>
-                <td>N/A</td>
-                <td>N/A</td>
-                <td>N/A</td>
-                <td>N/A</td>
-                <td>N/A</td>
-                <td>N/A</td>
-                <td>N/A</td>
-                <td>N/A</td>
-                <td style="text-align: right;">0</td>
-          </tr>
-        </tbody>
-    </table>
+    <app-years-summary [activities]="contrastShowerActivities"></app-years-summary>
 </div>
