@@ -3,14 +3,7 @@
         <p class="h3">Running</p>
         <img src="assets/icons/runner.png" height="30px" style="margin-top: 4px; margin-left: 15px;">
     </div>
-    <div style="margin-left: 25px; display: flex; height: 30px;">
-        <img src="assets/icons/fire.png" height="20px" style="margin-right: 10px;">
-        <p><b>130</b> Streak Days</p>
-    </div>
-    <div style="margin-left: 25px; display: flex; height: 20px;">
-        <img src="assets/icons/trophy.png" height="20px" style="margin-right: 10px;">
-        <p><b>124</b> The best Streak Days result (10 May 2021 - 3 October 2022)</p>
-    </div>
+    <app-streak-days [activities]="runActivities"></app-streak-days>
     <app-years-summary [activities]="runActivities" [showInDays]="true"></app-years-summary>
 </div>
 <div style="margin: 25px; border: 1px solid darkgrey; width: fit-content;">

@@ -5,12 +5,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { MainViewComponent } from './components/main-view/main-view.component';
 import { YearsSummaryComponent } from './components/years-summary/years-summary.component';
+import { StreakDaysComponent } from './components/streak-days/streak-days.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainViewComponent,
-    YearsSummaryComponent
+    YearsSummaryComponent,
+    StreakDaysComponent
   ],
   imports: [
     BrowserModule
