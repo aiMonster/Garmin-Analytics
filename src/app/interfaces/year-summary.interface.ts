@@ -9,4 +9,7 @@ export interface IYearSummary {
 
     /** The summary by month */
     months: IMonthSummary[]
+
+    /** Days in the year */
+    daysInYear: number;
 }

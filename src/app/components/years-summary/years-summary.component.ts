@@ -11,6 +11,8 @@ import { IYearSummary } from 'src/app/interfaces/year-summary.interface';
 export class YearsSummaryComponent implements OnInit {
   readonly months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
+  @Input() showInDays: boolean = false;
+
   @Input() activities: IActivity[] = [];
 
   summaries: IYearSummary[] = [];
@@ -18,6 +20,13 @@ export class YearsSummaryComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    if (this.showInDays) {
+      // Select only first item at day
+      this.activities = this.activities.filter((activity, index, self) => {
+        return self.findIndex(value => value.startTimeLocal.split(' ')[0] === activity.startTimeLocal.split(' ')[0]) === index;
+      });
+    }
+
     this.summaries = this.mapActivities(this.activities);
   }
 
@@ -25,7 +34,7 @@ export class YearsSummaryComponent implements OnInit {
     const firstDate = new Date(activities[activities.length - 1].startTimeLocal);
     const lastDate = new Date(activities[0].startTimeLocal);
 
-    const yearsSummary = this.getYearsTemplate(firstDate, lastDate);
+    const yearsSummary = this.getYearsTemplate(firstDate, lastDate).reverse();
 
     activities.forEach(activity => {
       const date = activity.startTimeLocal.split(' ')[0];
@@ -45,10 +54,13 @@ export class YearsSummaryComponent implements OnInit {
     let currentYear = firstDate.getFullYear();
 
     do {
+      const monthsTemplate = this.getMonthTemplate(currentYear);
+
       const yearSummary: IYearSummary = {
         total: 0,
         year: currentYear,
-        months: this.getMonthTemplate(currentYear)
+        months: monthsTemplate,
+        daysInYear: monthsTemplate.reduce((sum, month) => (sum += month.daysInMonth), 0)
       }
 
       summaries.push(yearSummary);

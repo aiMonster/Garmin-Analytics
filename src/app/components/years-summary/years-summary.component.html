@@ -1,5 +1,5 @@
 <div>
-    <table class="table table-striped" style="font-size: 14px; width: 750px; margin: 25px;">
+    <table class="table table-striped" style="font-size: 14px; width: 800px; margin: 25px;">
         <thead>
             <tr style="color: lightslategray;"> 
                 <th></th>
@@ -10,8 +10,14 @@
             <tbody>
             <tr *ngFor="let yearSummary of summaries">
                 <th>{{ yearSummary.year }}</th>
-                <td *ngFor="let monthSummary of yearSummary.months">{{ monthSummary.value }}</td>
-                <td style="text-align: right;">{{ yearSummary.total }}</td>
+                <td *ngFor="let monthSummary of yearSummary.months">
+                    {{ monthSummary.value }}
+                    <ng-container *ngIf="showInDays">/{{ monthSummary.daysInMonth }}</ng-container>
+                </td>
+                <td style="text-align: right;">
+                    {{ yearSummary.total }}
+                    <ng-container *ngIf="showInDays">/{{ yearSummary.daysInYear }}</ng-container>
+                </td>
             </tr>
         </tbody>
     </table>
