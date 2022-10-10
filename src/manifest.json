@@ -7,7 +7,12 @@
     "content_scripts": [
       {
         "matches": ["https://connect.garmin.com/modern/*"],
-        "js": ["background.js"],
+        "js": ["background.garmin.js"],
+        "all_frames": true
+      },
+      {
+        "matches": ["https://www.strava.com/*"],
+        "js": ["background.strava.js"],
         "all_frames": true
       }
     ],

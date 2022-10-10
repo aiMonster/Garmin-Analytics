@@ -28,7 +28,8 @@
               "src/favicon.ico",
               "src/assets",
               "src/manifest.json",
-              "src/background.js"
+              "src/background.garmin.js",
+              "src/background.strava.js"
             ],
             "styles": [
               "src/styles.scss"
