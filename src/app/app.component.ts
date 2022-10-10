@@ -13,8 +13,8 @@ export class AppComponent implements OnInit {
 
   /** On Init */
   ngOnInit(): void {
-    window.addEventListener('message', (data: unknown) => {
-      this.activities = data as IActivity[];
+    window.addEventListener('message', (event: MessageEvent) => {
+      this.activities = event.data as IActivity[];
       this.loading = false;
     });
 
