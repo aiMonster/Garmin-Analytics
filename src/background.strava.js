@@ -7,6 +7,7 @@ const initialPageLoadInterval = setInterval(function () {
 
     if (menuElement) {
         addAnalyticsMenuItem(menuElement);
+        initAnalyticsPage();
 
         clearInterval(initialPageLoadInterval);
     }
@@ -22,9 +23,26 @@ function addAnalyticsMenuItem(menuElement) {
 
     if (ANALYTICS_PAGE_SELECTED) {
         analyticsItem.classList.add('selected');   
+        document.title = "Analytics | Strava";
     }
 
     analyticsItem.innerHTML = '<a href="/athlete/analytics" class="nav-link">Analytics</a>';
     
     menuElement.appendChild(analyticsItem);
+}
+
+function initAnalyticsPage() {
+    if (!ANALYTICS_PAGE_SELECTED) {
+        return;
+    }
+
+    var iframe = document.createElement('iframe');
+    iframe.src = chrome.runtime.getURL('index.html');
+    iframe.style.cssText = 'width: 100%; height: calc(100vh - 60px);';
+
+    var contentContainer = document.getElementsByClassName('error-page')[0];
+    contentContainer.innerHTML = '';
+    contentContainer.appendChild(iframe);
+
+    iframe.contentWindow.postMessage([], "*");
 }
