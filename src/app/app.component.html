@@ -1,2 +1,4 @@
-<div *ngIf="loading">Loading...</div>
 <app-main-view *ngIf="!loading" [activities]="activities"></app-main-view>
+<div *ngIf="loading" class="loader-container">
+    <img src="assets/moving_man.gif" height="150px" style="margin-right: 10px;">
+</div>
