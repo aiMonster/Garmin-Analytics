@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IActivity } from 'src/app/interfaces/activity.interface';
 import { IMonthSummary } from 'src/app/interfaces/month-summary.interface';
 import { IYearSummary } from 'src/app/interfaces/year-summary.interface';
+import { DateUtils } from 'src/app/utils/date.utils';
 
 @Component({
   selector: 'app-years-summary',
@@ -9,8 +10,8 @@ import { IYearSummary } from 'src/app/interfaces/year-summary.interface';
   styleUrls: ['./years-summary.component.scss']
 })
 export class YearsSummaryComponent implements OnInit {
-  readonly months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-
+  readonly months = DateUtils.MonthsList;
+  
   @Input() showInDays: boolean = false;
 
   @Input() activities: IActivity[] = [];

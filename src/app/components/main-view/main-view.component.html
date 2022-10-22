@@ -1,15 +1,19 @@
-<div style="margin: 25px; border: 1px solid darkgrey; width: fit-content;">
-    <div style="margin-top: 25px; margin-left: 25px; margin-bottom: 10px; display: flex;">
-        <p class="h3">Running</p>
-        <img src="assets/icons/runner.png" height="30px" style="margin-top: 4px; margin-left: 15px;">
+<div class="main-view-container">
+    <div class="activity">
+        <div class="header">Running</div>
+        <app-streak-days [activities]="runActivities"></app-streak-days>
+        <app-calendar-heatmap [activities]="runActivities"></app-calendar-heatmap>
     </div>
-    <app-streak-days [activities]="runActivities"></app-streak-days>
-    <app-years-summary [activities]="runActivities" [showInDays]="true"></app-years-summary>
-</div>
-<div style="margin: 25px; border: 1px solid darkgrey; width: fit-content;">
-    <div style="margin: 25px; display: flex;">
-        <p class="h3">Contrast Shower</p>
-        <img src="assets/icons/shower.png" height="20px" style="margin-top: 4px; margin-left: 15px;">
+    <div class="activity">
+        <div class="header">Contrast Shower</div>
+        <app-calendar-heatmap [activities]="contrastShowerActivities"></app-calendar-heatmap>
     </div>
-    <app-years-summary [activities]="contrastShowerActivities"></app-years-summary>
+    <div class="activity">
+        <div class="header">Strength</div>
+        <app-calendar-heatmap [activities]="strengthActivities"></app-calendar-heatmap>
+    </div>
+    <div class="activity">
+        <div class="header">Meditation</div>
+        <app-calendar-heatmap [activities]="meditationActivities"></app-calendar-heatmap>
+    </div>
 </div>

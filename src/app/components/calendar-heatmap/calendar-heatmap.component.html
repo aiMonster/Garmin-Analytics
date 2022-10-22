@@ -1,0 +1,25 @@
+<div class="calendar-heatmap-container">
+    <ng-container *ngFor="let calendar of calendars; let firstCalendarItem = first">
+        <div class="calendar-container">
+            <div *ngIf="firstCalendarItem" class="months-row">
+                <div *ngFor="let month of months">{{ month }}</div>
+            </div>
+            <div class="weeks-container" >
+                <div class="week-days">
+                    <div>MON</div>
+                    <div>TUE</div>
+                    <div>WED</div>
+                    <div>THR</div>
+                    <div>FRI</div>
+                    <div>SAT</div>
+                    <div>SUN</div>
+                </div>
+                <div *ngFor="let week of calendar; let firstWeekItem = first" class="column" [class.first-col]="firstWeekItem">
+                    <div *ngFor="let day of week.days" class="cell" [class.with-activity]="day.activitiesCount > 0"
+                        [title]="day.dateTooltip"
+                    ></div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

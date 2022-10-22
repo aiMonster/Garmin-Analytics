@@ -8,5 +8,6 @@ export enum ActivityType {
     Swimming = 27,
     Kayak = 60,
     Sup = 87,
+    Meditation = 164,
     Ski = 172
 }

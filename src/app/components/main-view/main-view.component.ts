@@ -13,12 +13,14 @@ export class MainViewComponent implements OnInit {
 
   runActivities: IActivity[] = [];
   contrastShowerActivities: IActivity[] = [];
-
-  constructor() { }
+  strengthActivities: IActivity[] = [];
+  meditationActivities: IActivity[] = [];
 
   ngOnInit(): void {
     this.setupRunsSummary();
     this.setupContrastShowerSummary();
+    this.setupStrengthSummary();
+    this.setupMeditationsSummary();
   }
 
   private setupRunsSummary(): void {
@@ -31,5 +33,13 @@ export class MainViewComponent implements OnInit {
       .filter(activity => activity.activityType.typeId === ActivityType.Other && activity.activityName === 'Contrast Shower');
   };
 
-  
+  private setupStrengthSummary(): void {
+    this.strengthActivities = this.activities
+      .filter(activity => activity.activityType.typeId === ActivityType.Strength);
+  }
+
+  private setupMeditationsSummary(): void {
+    this.meditationActivities = this.activities
+      .filter(activity => activity.activityType.typeId === ActivityType.Meditation);
+  }
 }

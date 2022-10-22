@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { MainViewComponent } from './components/main-view/main-view.component';
 import { YearsSummaryComponent } from './components/years-summary/years-summary.component';
 import { StreakDaysComponent } from './components/streak-days/streak-days.component';
+import { CalendarHeatmapComponent } from './components/calendar-heatmap/calendar-heatmap.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainViewComponent,
     YearsSummaryComponent,
-    StreakDaysComponent
+    StreakDaysComponent,
+    CalendarHeatmapComponent
   ],
   imports: [
     BrowserModule

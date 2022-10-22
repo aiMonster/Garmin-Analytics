@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IActivity } from 'src/app/interfaces/activity.interface';
+import { DateUtils } from 'src/app/utils/date.utils';
 
 @Component({
   selector: 'app-streak-days',
@@ -16,7 +17,7 @@ export class StreakDaysComponent implements OnInit {
 
   get getMaxStreakDatesFormatted(): string {
     return this.maxStreakDates
-      .map(streakDates => this.formatDate(streakDates[0]) + ' - ' + this.formatDate(streakDates[1]))
+      .map(streakDates => DateUtils.formatDate(streakDates[0]) + ' - ' + DateUtils.formatDate(streakDates[1]))
       .join(', ');
   }
   
@@ -32,12 +33,12 @@ export class StreakDaysComponent implements OnInit {
     const firstDate = new Date(runDays[runDays.length - 1]);
     const lastDate = new Date(runDays[0]);
 
-    const datesRange = this.getAllDatesInTheRange(firstDate, lastDate);
+    const datesRange = DateUtils.getAllDatesInTheRange(firstDate, lastDate);
 
     let sets: string[][] = [];
     let currentSet: string[] = [];
 
-    datesRange.map(date => date.toJSON().split('T')[0]).forEach((date, index) => {
+    datesRange.map(date => DateUtils.convert(date)).forEach((date, index) => {
         const activityExist = runDays.indexOf(date) > -1;
         const lastItem = index === datesRange.length - 1;
 
@@ -55,35 +56,5 @@ export class StreakDaysComponent implements OnInit {
     this.maxStreakDays = Math.max(...sets.map(set => set.length));
     this.maxStreakDates = sets.filter(set => set.length === this.maxStreakDays)
       .map(set => [new Date(set[0]), new Date(set[set.length - 1])]);
-  }
-
-  private getAllDatesInTheRange(startDate: Date, stopDate: Date): Date[] {
-    const dateArray: Date[] = []
-
-    const startDateIgnoreTimezone = this.getPureDate(startDate);
-    const stopDateIgnoreTimezone = this.getPureDate(stopDate);
-
-    let currentDate = new Date(startDateIgnoreTimezone);
-
-    while (currentDate <= stopDateIgnoreTimezone) {
-        dateArray.push(new Date(currentDate));
-        currentDate.setDate(currentDate.getDate() + 1);
-    }
-
-    return dateArray;
-  }
-
-  private getPureDate(date: Date): Date {
-    const result = new Date(date);
-
-    result.setHours(result.getHours() - result.getTimezoneOffset() / 60);
-    result.setMinutes((result.getHours() - result.getTimezoneOffset()) % 60);
-
-    return result;
-  }
-
-  private formatDate(date: Date): string {
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    return `${date.getUTCDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
   }
 }
