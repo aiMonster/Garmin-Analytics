@@ -10,7 +10,7 @@ import { DateUtils } from 'src/app/utils/date.utils';
   styleUrls: ['./years-summary.component.scss']
 })
 export class YearsSummaryComponent implements OnInit {
-  readonly months = DateUtils.MonthsList;
+  readonly months = DateUtils.MonthsFullList;
   
   @Input() showInDays: boolean = false;
 

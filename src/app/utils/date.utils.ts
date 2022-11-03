@@ -3,6 +3,10 @@ export class DateUtils {
     public static readonly MonthsList = 
         Object.freeze(['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']);
 
+    /** Collection of Months lables like January, February, etc. */
+    public static readonly MonthsFullList = 
+        Object.freeze(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']);
+
     /**
      * Converts date to string
      * @param date input date

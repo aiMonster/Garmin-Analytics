@@ -7,6 +7,7 @@ import { MainViewComponent } from './components/main-view/main-view.component';
 import { YearsSummaryComponent } from './components/years-summary/years-summary.component';
 import { StreakDaysComponent } from './components/streak-days/streak-days.component';
 import { CalendarHeatmapComponent } from './components/calendar-heatmap/calendar-heatmap.component';
+import { ProgressCircleComponent } from './components/progress-circle/progress-circle.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { CalendarHeatmapComponent } from './components/calendar-heatmap/calendar
     MainViewComponent,
     YearsSummaryComponent,
     StreakDaysComponent,
-    CalendarHeatmapComponent
+    CalendarHeatmapComponent,
+    ProgressCircleComponent
   ],
   imports: [
     BrowserModule

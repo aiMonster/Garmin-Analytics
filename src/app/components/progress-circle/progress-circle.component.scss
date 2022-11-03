@@ -1,0 +1,74 @@
+:host {
+  margin: 5px;
+}
+
+.progress-circle-container {
+  position: relative;
+  padding: 10px;
+  border-radius: 15px;
+  width: fit-content;
+  border: 1px solid gainsboro;
+
+  svg {
+    width: 76px;
+    height: 76px;
+  }
+
+  .bg {
+    fill: none;
+    stroke-width: 8px;
+    stroke: gainsboro;
+  }
+
+  .meter {
+    fill: none;
+    stroke-width: 8px;
+    stroke-linecap: round;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+    stroke-dasharray: 360;
+    stroke: mediumspringgreen;
+    animation: progress-frame 1s ease-out;
+  }
+
+  .icon-completed {
+    width: 20px;
+    position: absolute;
+    left: calc(50% - 9px);;
+    top: 5px;
+  }
+
+  .circle-content {
+    position: absolute;
+    top: 25px;
+    left: 35px;
+    text-align: center;
+
+    .activities-count {
+      font-weight: bold;;
+    }
+  
+    .split-line {
+      width: 25px;
+      height: 3px;
+      border-radius: 99px;
+      background-color: mediumspringgreen;
+    }
+  
+    .month-days {
+      font-size: 10px;
+    }
+  }
+
+  .month-label {
+    margin-top: 5px;
+    text-align: center;
+    font-size: 12px;
+  }
+}
+
+@keyframes progress-frame {
+    from {
+        stroke-dashoffset: 360;
+    }
+}

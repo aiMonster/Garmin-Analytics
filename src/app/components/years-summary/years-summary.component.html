@@ -1,24 +1,9 @@
-<div>
-    <table class="table table-striped" style="font-size: 14px; width: 800px; margin: 25px;">
-        <thead>
-            <tr style="color: lightslategray;"> 
-                <th></th>
-                <th *ngFor="let month of months">{{ month }}</th>
-                <th style="text-align: right;">TOTAL</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let yearSummary of summaries">
-                <th>{{ yearSummary.year }}</th>
-                <td *ngFor="let monthSummary of yearSummary.months">
-                    {{ monthSummary.value }}
-                    <ng-container *ngIf="showInDays">/{{ monthSummary.daysInMonth }}</ng-container>
-                </td>
-                <td style="text-align: right;">
-                    {{ yearSummary.total }}
-                    <ng-container *ngIf="showInDays">/{{ yearSummary.daysInYear }}</ng-container>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<div class="year-summary-container">
+    <app-progress-circle
+        *ngFor="let monthSummary of summaries[0].months"
+        [value]="monthSummary.value"
+        [subValue]="'of ' + monthSummary.daysInMonth"
+        [title]="months[monthSummary.index]"
+        [percent]="monthSummary.value * 100 / monthSummary.daysInMonth"
+    ></app-progress-circle>
 </div>
