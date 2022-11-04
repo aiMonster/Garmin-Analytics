@@ -6,4 +6,10 @@
         [title]="months[monthSummary.index]"
         [percent]="monthSummary.value * 100 / monthSummary.daysInMonth"
     ></app-progress-circle>
+    <app-progress-circle
+        [value]="summaries[0].total"
+        [subValue]="'of ' + summaries[0].daysInYear"
+        title="Total"
+        [percent]="summaries[0].total * 100 / summaries[0].daysInYear"
+></app-progress-circle>
 </div>

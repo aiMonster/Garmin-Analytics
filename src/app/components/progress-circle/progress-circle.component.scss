@@ -41,16 +41,18 @@
   .circle-content {
     position: absolute;
     top: 25px;
-    left: 35px;
+    left: calc(50% - 25px);
     text-align: center;
+    width: 50px;
 
     .activities-count {
       font-weight: bold;;
     }
   
     .split-line {
-      width: 25px;
+      width: 26px;
       height: 3px;
+      margin-left: 12px;
       border-radius: 99px;
       background-color: mediumspringgreen;
     }
