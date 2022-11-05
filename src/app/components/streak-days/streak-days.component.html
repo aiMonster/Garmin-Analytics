@@ -1,10 +1,71 @@
 <div class="streak-days-container">
-    <div class="title">
-        <img src="assets/icons/fire.png" class="icon">
-        <p><b>{{ streakDays }}</b> Streak Days</p>
+    <div *ngIf="false" class="embeded-summary">
+        <div class="title">
+            <img src="assets/icons/fire.png" class="icon">
+            <p><b>{{ streakDays }}</b> Streak Days</p>
+        </div>
+        <div class="title">
+            <img src="assets/icons/trophy.png" class="icon">
+            <p><b>{{ maxStreakDays }}</b> The best Streak Days result ({{ getMaxStreakDatesFormatted }})</p>
+        </div>
     </div>
-    <div class="title">
-        <img src="assets/icons/trophy.png" class="icon">
-        <p><b>{{ maxStreakDays }}</b> The best Streak Days result ({{ getMaxStreakDatesFormatted }})</p>
+
+    <div class="standalone">
+        <div class="summary-container">
+            <div class="section">
+                <div class="title">You're on a</div>
+                <div>
+                    <img src="assets/icons/fire.png" class="icon">
+                    <span class="sub-title">{{ streakDays }} day streak</span>
+                </div>
+            </div>
+            <div class="section">
+                <div class="title">Your best</div>
+                <div title="on {{ getMaxStreakDatesFormatted }}">
+                    <img src="assets/icons/trophy.png" class="icon">
+                    <span class="sub-title">{{ maxStreakDays }} day streak</span>
+                </div>
+            </div>
+        </div>
+        <div class="progress-line-container" [style.width]="(streakGoals.length * 98) + 'px'">
+            <div class="progress-line"
+                [style.background]="'linear-gradient(to right,' + progressLineGradientColors + ')'"></div>
+            <div class="point-container">
+                <img src="assets/icons/flag.png" class="icon">
+                <span class="label">Start</span>
+            </div>
+            <ng-container *ngFor="let goal of streakGoals; let index = index; let last = last">
+                <div *ngIf="!last" class="point-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        xmlns:svgjs="http://svgjs.com/svgjs" width="28" height="28" x="0" y="0"
+                        viewBox="0 0 511.375 511.375" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                        <g>
+                            <g>
+                                <g>
+                                    <path
+                                        d="m511.375 255.688-57.89-64.273 9.064-86.046-84.651-17.92-43.18-75.012-79.03 35.321-10.667 207.93 10.667 207.929 79.031 35.321 43.179-75.011 84.651-17.921-9.064-86.046z"
+                                        [style.fill]="goal.achieved ? colors[index][1] : '#b8b7b7'"></path>
+                                    <path
+                                        d="m176.656 12.437-43.179 75.012-84.651 17.921 9.064 86.045-57.89 64.273 57.89 64.272-9.064 86.046 84.651 17.921 43.18 75.011 79.031-35.321v-415.859z"
+                                        [style.fill]="goal.achieved ? colors[index][0] : '#d5d5d5'"></path>
+                                </g>
+                                <g>
+                                    <path d="m362.878 199.702-22.381-19.977-84.809 95.016-10.667 23.613 10.667 21.439z"
+                                        fill="#FFFFFF"></path>
+                                    <path
+                                        d="m166.56 233.095-21.212 21.213 89.185 89.186 21.155-23.701v-45.052l-22.393 25.088z"
+                                        fill="#FFFFFF"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                    <span class="label">{{ goal.target }} days</span>
+                </div>
+                <div *ngIf="last" class="point-container">
+                    <img [src]="goal.achieved ? 'assets/icons/fire.png' : 'assets/icons/fire-bw.png'" class="icon">
+                    <span class="label">{{ goal.target }} days</span>
+                </div>
+            </ng-container>
+        </div>
     </div>
 </div>

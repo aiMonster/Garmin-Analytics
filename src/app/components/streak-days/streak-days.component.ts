@@ -11,9 +11,40 @@ export class StreakDaysComponent implements OnInit {
 
   @Input() activities: IActivity[] = [];
 
-  streakDays: number | undefined;
-  maxStreakDays: number | undefined;
+  streakDays: number;
+  maxStreakDays: number;
   maxStreakDates: [Date, Date][] = [];
+
+  streakGoals: {
+    target: number,
+    achieved: boolean
+  }[];
+
+  readonly startColor = '#f8d54f';
+  readonly endColor = '#e37961';
+  readonly bwColor = '#b8b7b7';
+
+  readonly colors = [
+    ['#d8a6ef', '#c780e8'],
+    ['#bab4ff', '#9d94ff'],
+    ['#8bc6f9', '#59adf6'],
+    ['#52dadf', '#08cad1'],
+    ['#7be2bf', '#42d6a4'],
+    ['#ffcba6', '#ffb480'],
+    ['#ff9690', '#ff6961']
+  ];
+
+  get progressLineGradientColors(): string {
+    const pointsColor: string[] = [
+      this.startColor,
+      ...this.streakGoals.map((goal, index) => {
+        const completedColor = index === this.streakGoals.length - 1 ? this.endColor : this.colors[index][1];
+        return goal.achieved ? completedColor : this.bwColor;
+      })
+    ];
+
+    return pointsColor.join(',');;
+  }
 
   get getMaxStreakDatesFormatted(): string {
     return this.maxStreakDates
@@ -25,6 +56,10 @@ export class StreakDaysComponent implements OnInit {
 
   ngOnInit(): void {
     this.calculateStreakDays();
+
+    const targets = [7, 30, 100, 150, 200, 250, 300, 365];
+
+    this.streakGoals = targets.map((target) => ({ target, achieved: this.streakDays >= target }));
   }
 
   private calculateStreakDays(): void {

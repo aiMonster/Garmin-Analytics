@@ -1,11 +1,14 @@
 <div class="main-view-container">
     <div class="activity">
+        <div class="header">Running</div>
+        <app-streak-days [activities]="runActivities"></app-streak-days>
+    </div>
+    <div class="activity">
         <div class="header">Running Months Summary</div>
         <app-years-summary [activities]="runActivities" [showInDays]="true"></app-years-summary>
     </div>
     <div class="activity">
         <div class="header">Running</div>
-        <app-streak-days [activities]="runActivities"></app-streak-days>
         <app-calendar-heatmap [activities]="runActivities"></app-calendar-heatmap>
     </div>
     <div class="activity">
