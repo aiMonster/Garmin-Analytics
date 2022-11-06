@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IActivity } from './interfaces/activity.interface';
 import { ActivitiesMock } from './mocks/activities.mock';
+import { ActivitiesService } from './services/activities.service';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +12,14 @@ export class AppComponent implements OnInit {
   loading: boolean = true;
   activities: IActivity[] = [];
 
+  /** Constructor */
+  constructor(private readonly activitiesService: ActivitiesService) {}
+
   /** On Init */
   ngOnInit(): void {
     window.addEventListener('message', (event: MessageEvent) => {
       this.activities = event.data as IActivity[];
+      this.activitiesService.initActivities(event.data);
       this.loading = false;
     });
 
@@ -25,5 +30,6 @@ export class AppComponent implements OnInit {
   private setupMockData(): void {
     this.activities = ActivitiesMock;
     this.loading = false;
+    this.activitiesService.initActivities(ActivitiesMock);
   }
 }

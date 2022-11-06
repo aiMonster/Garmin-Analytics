@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IActivity } from 'src/app/interfaces/activity.interface';
+import { IActivityCriteria } from 'src/app/interfaces/activity-criteria.interface';
+import { IStreakDaysInfo } from 'src/app/interfaces/streak-days-info.interface';
+import { ActivitiesService } from 'src/app/services/activities.service';
 import { DateUtils } from 'src/app/utils/date.utils';
 
 @Component({
@@ -8,12 +10,11 @@ import { DateUtils } from 'src/app/utils/date.utils';
   styleUrls: ['./streak-days.component.scss']
 })
 export class StreakDaysComponent implements OnInit {
+  /** Criteria of activities to process */
+  @Input() criterias: IActivityCriteria[];
 
-  @Input() activities: IActivity[] = [];
-
-  streakDays: number;
-  maxStreakDays: number;
-  maxStreakDates: [Date, Date][] = [];
+  /** Streak days info */
+  streakDaysInfo: IStreakDaysInfo;
 
   streakGoals: {
     target: number,
@@ -46,50 +47,20 @@ export class StreakDaysComponent implements OnInit {
     return pointsColor.join(',');;
   }
 
-  get getMaxStreakDatesFormatted(): string {
-    return this.maxStreakDates
-      .map(streakDates => DateUtils.formatDate(streakDates[0]) + ' - ' + DateUtils.formatDate(streakDates[1]))
+  get maxStreakDatesFormatted(): string {
+    return this.streakDaysInfo?.maxDates
+      .map(streakDates => DateUtils.formatDate(streakDates.start) + ' - ' + DateUtils.formatDate(streakDates.end))
       .join(', ');
   }
   
-  constructor() { }
+  /** Constructor */
+  constructor(private readonly activitiesService: ActivitiesService) {}
 
   ngOnInit(): void {
-    this.calculateStreakDays();
-
+    this.streakDaysInfo = this.activitiesService.getStreakDaysInfo(this.criterias);
+    
     const targets = [7, 30, 100, 150, 200, 250, 300, 365];
 
-    this.streakGoals = targets.map((target) => ({ target, achieved: this.streakDays >= target }));
-  }
-
-  private calculateStreakDays(): void {
-    const runDays = this.activities.map(activity => activity.startTimeLocal.split(' ')[0]);
-
-    const firstDate = new Date(runDays[runDays.length - 1]);
-    const lastDate = new Date(runDays[0]);
-
-    const datesRange = DateUtils.getAllDatesInTheRange(firstDate, lastDate);
-
-    let sets: string[][] = [];
-    let currentSet: string[] = [];
-
-    datesRange.map(date => DateUtils.convert(date)).forEach((date, index) => {
-        const activityExist = runDays.indexOf(date) > -1;
-        const lastItem = index === datesRange.length - 1;
-
-        if (activityExist) {
-            currentSet = [...currentSet, date];
-        }
-
-        if ((!activityExist || lastItem) && currentSet.length > 0) {
-            sets = [...sets, [...currentSet]];
-            currentSet = [];
-        }
-    });
-
-    this.streakDays = sets[sets.length - 1].length;
-    this.maxStreakDays = Math.max(...sets.map(set => set.length));
-    this.maxStreakDates = sets.filter(set => set.length === this.maxStreakDays)
-      .map(set => [new Date(set[0]), new Date(set[set.length - 1])]);
+    this.streakGoals = targets.map((target) => ({ target, achieved: this.streakDaysInfo.current >= target }));
   }
 }

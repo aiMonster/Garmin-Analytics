@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivityType } from 'src/app/enums/activity-type.enum';
+import { IActivityCriteria } from 'src/app/interfaces/activity-criteria.interface';
 import { IActivity } from 'src/app/interfaces/activity.interface';
 
 @Component({
@@ -11,6 +12,10 @@ export class MainViewComponent implements OnInit {
 
   @Input() activities: IActivity[] = [];
 
+  runActivitiesCriteria: IActivityCriteria = {
+    activityType: ActivityType.Run
+  };
+  
   runActivities: IActivity[] = [];
   contrastShowerActivities: IActivity[] = [];
   strengthActivities: IActivity[] = [];

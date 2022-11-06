@@ -2,11 +2,11 @@
     <div *ngIf="false" class="embeded-summary">
         <div class="title">
             <img src="assets/icons/fire.png" class="icon">
-            <p><b>{{ streakDays }}</b> Streak Days</p>
+            <p><b>{{ streakDaysInfo.current }}</b> Streak Days</p>
         </div>
         <div class="title">
             <img src="assets/icons/trophy.png" class="icon">
-            <p><b>{{ maxStreakDays }}</b> The best Streak Days result ({{ getMaxStreakDatesFormatted }})</p>
+            <p><b>{{ streakDaysInfo.max }}</b> The best Streak Days result ({{ maxStreakDatesFormatted }})</p>
         </div>
     </div>
 
@@ -16,14 +16,14 @@
                 <div class="title">You're on a</div>
                 <div>
                     <img src="assets/icons/fire.png" class="icon">
-                    <span class="sub-title">{{ streakDays }} day streak</span>
+                    <span class="sub-title">{{ streakDaysInfo.current }} day streak</span>
                 </div>
             </div>
             <div class="section">
                 <div class="title">Your best</div>
-                <div title="on {{ getMaxStreakDatesFormatted }}">
+                <div title="on {{ maxStreakDatesFormatted }}">
                     <img src="assets/icons/trophy.png" class="icon">
-                    <span class="sub-title">{{ maxStreakDays }} day streak</span>
+                    <span class="sub-title">{{ streakDaysInfo.max }} day streak</span>
                 </div>
             </div>
         </div>
