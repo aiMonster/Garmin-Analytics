@@ -17,6 +17,15 @@ export class DateUtils {
     }
 
     /**
+     * Retrives only date from YYYY-MM-DD HH:MM:SS
+     * @param date input date
+     * @returns date in format YYYY-MM-DD
+     */
+    public static getDate(date: string): string {
+        return date.split(' ')[0];
+    }
+
+    /**
      * Formats date to readable string
      * @param date 
      * @returns date as label '11 Jan 2021'
