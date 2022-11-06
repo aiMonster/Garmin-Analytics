@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { MainViewComponent } from './components/main-view/main-view.component';
-import { YearsSummaryComponent } from './components/years-summary/years-summary.component';
+import { MonthlySummaryComponent } from './components/monthly-summary/monthly-summary.component';
 import { StreakDaysComponent } from './components/streak-days/streak-days.component';
 import { CalendarHeatmapComponent } from './components/calendar-heatmap/calendar-heatmap.component';
 import { ProgressCircleComponent } from './components/progress-circle/progress-circle.component';
@@ -13,7 +13,7 @@ import { ProgressCircleComponent } from './components/progress-circle/progress-c
   declarations: [
     AppComponent,
     MainViewComponent,
-    YearsSummaryComponent,
+    MonthlySummaryComponent,
     StreakDaysComponent,
     CalendarHeatmapComponent,
     ProgressCircleComponent

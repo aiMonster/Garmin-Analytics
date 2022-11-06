@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { YearsSummaryComponent } from './years-summary.component';
+import { MonthlySummaryComponent } from './monthly-summary.component';
 
-describe('YearsSummaryComponent', () => {
-  let component: YearsSummaryComponent;
-  let fixture: ComponentFixture<YearsSummaryComponent>;
+describe('MonthlySummaryComponent', () => {
+  let component: MonthlySummaryComponent;
+  let fixture: ComponentFixture<MonthlySummaryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ YearsSummaryComponent ]
+      declarations: [ MonthlySummaryComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(YearsSummaryComponent);
+    fixture = TestBed.createComponent(MonthlySummaryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

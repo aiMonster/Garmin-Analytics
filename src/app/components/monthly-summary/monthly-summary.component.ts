@@ -5,11 +5,11 @@ import { IYearSummary } from 'src/app/interfaces/year-summary.interface';
 import { DateUtils } from 'src/app/utils/date.utils';
 
 @Component({
-  selector: 'app-years-summary',
-  templateUrl: './years-summary.component.html',
-  styleUrls: ['./years-summary.component.scss']
+  selector: 'app-monthly-summary',
+  templateUrl: './monthly-summary.component.html',
+  styleUrls: ['./monthly-summary.component.scss']
 })
-export class YearsSummaryComponent implements OnInit {
+export class MonthlySummaryComponent implements OnInit {
   readonly months = DateUtils.MonthsFullList;
   
   @Input() showInDays: boolean = false;
