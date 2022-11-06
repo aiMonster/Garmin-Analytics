@@ -35,30 +35,16 @@ export class DateUtils {
     public static getAllDatesInTheRange(startDate: Date, stopDate: Date): Date[] {
         const dateArray: Date[] = []
 
-        const startDateIgnoreTimezone = this.getPureDate(startDate);
-        const stopDateIgnoreTimezone = this.getPureDate(stopDate);
+        const startDateUTC = Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+        const stopDateUTC = Date.UTC(stopDate.getFullYear(), stopDate.getMonth(), stopDate.getDate());
 
-        let currentDate = new Date(startDateIgnoreTimezone);
+        let currentDateUTC = startDateUTC;
 
-        while (currentDate <= stopDateIgnoreTimezone) {
-            dateArray.push(this.getPureDate(currentDate));
-            currentDate.setDate(currentDate.getDate() + 1);
+        while (currentDateUTC <= stopDateUTC) {
+            dateArray.push(new Date(currentDateUTC));
+            currentDateUTC += 24*60*60*1000;
         }
 
         return dateArray;
-    }   
-
-    /**
-     * Get date with ignored timezone
-     * @param date input date
-     * @returns date with modified hours to ignore time zone
-     */
-    private static getPureDate(date: Date): Date {
-        const result = new Date(date);
-
-        result.setHours(result.getHours() - result.getTimezoneOffset() / 60);
-        result.setMinutes((result.getHours() - result.getTimezoneOffset()) % 60);
-
-        return result;
     }
 }
