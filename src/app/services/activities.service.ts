@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { IActivityCriteria } from '../interfaces/activity-criteria.interface';
 import { IActivity } from '../interfaces/activity.interface';
+import { IDaySummary } from '../interfaces/day-summary.interface';
 import { IMonthSummary } from '../interfaces/month-summary.interface';
 import { IStreakDaysInfo } from '../interfaces/streak-days-info.interface';
+import { IWeekSummary } from '../interfaces/week-summary.interface';
 import { IYearSummary } from '../interfaces/year-summary.interface';
 import { DateUtils } from '../utils/date.utils';
 
@@ -22,12 +24,12 @@ export class ActivitiesService {
   }
 
   /**
-   * Get Monthly summary for specified type of activities
+   * Get year summary for specified type of activities
    * @param searchCriterias creatria for activities to process
    * @param uniqueDays either unique days should be calculated or activities times
    * @returns monthly summary grouped into years
    */
-  public getMonthlySummaryInfo(searchCriterias: IActivityCriteria[], uniqueDays: boolean): IYearSummary[] {
+  public getYearSummaryInfo(searchCriterias: IActivityCriteria[], uniqueDays: boolean): IYearSummary[] {
     let activities = this.getActivitiesByCriteria(searchCriterias);
 
     if (uniqueDays) {
@@ -39,7 +41,7 @@ export class ActivitiesService {
     const firstDate = new Date(activities[activities.length - 1].startTimeLocal);
     const lastDate = new Date(activities[0].startTimeLocal);
 
-    const yearsSummary = this.getYearsTemplate(firstDate.getFullYear(), lastDate.getFullYear()).reverse();
+    let yearsSummary = this.getYearsTemplate(firstDate.getFullYear(), lastDate.getFullYear()).reverse();
 
     activities.forEach(activity => {
       const date = DateUtils.getDate(activity.startTimeLocal);
@@ -50,6 +52,11 @@ export class ActivitiesService {
       yearSummary!.total += 1;
       yearSummary!.months.find(month => month.index === activityMonth)!.value += 1;
     });
+
+    yearsSummary = yearsSummary.map((summary) => ({
+      ...summary,
+      weeks: this.getWeeksSummary(summary.year, activities)
+    }))
 
     return yearsSummary;
   }
@@ -98,6 +105,39 @@ export class ActivitiesService {
   }
 
   /**
+   * Groups all year activities by week
+   * @param year year to group by weeks
+   * @param activities activities data group
+   * @returns activitis for provided year groupped by week
+   */
+  private getWeeksSummary(year: number, activities: IActivity[]): IWeekSummary[] {
+    const activitesDates = activities.map(activity => DateUtils.getDate(activity.startTimeLocal));
+    
+    const yearDates = DateUtils.getAllDatesInTheRange(new Date(year, 0, 1), new Date(year, 11, 31));
+    
+    var yearSummary: IWeekSummary[] = [];
+    var weekSummary: IDaySummary[] = [];
+
+    yearDates.forEach((date: Date, index: number) => {
+      // If new week started
+      if (date.getDay() === 1 && weekSummary.length > 0) {
+        yearSummary = [...yearSummary, { days: [...weekSummary] }];
+        weekSummary = [];
+      }
+
+      const activitiesCount = activitesDates.filter(activityDate => activityDate === DateUtils.convert(date)).length;
+      weekSummary = [...weekSummary, { activitiesCount, dateTooltip: DateUtils.formatDate(date) }];
+
+      // If the last item has been added
+      if (index === yearDates.length - 1) {
+        yearSummary = [...yearSummary,{ days: [...weekSummary] }];
+      }
+    });
+
+    return yearSummary;
+  }
+
+  /**
    * Generates full years template to cover range from start to end year
    * @param startYear start year
    * @param endYear end yeaar
@@ -114,6 +154,7 @@ export class ActivitiesService {
         total: 0,
         year: currentYear,
         months: monthsTemplate,
+        weeks: [],
         daysInYear: monthsTemplate.reduce((sum, month) => (sum += month.daysInMonth), 0)
       }
 

@@ -10,7 +10,6 @@ import { ActivitiesService } from './services/activities.service';
 })
 export class AppComponent implements OnInit {
   loading: boolean = true;
-  activities: IActivity[] = [];
 
   /** Constructor */
   constructor(private readonly activitiesService: ActivitiesService) {}
@@ -18,7 +17,6 @@ export class AppComponent implements OnInit {
   /** On Init */
   ngOnInit(): void {
     window.addEventListener('message', (event: MessageEvent) => {
-      this.activities = event.data as IActivity[];
       this.activitiesService.initActivities(event.data);
       this.loading = false;
     });
@@ -28,7 +26,6 @@ export class AppComponent implements OnInit {
 
   /** Setups mock data for local testing */
   private setupMockData(): void {
-    this.activities = ActivitiesMock;
     this.loading = false;
     this.activitiesService.initActivities(ActivitiesMock);
   }

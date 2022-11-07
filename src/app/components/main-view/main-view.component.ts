@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivityType } from 'src/app/enums/activity-type.enum';
 import { IActivityCriteria } from 'src/app/interfaces/activity-criteria.interface';
 import { IActivity } from 'src/app/interfaces/activity.interface';
@@ -8,43 +8,21 @@ import { IActivity } from 'src/app/interfaces/activity.interface';
   templateUrl: './main-view.component.html',
   styleUrls: ['./main-view.component.scss']
 })
-export class MainViewComponent implements OnInit {
-
-  @Input() activities: IActivity[] = [];
-
+export class MainViewComponent {
   runActivitiesCriteria: IActivityCriteria = {
     activityType: ActivityType.Run
   };
-  
-  runActivities: IActivity[] = [];
-  contrastShowerActivities: IActivity[] = [];
-  strengthActivities: IActivity[] = [];
-  meditationActivities: IActivity[] = [];
 
-  ngOnInit(): void {
-    this.setupRunsSummary();
-    this.setupContrastShowerSummary();
-    this.setupStrengthSummary();
-    this.setupMeditationsSummary();
-  }
-
-  private setupRunsSummary(): void {
-    this.runActivities = this.activities
-      .filter(activity => activity.activityType.typeId === ActivityType.Run);
-  }
-
-  private setupContrastShowerSummary(): void {
-    this.contrastShowerActivities = this.activities
-      .filter(activity => activity.activityType.typeId === ActivityType.Other && activity.activityName === 'Contrast Shower');
+  constrastShowerCriteria: IActivityCriteria = {
+    activityType: ActivityType.Other,
+    nameLike: "Contrast Shower"
   };
 
-  private setupStrengthSummary(): void {
-    this.strengthActivities = this.activities
-      .filter(activity => activity.activityType.typeId === ActivityType.Strength);
-  }
+  strengthActivitiesCriteria: IActivityCriteria = {
+    activityType: ActivityType.Strength
+  };
 
-  private setupMeditationsSummary(): void {
-    this.meditationActivities = this.activities
-      .filter(activity => activity.activityType.typeId === ActivityType.Meditation);
-  }
+  meditationActivitiesCriteris: IActivityCriteria = {
+    activityType: ActivityType.Meditation
+  };
 }

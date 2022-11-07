@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IActivityCriteria } from 'src/app/interfaces/activity-criteria.interface';
-import { IActivity } from 'src/app/interfaces/activity.interface';
-import { IMonthSummary } from 'src/app/interfaces/month-summary.interface';
 import { IYearSummary } from 'src/app/interfaces/year-summary.interface';
 import { ActivitiesService } from 'src/app/services/activities.service';
 import { DateUtils } from 'src/app/utils/date.utils';
@@ -19,6 +17,9 @@ export class MonthlySummaryComponent implements OnInit {
   /** Criteria of activities to process */
   @Input() criterias: IActivityCriteria[];
 
+  // TODO: move to input
+  timesGoal: number = 12;
+
   summaries: IYearSummary[];
 
   /** Constructor */
@@ -26,6 +27,6 @@ export class MonthlySummaryComponent implements OnInit {
   
   /** On Init */
   ngOnInit(): void {
-    this.summaries = this.activitiesService.getMonthlySummaryInfo(this.criterias, this.showInDays);
+    this.summaries = this.activitiesService.getYearSummaryInfo(this.criterias, this.showInDays);
   }
 }

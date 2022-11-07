@@ -9,18 +9,22 @@
     </div>
     <div class="activity">
         <div class="header">Running</div>
-        <app-calendar-heatmap [activities]="runActivities"></app-calendar-heatmap>
+        <app-calendar-heatmap [criterias]="[runActivitiesCriteria]"></app-calendar-heatmap>
     </div>
     <div class="activity">
         <div class="header">Contrast Shower</div>
-        <app-calendar-heatmap [activities]="contrastShowerActivities"></app-calendar-heatmap>
+        <app-calendar-heatmap [criterias]="[constrastShowerCriteria]"></app-calendar-heatmap>
     </div>
     <div class="activity">
         <div class="header">Strength</div>
-        <app-calendar-heatmap [activities]="strengthActivities"></app-calendar-heatmap>
+        <app-calendar-heatmap [criterias]="[strengthActivitiesCriteria]"></app-calendar-heatmap>
+    </div>
+    <div class="activity">
+        <div class="header">Strength Months Summary</div>
+        <app-monthly-summary [criterias]="[strengthActivitiesCriteria]" [showInDays]="false"></app-monthly-summary>
     </div>
     <div class="activity">
         <div class="header">Meditation</div>
-        <app-calendar-heatmap [activities]="meditationActivities"></app-calendar-heatmap>
+        <app-calendar-heatmap [criterias]="[meditationActivitiesCriteris]"></app-calendar-heatmap>
     </div>
 </div>

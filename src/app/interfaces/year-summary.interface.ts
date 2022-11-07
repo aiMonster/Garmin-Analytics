@@ -1,4 +1,5 @@
 import { IMonthSummary } from "./month-summary.interface";
+import { IWeekSummary } from "./week-summary.interface";
 
 export interface IYearSummary {
     /** The year */
@@ -8,7 +9,10 @@ export interface IYearSummary {
     total: number;
 
     /** The summary by month */
-    months: IMonthSummary[]
+    months: IMonthSummary[];
+
+    /** The summary by week */
+    weeks: IWeekSummary[];
 
     /** Days in the year */
     daysInYear: number;

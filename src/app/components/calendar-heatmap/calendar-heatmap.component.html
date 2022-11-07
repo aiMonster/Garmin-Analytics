@@ -14,7 +14,7 @@
                     <div>SAT</div>
                     <div>SUN</div>
                 </div>
-                <div *ngFor="let week of calendar; let firstWeekItem = first" class="column" [class.first-col]="firstWeekItem">
+                <div *ngFor="let week of calendar.weeks; let firstWeekItem = first" class="column" [class.first-col]="firstWeekItem">
                     <div *ngFor="let day of week.days" class="cell" [class.with-activity]="day.activitiesCount > 0"
                         [title]="day.dateTooltip"
                     ></div>
