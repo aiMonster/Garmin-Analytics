@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IStreakDaysInfo } from 'src/app/interfaces/streak-days-info.interface';
-import { ActivitiesService } from 'src/app/services/activities.service';
+import { IStreakGoal } from 'src/app/interfaces/streak-goal.interface';
+import { IStreakDaysConfigs } from 'src/app/interfaces/widget-configs/streak-days-configs.interface';
 import { DateUtils } from 'src/app/utils/date.utils';
 
 @Component({
@@ -12,10 +13,11 @@ export class StreakDaysComponent implements OnInit {
   /** Streak days info */
   @Input() streakDaysInfo: IStreakDaysInfo;
 
-  streakGoals: {
-    target: number,
-    achieved: boolean
-  }[];
+  /** Streak days configs */
+  @Input() configs: IStreakDaysConfigs;
+
+  /** Streak goals */
+  streakGoals: IStreakGoal[];
 
   readonly startColor = '#f8d54f';
   readonly endColor = '#e37961';
@@ -48,13 +50,9 @@ export class StreakDaysComponent implements OnInit {
       .map(streakDates => DateUtils.formatDate(streakDates.start) + ' - ' + DateUtils.formatDate(streakDates.end))
       .join(', ');
   }
-  
-  /** Constructor */
-  constructor(private readonly activitiesService: ActivitiesService) {}
 
+  /** On Init */
   ngOnInit(): void {
-    const targets = [7, 30, 100, 150, 200, 250, 300, 365];
-
-    this.streakGoals = targets.map((target) => ({ target, achieved: this.streakDaysInfo.current >= target }));
+    this.streakGoals = this.configs.targets.map((target) => ({ target, achieved: this.streakDaysInfo.current >= target }));
   }
 }

@@ -4,7 +4,7 @@
     <ng-container [ngSwitch]="configs.type">
       <app-calendar-heatmap *ngSwitchCase="widgetType.Heatmap" [calendars]="data"></app-calendar-heatmap>
       <app-monthly-summary *ngSwitchCase="widgetType.MonthlySummary" [summaries]="data"></app-monthly-summary>
-      <app-streak-days *ngSwitchCase="widgetType.StreakDays" [streakDaysInfo]="data"></app-streak-days> 
+      <app-streak-days *ngSwitchCase="widgetType.StreakDays" [streakDaysInfo]="data" [configs]="configs"></app-streak-days> 
     </ng-container>
   </div>
 </div>
