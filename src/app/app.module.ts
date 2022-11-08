@@ -1,4 +1,3 @@
-import { APP_BASE_HREF, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -8,6 +7,7 @@ import { MonthlySummaryComponent } from './components/monthly-summary/monthly-su
 import { StreakDaysComponent } from './components/streak-days/streak-days.component';
 import { CalendarHeatmapComponent } from './components/calendar-heatmap/calendar-heatmap.component';
 import { ProgressCircleComponent } from './components/progress-circle/progress-circle.component';
+import { WidgetComponent } from './components/widget/widget.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,8 @@ import { ProgressCircleComponent } from './components/progress-circle/progress-c
     MonthlySummaryComponent,
     StreakDaysComponent,
     CalendarHeatmapComponent,
-    ProgressCircleComponent
+    ProgressCircleComponent,
+    WidgetComponent
   ],
   imports: [
     BrowserModule

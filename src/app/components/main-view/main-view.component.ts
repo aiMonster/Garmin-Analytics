@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivityType } from 'src/app/enums/activity-type.enum';
-import { IActivityCriteria } from 'src/app/interfaces/activity-criteria.interface';
-import { IActivity } from 'src/app/interfaces/activity.interface';
+import { WidgetType } from 'src/app/enums/widget-type.enum';
+import { WidgetConfigs } from 'src/app/interfaces/widget-configs/widget-configs.type';
 
 @Component({
   selector: 'app-main-view',
@@ -9,20 +9,44 @@ import { IActivity } from 'src/app/interfaces/activity.interface';
   styleUrls: ['./main-view.component.scss']
 })
 export class MainViewComponent {
-  runActivitiesCriteria: IActivityCriteria = {
-    activityType: ActivityType.Run
-  };
-
-  constrastShowerCriteria: IActivityCriteria = {
-    activityType: ActivityType.Other,
-    nameLike: "Contrast Shower"
-  };
-
-  strengthActivitiesCriteria: IActivityCriteria = {
-    activityType: ActivityType.Strength
-  };
-
-  meditationActivitiesCriteris: IActivityCriteria = {
-    activityType: ActivityType.Meditation
-  };
+  widgets: WidgetConfigs[] = [
+    {
+      title: 'Running',
+      type: WidgetType.StreakDays,
+      criterias: [{ activityType: ActivityType.Run }]
+    },
+    {
+      title: 'Running Months Summary',
+      type: WidgetType.MonthlySummary,
+      criterias: [{ activityType: ActivityType.Run }]
+    },
+    {
+      title: 'Running',
+      type: WidgetType.Heatmap,
+      criterias: [{ activityType: ActivityType.Run }]
+    },
+    {
+      title: 'Contrast Shower',
+      type: WidgetType.Heatmap,
+      criterias: [{
+        activityType: ActivityType.Other,
+        nameLike: "Contrast Shower"
+      }]
+    },
+    {
+      title: 'Strength',
+      type: WidgetType.Heatmap,
+      criterias: [{ activityType: ActivityType.Strength }]
+    },
+    {
+      title: 'Strength Months Summary',
+      type: WidgetType.MonthlySummary,
+      criterias: [{ activityType: ActivityType.Strength }]
+    },
+    {
+      title: 'Meditation',
+      type: WidgetType.Heatmap,
+      criterias: [{ activityType: ActivityType.Meditation }]
+    }
+  ];
 }

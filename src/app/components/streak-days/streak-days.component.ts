@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IActivityCriteria } from 'src/app/interfaces/activity-criteria.interface';
 import { IStreakDaysInfo } from 'src/app/interfaces/streak-days-info.interface';
 import { ActivitiesService } from 'src/app/services/activities.service';
 import { DateUtils } from 'src/app/utils/date.utils';
@@ -10,11 +9,8 @@ import { DateUtils } from 'src/app/utils/date.utils';
   styleUrls: ['./streak-days.component.scss']
 })
 export class StreakDaysComponent implements OnInit {
-  /** Criteria of activities to process */
-  @Input() criterias: IActivityCriteria[];
-
   /** Streak days info */
-  streakDaysInfo: IStreakDaysInfo;
+  @Input() streakDaysInfo: IStreakDaysInfo;
 
   streakGoals: {
     target: number,
@@ -57,8 +53,6 @@ export class StreakDaysComponent implements OnInit {
   constructor(private readonly activitiesService: ActivitiesService) {}
 
   ngOnInit(): void {
-    this.streakDaysInfo = this.activitiesService.getStreakDaysInfo(this.criterias);
-    
     const targets = [7, 30, 100, 150, 200, 250, 300, 365];
 
     this.streakGoals = targets.map((target) => ({ target, achieved: this.streakDaysInfo.current >= target }));

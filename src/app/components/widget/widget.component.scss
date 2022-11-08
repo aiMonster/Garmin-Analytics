@@ -1,0 +1,18 @@
+.widget-container {
+  .activity {
+    margin: 15px;
+    border: 1px solid gainsboro;
+    width: fit-content;
+    border-radius: 15px;
+
+    .header {
+      display: flex;
+      justify-content: center;
+      padding: 8px;
+      background-color: whitesmoke;
+      border-radius: 15px 15px 0 0;
+      border-bottom: 1px solid gainsboro;
+      margin-bottom: 10px;
+    }
+  }
+}
