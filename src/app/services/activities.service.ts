@@ -94,8 +94,14 @@ export class ActivitiesService {
 
     const maxStreakDays = Math.max(...sets.map(set => set.length));
 
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    const lastSet = sets[sets.length - 1];
+    const wasYesterdayActive = lastSet.includes(DateUtils.convert(yesterday));
+
     const streakDaysInfo: IStreakDaysInfo = {
-      current: sets[sets.length - 1].length,
+      current: wasYesterdayActive ? lastSet.length : 0,
       max: maxStreakDays,
       maxDates: sets.filter(set => set.length === maxStreakDays)
         .map(set => ({ start: new Date(set[0]), end: new Date(set[set.length - 1]) }))
