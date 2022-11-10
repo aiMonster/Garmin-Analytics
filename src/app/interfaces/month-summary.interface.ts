@@ -5,6 +5,8 @@ export interface IMonthSummary {
     /** Month summary */
     value: number;
 
+    completedPercent: number;
+
     /** Days in month */
     daysInMonth: number;
 }

@@ -1,5 +1,7 @@
 .monthly-summary-container {
-  display: flex;
-  max-width: 800px;
-  flex-wrap: wrap;
+  .year-summary{
+    display: flex;
+    max-width: 800px;
+    flex-wrap: wrap;
+  }
 }

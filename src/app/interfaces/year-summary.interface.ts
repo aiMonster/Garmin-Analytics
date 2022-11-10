@@ -8,6 +8,8 @@ export interface IYearSummary {
     /** The year summary */
     total: number;
 
+    completedPercent: number;
+
     /** The summary by month */
     months: IMonthSummary[];
 

@@ -26,7 +26,8 @@ export class MainViewComponent {
     {
       title: 'Running',
       type: WidgetType.Heatmap,
-      criterias: [{ activityType: ActivityType.Run }]
+      criterias: [{ activityType: ActivityType.Run }],
+      countType: CountType.Days
     },
     {
       title: 'Contrast Shower',
@@ -34,23 +35,27 @@ export class MainViewComponent {
       criterias: [{
         activityType: ActivityType.Other,
         nameLike: "Contrast Shower"
-      }]
+      }],
+      countType: CountType.Days
     },
     {
       title: 'Strength',
       type: WidgetType.Heatmap,
-      criterias: [{ activityType: ActivityType.Strength }]
+      criterias: [{ activityType: ActivityType.Strength }],
+      countType: CountType.Days
     },
     {
       title: 'Strength Months Summary',
       type: WidgetType.MonthlySummary,
       criterias: [{ activityType: ActivityType.Strength }],
-      countType: CountType.Times
+      countType: CountType.Times,
+      target: 12
     },
     {
       title: 'Meditation',
       type: WidgetType.Heatmap,
-      criterias: [{ activityType: ActivityType.Meditation }]
+      criterias: [{ activityType: ActivityType.Meditation }],
+      countType: CountType.Days
     }
   ];
 }

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CountType } from '../enums/count-type.enum';
 import { IActivityCriteria } from '../interfaces/activity-criteria.interface';
 import { IActivity } from '../interfaces/activity.interface';
 import { IDaySummary } from '../interfaces/day-summary.interface';
@@ -26,13 +27,17 @@ export class ActivitiesService {
   /**
    * Get year summary for specified type of activities
    * @param searchCriterias creatria for activities to process
-   * @param uniqueDays either unique days should be calculated or activities times
+   * @param countType either unique days should be calculated or activities times
    * @returns monthly summary grouped into years
    */
-  public getYearSummaryInfo(searchCriterias: IActivityCriteria[], uniqueDays: boolean): IYearSummary[] {
+  public getYearSummaryInfo(searchCriterias: IActivityCriteria[], countType: CountType, target?: number): IYearSummary[] {
     let activities = this.getActivitiesByCriteria(searchCriterias);
 
-    if (uniqueDays) {
+    if (activities.length === 0) {
+      return [];
+    }
+
+    if (countType === CountType.Days) {
       activities = activities.filter((activity, index, self) => {
         return self.findIndex(value => DateUtils.getDate(value.startTimeLocal) === DateUtils.getDate(activity.startTimeLocal)) === index;
       });
@@ -55,7 +60,12 @@ export class ActivitiesService {
 
     yearsSummary = yearsSummary.map((summary) => ({
       ...summary,
-      weeks: this.getWeeksSummary(summary.year, activities)
+      months: summary.months.map((month) => ({
+        ...month,
+        completedPercent: month.value * 100 / (countType === CountType.Days ? month.daysInMonth : target! * 12)
+      })),
+      weeks: this.getWeeksSummary(summary.year, activities),
+      completedPercent: summary.total * 100 / (countType === CountType.Days ? summary.daysInYear : target! * 12)
     }))
 
     return yearsSummary;
@@ -158,6 +168,7 @@ export class ActivitiesService {
 
       const yearSummary: IYearSummary = {
         total: 0,
+        completedPercent: 0,
         year: currentYear,
         months: monthsTemplate,
         weeks: [],
@@ -179,6 +190,7 @@ export class ActivitiesService {
     return Array.from({length: 12}, (x, i) => ({
       index: i,
       value: 0,
+      completedPercent: 0,
       daysInMonth: new Date(year, i + 1, 0).getDate()
     }));
   }

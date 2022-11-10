@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { IActivity } from './interfaces/activity.interface';
 import { ActivitiesMock } from './mocks/activities.mock';
 import { ActivitiesService } from './services/activities.service';
 
