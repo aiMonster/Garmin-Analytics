@@ -62,7 +62,7 @@ export class ActivitiesService {
       ...summary,
       months: summary.months.map((month) => ({
         ...month,
-        completedPercent: month.value * 100 / (countType === CountType.Days ? month.daysInMonth : target! * 12)
+        completedPercent: month.value * 100 / (countType === CountType.Days ? month.daysInMonth : target!)
       })),
       weeks: this.getWeeksSummary(summary.year, activities),
       completedPercent: summary.total * 100 / (countType === CountType.Days ? summary.daysInYear : target! * 12)

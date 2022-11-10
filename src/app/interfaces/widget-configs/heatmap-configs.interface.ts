@@ -5,4 +5,5 @@ import { IBaseWidgetConfigs } from "./base-widget-configs.interface";
 export interface IHeatmapConfigs extends IBaseWidgetConfigs {
   type: WidgetType.Heatmap;
   countType: CountType;
+  yearsToDisplay: number[];
 }

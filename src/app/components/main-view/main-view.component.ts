@@ -21,13 +21,15 @@ export class MainViewComponent {
       title: 'Running Months Summary',
       type: WidgetType.MonthlySummary,
       criterias: [{ activityType: ActivityType.Run }],
-      countType: CountType.Days
+      countType: CountType.Days,
+      yearsToDisplay: [2022]
     },
     {
       title: 'Running',
       type: WidgetType.Heatmap,
       criterias: [{ activityType: ActivityType.Run }],
-      countType: CountType.Days
+      countType: CountType.Days,
+      yearsToDisplay: [2022]
     },
     {
       title: 'Contrast Shower',
@@ -36,26 +38,30 @@ export class MainViewComponent {
         activityType: ActivityType.Other,
         nameLike: "Contrast Shower"
       }],
-      countType: CountType.Days
+      countType: CountType.Days,
+      yearsToDisplay: [2022]
     },
     {
       title: 'Strength',
       type: WidgetType.Heatmap,
       criterias: [{ activityType: ActivityType.Strength }],
-      countType: CountType.Days
+      countType: CountType.Days,
+      yearsToDisplay: [2022]
     },
     {
       title: 'Strength Months Summary',
       type: WidgetType.MonthlySummary,
       criterias: [{ activityType: ActivityType.Strength }],
       countType: CountType.Times,
-      target: 12
+      target: 12,
+      yearsToDisplay: [2022]
     },
     {
       title: 'Meditation',
       type: WidgetType.Heatmap,
       criterias: [{ activityType: ActivityType.Meditation }],
-      countType: CountType.Days
+      countType: CountType.Days,
+      yearsToDisplay: [2022]
     }
   ];
 }
