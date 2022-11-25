@@ -1,5 +1,5 @@
 <div class="progress-circle-container">
-  <img *ngIf="percent === 100" src="assets/icons/accept.png" class="icon-completed">
+  <img *ngIf="percent >= 100" src="assets/icons/accept.png" class="icon-completed">
   <svg>
     <circle class="bg" cx="38" cy="38" r="34" />
     <circle [style.stroke-dashoffset]="circleOffset" class="meter" cx="38" cy="38" r="34" />

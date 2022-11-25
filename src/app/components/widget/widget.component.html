@@ -1,6 +1,9 @@
 <div class="widget-container">
   <div class="activity">
-    <div class="header">{{ configs.title }}</div>
+    <div class="header">
+      <div class="title">{{ configs.title }}</div>
+      <i class="pi pi-trash" (click)="removeWidget.emit()"></i>
+    </div>
     <ng-container [ngSwitch]="configs.type">
       <app-calendar-heatmap *ngSwitchCase="widgetType.Heatmap" [calendars]="data"></app-calendar-heatmap>
       <app-monthly-summary *ngSwitchCase="widgetType.MonthlySummary" [summaries]="data" [configs]="configs"></app-monthly-summary>

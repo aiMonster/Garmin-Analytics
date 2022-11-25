@@ -6,13 +6,26 @@
     border-radius: 15px;
 
     .header {
-      display: flex;
-      justify-content: center;
       padding: 8px;
       background-color: whitesmoke;
       border-radius: 15px 15px 0 0;
       border-bottom: 1px solid gainsboro;
       margin-bottom: 10px;
+      position: relative;
+
+      .title {
+        display: flex;
+        justify-content: center;
+      }
+
+      .pi {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        font-size: 12px;
+        margin-left: 5px;
+        cursor: pointer;
+      }
     }
   }
 }

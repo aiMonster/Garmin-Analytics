@@ -1,3 +1,12 @@
 .main-view-container {
+  .header-menu {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px;
+
+    .p-button-secondary {
+      height: 35px;
+    }
+  }
 
 }

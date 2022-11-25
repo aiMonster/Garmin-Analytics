@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ActivityType } from 'src/app/enums/activity-type.enum';
-import { CountType } from 'src/app/enums/count-type.enum';
-import { WidgetType } from 'src/app/enums/widget-type.enum';
+import { DialogService } from 'primeng/dynamicdialog';
 import { WidgetConfigs } from 'src/app/interfaces/widget-configs/widget-configs.type';
+import { SettingsService } from 'src/app/services/settings.service';
+import { CreateWidgetDialogComponent } from '../create-widget-dialog/create-widget-dialog.component';
 
 @Component({
   selector: 'app-main-view',
@@ -10,58 +10,39 @@ import { WidgetConfigs } from 'src/app/interfaces/widget-configs/widget-configs.
   styleUrls: ['./main-view.component.scss']
 })
 export class MainViewComponent {
-  widgets: WidgetConfigs[] = [
-    {
-      title: 'Running',
-      type: WidgetType.StreakDays,
-      criterias: [{ activityType: ActivityType.Run }],
-      targets: [7, 30, 100, 150, 200, 250, 300, 365]
-    },
-    {
-      title: 'Running Months Summary',
-      type: WidgetType.MonthlySummary,
-      criterias: [{ activityType: ActivityType.Run }],
-      countType: CountType.Days,
-      yearsToDisplay: [2022]
-    },
-    {
-      title: 'Running',
-      type: WidgetType.Heatmap,
-      criterias: [{ activityType: ActivityType.Run }],
-      countType: CountType.Days,
-      yearsToDisplay: [2022]
-    },
-    {
-      title: 'Contrast Shower',
-      type: WidgetType.Heatmap,
-      criterias: [{
-        activityType: ActivityType.Other,
-        nameLike: "Contrast Shower"
-      }],
-      countType: CountType.Days,
-      yearsToDisplay: [2022]
-    },
-    {
-      title: 'Strength',
-      type: WidgetType.Heatmap,
-      criterias: [{ activityType: ActivityType.Strength }],
-      countType: CountType.Days,
-      yearsToDisplay: [2022]
-    },
-    {
-      title: 'Strength Months Summary',
-      type: WidgetType.MonthlySummary,
-      criterias: [{ activityType: ActivityType.Strength }],
-      countType: CountType.Times,
-      target: 12,
-      yearsToDisplay: [2022]
-    },
-    {
-      title: 'Meditation',
-      type: WidgetType.Heatmap,
-      criterias: [{ activityType: ActivityType.Meditation }],
-      countType: CountType.Days,
-      yearsToDisplay: [2022]
-    }
-  ];
+  widgets: WidgetConfigs[];
+
+  constructor(
+    private readonly settingsSevice: SettingsService,
+    private readonly dialogService: DialogService
+  ) { }
+
+  ngOnInit() {
+    this.settingsSevice.getAllWidgetsAsync().then(widgets => {
+      this.widgets = widgets;
+    });
+  }
+
+  removeWidget(id: number): void {
+    this.settingsSevice.removeWidgetAsync(id).then(() => {
+      this.widgets = this.widgets.filter((widget) => widget.id !== id);
+    });
+  }
+
+  openNewWidgetDialog(): void {
+    const dialogRef = this.dialogService.open(CreateWidgetDialogComponent, {
+      header: 'Create new widget'
+    });
+
+    dialogRef.onClose.subscribe((result: WidgetConfigs | undefined) => {
+      if (result) {
+        this.settingsSevice.addWidgetAsync(result).then((id) => {
+          this.widgets = [
+            ...this.widgets,
+            { ...result, id }
+          ]
+        });
+      }
+    })
+  }
 }

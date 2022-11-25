@@ -1,3 +1,8 @@
 <div class="main-view-container">
-    <app-widget *ngFor="let widgetConfigs of widgets" [configs]="widgetConfigs"></app-widget>
+    <div class="header-menu">
+        <button (click)="openNewWidgetDialog()" pButton pRipple type="button" label="Add new widget" icon="pi pi-plus"
+            class="p-button-outlined p-button-secondary"></button>
+    </div>
+    <!-- <app-create-widget-dialog></app-create-widget-dialog> -->
+    <app-widget *ngFor="let widgetConfigs of widgets" [configs]="widgetConfigs" (removeWidget)="removeWidget(widgetConfigs.id)"></app-widget>
 </div>

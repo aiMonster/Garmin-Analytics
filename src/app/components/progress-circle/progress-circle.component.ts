@@ -13,6 +13,6 @@ export class ProgressCircleComponent {
   @Input() percent: number;
 
   get circleOffset(): number {
-    return 360 - (this.percent * 2.1);
+    return 360 - ((this.percent > 100 ? 100 : this.percent) * 2.1);
   }
 }

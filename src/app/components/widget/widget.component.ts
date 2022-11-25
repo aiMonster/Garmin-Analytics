@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CountType } from 'src/app/enums/count-type.enum';
 import { WidgetType } from 'src/app/enums/widget-type.enum';
 import { IHeatmapConfigs } from 'src/app/interfaces/widget-configs/heatmap-configs.interface';
@@ -17,6 +17,8 @@ export class WidgetComponent implements OnInit {
   readonly widgetType: typeof WidgetType = WidgetType;
 
   @Input() configs: WidgetConfigs;
+
+  @Output() removeWidget: EventEmitter<void> = new EventEmitter<void>();
 
   data: WidgetData;
 
@@ -43,11 +45,11 @@ export class WidgetComponent implements OnInit {
 
   private setupHeatmapData(configs: IHeatmapConfigs): void {
     this.data = this.activitiesService.getYearSummaryInfo(configs.criterias, configs.countType)
-      .filter((summary) => configs.yearsToDisplay.includes(summary.year));
+      .filter((summary) => configs.yearsToDisplay.length ? configs.yearsToDisplay.includes(summary.year) : true);
   }
 
   private setupMonthlySummaryData(configs: IMonthlySummaryConfigs): void {
     this.data = this.activitiesService.getYearSummaryInfo(configs.criterias, configs.countType, configs.target)
-      .filter((summary) => configs.yearsToDisplay.includes(summary.year));
+      .filter((summary) => configs.yearsToDisplay.length ? configs.yearsToDisplay.includes(summary.year) : true);
   }
 }

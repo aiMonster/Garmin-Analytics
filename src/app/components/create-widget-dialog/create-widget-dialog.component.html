@@ -1,0 +1,70 @@
+<div class="create-widget-dialog-container">
+  <div class="widget-type-selector">
+    <p-scrollPanel [style]="{width: '100%', height: '525px'}">
+      <div *ngFor="let type of widgetTypes" class="sample-container" [class.selected]="type === selectedType"
+        [ngSwitch]="type" (click)="changeWidgetType(type)">
+        <ng-container *ngSwitchCase="widgetType.Heatmap" [ngTemplateOutlet]="widgetSample"
+          [ngTemplateOutletContext]="{img: 'heatmap.png', title: 'Heatmap'}"></ng-container>
+        <ng-container *ngSwitchCase="widgetType.MonthlySummary" [ngTemplateOutlet]="widgetSample"
+          [ngTemplateOutletContext]="{img: 'monthly-summary.png', title: 'Montly summary'}"></ng-container>
+        <ng-container *ngSwitchCase="widgetType.StreakDays" [ngTemplateOutlet]="widgetSample"
+          [ngTemplateOutletContext]="{img: 'streak-days.png', title: 'Streak days'}"></ng-container>
+
+        <ng-template #widgetSample let-img="img" let-title="title">
+          <img [src]="'assets/samples/' + img" width="250px">
+          <div class="title">{{ title }}</div>
+        </ng-template>
+      </div>
+    </p-scrollPanel>
+  </div>
+  <div class="widget-configs">
+    <div>
+      <span class="p-float-label widget-title">
+        <input id="float-input" type="text" pInputText [(ngModel)]="selectedTitle">
+        <label for="float-input">Widget title</label>
+      </span>
+      <div class="activity-criterias">
+        <div class="title">Activities criterias:</div>
+        <div *ngFor="let criteria of selectedCriterias; let index = index" class="activity-type-select">
+          <p-dropdown [options]="activityTypes" [(ngModel)]="criteria.activityType" optionLabel="label"
+            optionValue="value" class="p-inputtext-sm">
+          </p-dropdown>
+          <div class="and-label">AND</div>
+          <input type="text" pInputText [(ngModel)]="criteria.nameLike" class="p-inputtext-sm"
+            placeholder="Name like (optional)">
+          <button pButton pRipple type="button" icon="pi pi-trash" (click)="removeCriteria(index)"
+            class="remove-btn p-button-secondary p-button-text"></button>
+        </div>
+        <button pButton pRipple type="button" label="Add criteria" (click)="addNewCriteria()" icon="pi pi-plus"
+          class="add-criteria-btn p-button-outlined p-button-secondary"></button>
+      </div>
+      <div *ngIf="selectedType === widgetType.StreakDays" class="streak-targets">
+        <div class="title">Streak targets:</div>
+        <div class="targets-list">
+          <div *ngFor="let target of selectedTargets; let index = index" class="target">
+            <span>{{ target }} days</span>
+            <i class="pi pi-times" (click)="removeTarget(index)"></i>
+          </div>
+          <div class="new-target">
+            <p-inputNumber [(ngModel)]="enteredTarget" suffix=" days"></p-inputNumber>
+            <button pButton pRipple type="button" label="Add" (click)="addTarget()"></button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="selectedType === widgetType.Heatmap || selectedType === widgetType.MonthlySummary"
+        class="count-type-selector">
+        <div class="title">Count type:</div>
+        <p-selectButton [options]="countTypes" [(ngModel)]="selectedCountType" optionLabel="label" optionValue="value">
+        </p-selectButton>
+      </div>
+      <div *ngIf="selectedType === widgetType.MonthlySummary && selectedCountType === countType.Times" class="target-times-selector">
+        <div class="title">Target per month:</div>
+        <p-inputNumber [(ngModel)]="selectedTargetTimes" suffix=" times"></p-inputNumber>
+      </div>
+    </div>
+    <div class="actions-row">
+      <button pButton pRipple type="button" label="Save" (click)="saveWidget()"
+        class="p-button-raised p-button-secondary p-button-text"></button>
+    </div>
+  </div>
+</div>
