@@ -1,6 +1,10 @@
 <div class="widget-container">
   <div class="activity">
     <div class="header">
+      <p-selectButton (onOptionClick)="yearOptionsChanged($event)"
+        class="year-select" [options]="yearOptions" [(ngModel)]="selectedYears"
+        [multiple]="true" optionLabel="label" optionValue="value">
+      </p-selectButton>
       <div class="title">{{ configs.title }}</div>
       <i class="pi pi-trash" (click)="removeWidget.emit()"></i>
     </div>

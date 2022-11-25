@@ -18,6 +18,22 @@
         justify-content: center;
       }
 
+      .year-select {
+        position: absolute;
+        right: 45px;
+        top: 8px;
+
+        .p-button {
+          padding: 2px 5px;
+          font-size: 10px;
+        }
+
+        .p-selectbutton .p-button.p-highlight {
+          background-color: slategray;
+          border-color: slategray;
+        }
+      }
+
       .pi {
         position: absolute;
         right: 15px;

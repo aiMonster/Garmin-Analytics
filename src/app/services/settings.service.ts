@@ -35,6 +35,21 @@ export class SettingsService {
     });
   }
 
+  async udpateWidgetAsync(configs: WidgetConfigs): Promise<void> {
+    const dbConnection = await this.setupDbConnectionAsync();
+
+    return new Promise((resolve) => {
+      const transaction = dbConnection.transaction("widgets", "readwrite");
+      const store = transaction.objectStore("widgets")
+
+      const request = store.put(configs);
+
+      request.onsuccess = function () {
+        resolve();
+      };
+    });
+  }
+
   async removeWidgetAsync(id: number): Promise<void> {
     const dbConnection = await this.setupDbConnectionAsync();
 
