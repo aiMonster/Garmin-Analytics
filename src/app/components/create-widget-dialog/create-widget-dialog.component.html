@@ -32,7 +32,7 @@
           <div class="and-label">AND</div>
           <input type="text" pInputText [(ngModel)]="criteria.nameLike" class="p-inputtext-sm"
             placeholder="Name like (optional)">
-          <button pButton pRipple type="button" icon="pi pi-trash" (click)="removeCriteria(index)"
+          <button *ngIf="selectedCriterias.length > 1" pButton pRipple type="button" icon="pi pi-trash" (click)="removeCriteria(index)"
             class="remove-btn p-button-secondary p-button-text"></button>
         </div>
         <button pButton pRipple type="button" label="Add criteria" (click)="addNewCriteria()" icon="pi pi-plus"
@@ -51,7 +51,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="selectedType === widgetType.Heatmap || selectedType === widgetType.MonthlySummary"
+      <div *ngIf="selectedType === widgetType.MonthlySummary"
         class="count-type-selector">
         <div class="title">Count type:</div>
         <p-selectButton [options]="countTypes" [(ngModel)]="selectedCountType" optionLabel="label" optionValue="value">

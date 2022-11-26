@@ -46,7 +46,9 @@ export class CreateWidgetDialogComponent implements OnInit {
   selectedTitle: string;
 
   /** Selected widget criterias */
-  selectedCriterias: IActivityCriteria[] = [];
+  selectedCriterias: IActivityCriteria[] = [
+    { activityType: ActivityType.Run }
+  ];
 
   /** Selected targets for Streak Days widget */
   selectedTargets: number[] = [];
