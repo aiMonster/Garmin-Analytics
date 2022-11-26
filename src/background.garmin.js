@@ -5,6 +5,7 @@ const initialPageLoadInterval = setInterval(function () {
     const menuElement = document.getElementsByClassName('main-nav-group dashboards')[0];
 
     if (menuElement) {
+        addStyles();
         addIconsSource();
         addAnalyticsMenuItem(menuElement);
         initAnalyticsPage();
@@ -19,6 +20,11 @@ function addIconsSource() {
     link.rel = 'stylesheet';
 
     document.getElementsByTagName('head')[0].appendChild(link);
+}
+
+function addStyles() {
+    const styles = '<style>.content.page:has(iframe.garmin-analytics) { padding: 0px; }</style>';
+    document.getElementsByTagName('head')[0].insertAdjacentHTML('afterbegin', styles);
 }
 
 function addAnalyticsMenuItem(menuElement) {
@@ -43,7 +49,8 @@ function initAnalyticsPage() {
 
     var iframe = document.createElement('iframe');
     iframe.src = chrome.runtime.getURL('index.html');
-    iframe.style.cssText = 'width: 100%; height: calc(100vh - 120px);';
+    iframe.style.cssText = 'width: 100%; height: calc(100vh - 65px);';
+    iframe.classList.add('garmin-analytics');
 
     var contentContainer = document.getElementsByClassName('content')[0];
     contentContainer.innerHTML = '';
