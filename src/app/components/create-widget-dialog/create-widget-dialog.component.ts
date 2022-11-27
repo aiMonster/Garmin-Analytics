@@ -51,7 +51,7 @@ export class CreateWidgetDialogComponent implements OnInit {
   ];
 
   /** Selected targets for Streak Days widget */
-  selectedTargets: number[] = [];
+  selectedTargets: number[] = [3, 7, 14];
   enteredTarget: number | null;
 
   /** Selected count type */
