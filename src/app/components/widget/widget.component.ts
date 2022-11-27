@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { CountType } from 'src/app/enums/count-type.enum';
+import { WidgetSize } from 'src/app/enums/widget-size.enum';
 import { WidgetType } from 'src/app/enums/widget-type.enum';
 import { IHeatmapConfigs } from 'src/app/interfaces/widget-configs/heatmap-configs.interface';
 import { IMonthlySummaryConfigs } from 'src/app/interfaces/widget-configs/monthly-summary-configs.interface';
@@ -25,6 +26,14 @@ export class WidgetComponent implements OnInit {
   @Output() removeWidget: EventEmitter<void> = new EventEmitter<void>();
 
   data: WidgetData;
+
+  sizeOptions: WidgetSize[] = [
+    WidgetSize.OneColumn,
+    WidgetSize.TwoColumns,
+    WidgetSize.ThreeColumns
+  ];
+
+  selectedSize: WidgetSize = WidgetSize.ThreeColumns;
 
   yearOptions: {
     value: number,

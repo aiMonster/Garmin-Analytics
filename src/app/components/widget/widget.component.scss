@@ -6,41 +6,79 @@
     border-radius: 15px;
 
     .header {
+      display: flex;
+      justify-content: space-between;
       padding: 8px;
       background-color: whitesmoke;
       border-radius: 15px 15px 0 0;
       border-bottom: 1px solid gainsboro;
       margin-bottom: 10px;
-      position: relative;
 
       .title {
-        display: flex;
-        justify-content: center;
+        margin-left: 25px;
       }
 
-      .year-select {
-        position: absolute;
-        right: 45px;
-        top: 8px;
-
-        .p-button {
-          padding: 2px 5px;
-          font-size: 10px;
-        }
+      .settings {
+        display: flex;
+        align-items: center;
 
         .p-selectbutton .p-button.p-highlight {
           background-color: slategray;
           border-color: slategray;
         }
-      }
 
-      .pi {
-        position: absolute;
-        right: 15px;
-        top: 15px;
-        font-size: 12px;
-        margin-left: 5px;
-        cursor: pointer;
+        .size-select {
+          margin-left: 15px;
+
+          .p-button {
+            padding: 2px 5px;
+            min-width: 25px;
+            justify-content: center;
+          }
+
+          .squares-container {
+            display: flex;
+
+            .square-icon {
+              width: 7px;
+              height: 5px;
+              margin: 5px 0.5px;
+              background-color: #495057;
+
+              &.item-1 {
+                border-radius: 2px 0 0 2px;
+              }
+
+              &.size-2.item-2, &.size-3.item-3  {
+                border-radius: 0 2px 2px 0;
+              }
+
+              &.size-1 {
+                border-radius: 2px;
+              }
+            }
+
+            &.selected .square-icon {
+              background-color: white;
+            }
+          }
+        }
+
+        .year-select {
+          margin-left: 15px;
+
+          .p-button {
+            padding: 2px 5px;
+            font-size: 10px;
+          }
+        }
+
+        .pi-trash {
+          margin-right: 15px;
+          margin-left: 15px;
+          font-size: 12px;
+          cursor: pointer;
+        }
       }
     }
   }

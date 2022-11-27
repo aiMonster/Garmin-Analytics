@@ -1,17 +1,30 @@
 <div class="widget-container">
   <div class="activity">
     <div class="header">
-      <p-selectButton (onOptionClick)="yearOptionsChanged($event)"
-        class="year-select" [options]="yearOptions" [(ngModel)]="selectedYears"
-        [multiple]="true" optionLabel="label" optionValue="value">
-      </p-selectButton>
       <div class="title">{{ configs.title }}</div>
-      <i class="pi pi-trash" (click)="removeWidget.emit()"></i>
+      <div class="settings">
+        <p-selectButton *ngIf="configs.type === widgetType.MonthlySummary || configs.type === widgetType.StreakDays"
+          class="size-select" [options]="sizeOptions" [(ngModel)]="selectedSize">
+          <ng-template let-item>
+            <div class="squares-container" [class.selected]="item === selectedSize">
+              <div class="square-icon size-{{ item }} item-1" *ngIf="item >= 1"></div>
+              <div class="square-icon size-{{ item }} item-2" *ngIf="item >= 2"></div>
+              <div class="square-icon size-{{ item }} item-3" *ngIf="item >= 3"></div>
+            </div>
+          </ng-template>
+        </p-selectButton>
+        <p-selectButton *ngIf="yearOptions.length" (onOptionClick)="yearOptionsChanged($event)" class="year-select"
+          [options]="yearOptions" [(ngModel)]="selectedYears" [multiple]="true" optionLabel="label" optionValue="value">
+        </p-selectButton>
+        <i class="pi pi-trash" (click)="removeWidget.emit()"></i>
+      </div>
     </div>
     <ng-container [ngSwitch]="configs.type">
       <app-calendar-heatmap *ngSwitchCase="widgetType.Heatmap" [calendars]="data"></app-calendar-heatmap>
-      <app-monthly-summary *ngSwitchCase="widgetType.MonthlySummary" [summaries]="data" [configs]="configs"></app-monthly-summary>
-      <app-streak-days *ngSwitchCase="widgetType.StreakDays" [streakDaysInfo]="data" [configs]="configs"></app-streak-days> 
+      <app-monthly-summary *ngSwitchCase="widgetType.MonthlySummary" [summaries]="data" [configs]="configs">
+      </app-monthly-summary>
+      <app-streak-days *ngSwitchCase="widgetType.StreakDays" [streakDaysInfo]="data" [configs]="configs">
+      </app-streak-days>
     </ng-container>
   </div>
 </div>
