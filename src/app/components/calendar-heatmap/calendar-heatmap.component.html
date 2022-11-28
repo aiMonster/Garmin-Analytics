@@ -4,6 +4,11 @@
             <div *ngIf="firstCalendarItem" class="months-row">
                 <div *ngFor="let month of months">{{ month }}</div>
             </div>
+            <div *ngIf="!firstCalendarItem && calendars.length > 1" class="year-line">
+                <div class="line"></div>
+                <div class="value">{{ calendar.year }}</div>
+                <div class="line"></div>
+            </div>
             <div class="weeks-container" >
                 <div class="week-days">
                     <div>MON</div>
