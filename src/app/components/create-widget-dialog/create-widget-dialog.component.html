@@ -39,13 +39,13 @@
           class="add-criteria-btn p-button-outlined p-button-secondary"></button>
       </div>
       <div *ngIf="selectedType === widgetType.StreakDays" class="streak-targets">
-        <div class="title">Streak targets:</div>
+        <div class="title">Streak targets (up to {{ maxStreakTargets }}):</div>
         <div class="targets-list">
           <div *ngFor="let target of selectedTargets; let index = index" class="target">
             <span>{{ target }} days</span>
             <i class="pi pi-times" (click)="removeTarget(index)"></i>
           </div>
-          <div class="new-target">
+          <div *ngIf="selectedTargets.length < maxStreakTargets" class="new-target">
             <p-inputNumber [(ngModel)]="enteredTarget" suffix=" days"></p-inputNumber>
             <button pButton pRipple type="button" label="Add" (click)="addTarget()"></button>
           </div>

@@ -14,7 +14,7 @@ import { WidgetConfigs } from 'src/app/interfaces/widget-configs/widget-configs.
   encapsulation: ViewEncapsulation.None
 })
 export class CreateWidgetDialogComponent implements OnInit {
-
+  readonly maxStreakTargets = 8;
   readonly widgetType = WidgetType;
   readonly countType = CountType;
   readonly widgetTypes: WidgetType[] = Object.values(WidgetType).filter(value => !isNaN(Number(value))).map(value => +value);
@@ -70,10 +70,14 @@ export class CreateWidgetDialogComponent implements OnInit {
     this.selectedTargets.splice(index, 1);
   }
 
-  addTarget() {
+  addTarget(): void {
+    if (!this.enteredTarget) {
+      return;
+    }
+
     this.selectedTargets = [
       ...this.selectedTargets, this.enteredTarget!
-    ];
+    ].sort((a, b) => a - b);
 
     this.enteredTarget = null;
   }
