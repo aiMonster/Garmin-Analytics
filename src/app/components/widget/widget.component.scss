@@ -2,8 +2,19 @@
   .activity {
     margin: 15px;
     border: 1px solid gainsboro;
-    width: fit-content;
     border-radius: 15px;
+
+    &.size-1 {
+      width: 255px;
+    }
+
+    &.size-2 {
+      width: 525px;
+    }
+
+    &.size-3 {
+      width: 795px;
+    }
 
     .header {
       display: flex;
@@ -60,6 +71,12 @@
 
             &.selected .square-icon {
               background-color: white;
+            }
+          }
+
+          &.single-item {
+            .p-buttonset .p-button {
+              border-radius: 6px;
             }
           }
         }

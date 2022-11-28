@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ActivityType } from 'src/app/enums/activity-type.enum';
 import { CountType } from 'src/app/enums/count-type.enum';
+import { WidgetSize } from 'src/app/enums/widget-size.enum';
 import { WidgetType } from 'src/app/enums/widget-type.enum';
 import { IActivityCriteria } from 'src/app/interfaces/activity-criteria.interface';
 import { IBaseWidgetConfigs } from 'src/app/interfaces/widget-configs/base-widget-configs.interface';
@@ -101,6 +102,7 @@ export class CreateWidgetDialogComponent implements OnInit {
 
   saveWidget(): void {
     const widgetConfigs: WidgetConfigs = {
+      size: WidgetSize.ThreeColumns,
       title: this.selectedTitle,
       type: this.selectedType,
       criterias: this.selectedCriterias,

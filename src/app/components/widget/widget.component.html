@@ -1,10 +1,10 @@
 <div class="widget-container">
-  <div class="activity">
+  <div class="activity size-{{ configs.size }}">
     <div class="header">
       <div class="title">{{ configs.title }}</div>
       <div class="settings">
-        <p-selectButton *ngIf="configs.type === widgetType.MonthlySummary || configs.type === widgetType.StreakDays"
-          class="size-select" [options]="sizeOptions" [(ngModel)]="selectedSize">
+        <p-selectButton class="size-select" [class.single-item]="sizeOptions.length === 1" [options]="sizeOptions" [(ngModel)]="selectedSize"
+          (onChange)="widgetSizeChanged()">
           <ng-template let-item>
             <div class="squares-container" [class.selected]="item === selectedSize">
               <div class="square-icon size-{{ item }} item-1" *ngIf="item >= 1"></div>

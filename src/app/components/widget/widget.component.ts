@@ -17,6 +17,14 @@ import { SettingsService } from 'src/app/services/settings.service';
   encapsulation: ViewEncapsulation.None
 })
 export class WidgetComponent implements OnInit {
+  private readonly availableSizeOptions: {
+    [key in WidgetType]: WidgetSize[]
+  } = {
+    [WidgetType.StreakDays]: [WidgetSize.OneColumn, WidgetSize.TwoColumns, WidgetSize.ThreeColumns],
+    [WidgetType.Heatmap]: [WidgetSize.ThreeColumns],
+    [WidgetType.MonthlySummary]: [WidgetSize.TwoColumns, WidgetSize.ThreeColumns]
+  };
+
   private readonly ALL_YEARS_SELECTED_ID = -1;
 
   readonly widgetType: typeof WidgetType = WidgetType;
@@ -27,11 +35,7 @@ export class WidgetComponent implements OnInit {
 
   data: WidgetData;
 
-  sizeOptions: WidgetSize[] = [
-    WidgetSize.OneColumn,
-    WidgetSize.TwoColumns,
-    WidgetSize.ThreeColumns
-  ];
+  sizeOptions: WidgetSize[];
 
   selectedSize: WidgetSize = WidgetSize.ThreeColumns;
 
@@ -49,7 +53,19 @@ export class WidgetComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.selectedSize = this.configs.size;
+    this.sizeOptions = this.availableSizeOptions[this.configs.type];
+
     this.initActivities();
+  }
+
+  widgetSizeChanged(): void {
+    this.configs = {
+      ...this.configs,
+      size: this.selectedSize
+    };
+
+    this.settingsSevice.udpateWidgetAsync(this.configs);
   }
 
   yearOptionsChanged(event: any): void {
