@@ -1,10 +1,20 @@
 <div class="monthly-summary-container">
-    <div class="year-summary" *ngFor="let yearSummary of summaries">
-        <app-progress-circle *ngFor="let monthSummary of yearSummary.months" [value]="monthSummary.value"
-            [subValue]="'of ' + (configs.countType === countType.Days ? monthSummary.daysInMonth : configs.target)"
-            [title]="months[monthSummary.index]" [percent]="monthSummary.completedPercent"></app-progress-circle>
-        <app-progress-circle [value]="yearSummary.total"
-            [subValue]="'of ' + (configs.countType === countType.Days ? yearSummary.daysInYear : configs.target * 12)"
-            title="Total" [percent]="yearSummary.completedPercent"></app-progress-circle>
+    <div *ngFor="let yearSummary of summaries; let lastItem = last">
+        <div *ngIf="lastItem && summaries.length > 1" class="year-line">
+            <div class="line"></div>
+            <div class="value">{{ yearSummary.year }}</div>
+            <div class="line"></div>
+        </div>
+        <div class="year-summary">
+            <app-progress-circle *ngFor="let monthSummary of yearSummary.months" [value]="monthSummary.value"
+                [subValue]="'of ' + (configs.countType === countType.Days ? monthSummary.daysInMonth : configs.target)"
+                [title]="months[monthSummary.index]" [percent]="monthSummary.completedPercent"
+                [widgetSize]="configs.size">
+            </app-progress-circle>
+            <app-progress-circle [value]="yearSummary.total"
+                [subValue]="'of ' + (configs.countType === countType.Days ? yearSummary.daysInYear : configs.target * 12)"
+                title="Total" [percent]="yearSummary.completedPercent" [isTotal]="true" [widgetSize]="configs.size">
+            </app-progress-circle>
+        </div>
     </div>
 </div>

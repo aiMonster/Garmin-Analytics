@@ -6,59 +6,80 @@
   position: relative;
   padding: 10px;
   border-radius: 15px;
-  width: fit-content;
   border: 1px solid gainsboro;
 
-  svg {
-    width: 76px;
-    height: 76px;
-  }
+  &.size-2 {
+    width: 120px;
 
-  .bg {
-    fill: none;
-    stroke-width: 8px;
-    stroke: gainsboro;
-  }
-
-  .meter {
-    fill: none;
-    stroke-width: 8px;
-    stroke-linecap: round;
-    transform: rotate(-90deg);
-    transform-origin: 50% 50%;
-    stroke-dasharray: 360;
-    stroke: mediumspringgreen;
-    animation: progress-frame 1s ease-out;
-  }
-
-  .icon-completed {
-    width: 20px;
-    position: absolute;
-    left: calc(50% - 9px);;
-    top: 5px;
-  }
-
-  .circle-content {
-    position: absolute;
-    top: 25px;
-    left: calc(50% - 25px);
-    text-align: center;
-    width: 50px;
-
-    .activities-count {
-      font-weight: bold;;
+    &.total {
+      width: 510px;
     }
-  
-    .split-line {
-      width: 26px;
-      height: 3px;
-      margin-left: 12px;
-      border-radius: 99px;
-      background-color: mediumspringgreen;
+  }
+
+  &.size-3 {
+    width: 103px;
+
+    &.total {
+      width: 216px;
     }
-  
-    .month-days {
-      font-size: 10px;
+  }
+
+  .circle {
+    display: flex;
+    justify-content: center;
+
+    svg {
+      width: 76px;
+      height: 76px;
+    }
+
+    .bg {
+      fill: none;
+      stroke-width: 8px;
+      stroke: gainsboro;
+    }
+
+    .meter {
+      fill: none;
+      stroke-width: 8px;
+      stroke-linecap: round;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+      stroke-dasharray: 360;
+      stroke: mediumspringgreen;
+      animation: progress-frame 1s ease-out;
+    }
+
+    .icon-completed {
+      width: 20px;
+      position: absolute;
+      left: calc(50% - 9px);
+      top: 5px;
+    }
+
+    .circle-content {
+      position: absolute;
+      top: 25px;
+      left: calc(50% - 25px);
+      text-align: center;
+      width: 50px;
+
+      .activities-count {
+        font-weight: bold;
+        ;
+      }
+
+      .split-line {
+        width: 26px;
+        height: 3px;
+        margin-left: 12px;
+        border-radius: 99px;
+        background-color: mediumspringgreen;
+      }
+
+      .month-days {
+        font-size: 10px;
+      }
     }
   }
 
@@ -70,7 +91,7 @@
 }
 
 @keyframes progress-frame {
-    from {
-        stroke-dashoffset: 360;
-    }
+  from {
+    stroke-dashoffset: 360;
+  }
 }
