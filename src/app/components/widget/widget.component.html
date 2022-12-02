@@ -1,10 +1,14 @@
 <div class="widget-container">
   <div class="activity size-{{ configs.size }}">
     <div class="header">
-      <div class="title">{{ configs.title }}</div>
-      <div class="settings">
-        <p-selectButton class="size-select" [class.single-item]="sizeOptions.length === 1" [options]="sizeOptions" [(ngModel)]="selectedSize"
-          (onChange)="widgetSizeChanged()">
+      <div class="left-corner">
+        <i class="pi pi-ellipsis-v"></i>
+        <i class="pi pi-ellipsis-v"></i>
+        <div class="title gridster-item-content">{{ configs.title }}</div>
+      </div>
+      <div class="settings gridster-item-content">
+        <p-selectButton class="size-select" [class.single-item]="sizeOptions.length === 1" [options]="sizeOptions"
+          [(ngModel)]="selectedSize" (onChange)="widgetSizeChanged()">
           <ng-template let-item>
             <div class="squares-container" [class.selected]="item === selectedSize">
               <div class="square-icon size-{{ item }} item-1" *ngIf="item >= 1"></div>
@@ -20,11 +24,13 @@
       </div>
     </div>
     <ng-container [ngSwitch]="configs.type">
-      <app-calendar-heatmap *ngSwitchCase="widgetType.Heatmap" [calendars]="data"></app-calendar-heatmap>
-      <app-monthly-summary *ngSwitchCase="widgetType.MonthlySummary" [summaries]="data" [configs]="configs">
-      </app-monthly-summary>
-      <app-streak-days *ngSwitchCase="widgetType.StreakDays" [streakDaysInfo]="data" [configs]="configs">
-      </app-streak-days>
+      <div class="gridster-item-content">
+        <app-calendar-heatmap *ngSwitchCase="widgetType.Heatmap" [calendars]="data"></app-calendar-heatmap>
+        <app-monthly-summary *ngSwitchCase="widgetType.MonthlySummary" [summaries]="data" [configs]="configs">
+        </app-monthly-summary>
+        <app-streak-days *ngSwitchCase="widgetType.StreakDays" [streakDaysInfo]="data" [configs]="configs">
+        </app-streak-days>
+      </div>
     </ng-container>
   </div>
 </div>

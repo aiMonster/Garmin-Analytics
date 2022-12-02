@@ -17,6 +17,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { GridsterModule } from 'angular-gridster2';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     DropdownModule,
     ScrollPanelModule,
     InputNumberModule,
-    SelectButtonModule
+    SelectButtonModule,
+    GridsterModule
   ],
   providers: [
     DialogService

@@ -1,6 +1,5 @@
 .widget-container {
   .activity {
-    margin: 15px;
     border: 1px solid gainsboro;
     border-radius: 15px;
 
@@ -19,14 +18,24 @@
     .header {
       display: flex;
       justify-content: space-between;
-      padding: 8px;
+      padding: 7px;
       background-color: whitesmoke;
       border-radius: 15px 15px 0 0;
       border-bottom: 1px solid gainsboro;
       margin-bottom: 10px;
 
-      .title {
-        margin-left: 25px;
+      .left-corner {
+        display: flex;
+        align-items: center;
+
+        .title {
+          margin-left: 15px;
+        }
+
+        .pi-ellipsis-v {
+          font-size: 12px;
+          width: 5px;
+        }
       }
 
       .settings {

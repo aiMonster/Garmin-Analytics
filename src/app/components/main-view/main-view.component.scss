@@ -1,4 +1,6 @@
 .main-view-container {
+  height: calc(100vh - 55px);
+
   .header-menu {
     display: flex;
     justify-content: flex-end;
@@ -9,4 +11,15 @@
     }
   }
 
+  .gridster-preview {
+    border-radius: 15px;
+  }
+
+  .grid-view {
+    background-color: white;
+
+    .widget-item {
+      border-radius: 15px;
+    }
+  }
 }

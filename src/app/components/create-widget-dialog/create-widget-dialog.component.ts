@@ -2,10 +2,9 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ActivityType } from 'src/app/enums/activity-type.enum';
 import { CountType } from 'src/app/enums/count-type.enum';
-import { WidgetSize } from 'src/app/enums/widget-size.enum';
+import { WidgetLength } from 'src/app/enums/widget-length.enum';
 import { WidgetType } from 'src/app/enums/widget-type.enum';
 import { IActivityCriteria } from 'src/app/interfaces/activity-criteria.interface';
-import { IBaseWidgetConfigs } from 'src/app/interfaces/widget-configs/base-widget-configs.interface';
 import { WidgetConfigs } from 'src/app/interfaces/widget-configs/widget-configs.type';
 
 @Component({
@@ -24,21 +23,21 @@ export class CreateWidgetDialogComponent implements OnInit {
     value: ActivityType,
     label: string
   }[] = [
-    { value: ActivityType.Run, label: 'Running' },
-    { value: ActivityType.Strength, label: 'Strength' },
-    { value: ActivityType.Meditation, label: 'Meditation' },
-    { value: ActivityType.Bike, label: 'Bike' },
-    { value: ActivityType.Swimming, label: 'Swimming' },
-    { value: ActivityType.Other, label: 'Other' }
-  ];
+      { value: ActivityType.Run, label: 'Running' },
+      { value: ActivityType.Strength, label: 'Strength' },
+      { value: ActivityType.Meditation, label: 'Meditation' },
+      { value: ActivityType.Bike, label: 'Bike' },
+      { value: ActivityType.Swimming, label: 'Swimming' },
+      { value: ActivityType.Other, label: 'Other' }
+    ];
 
   readonly countTypes: {
     value: CountType,
     label: string
   }[] = [
-    { value: CountType.Days, label: 'Days' },
-    { value: CountType.Times, label: 'Times' }
-  ];
+      { value: CountType.Days, label: 'Days' },
+      { value: CountType.Times, label: 'Times' }
+    ];
 
   /** Selected widget type */
   selectedType: WidgetType = WidgetType.Heatmap;
@@ -102,7 +101,14 @@ export class CreateWidgetDialogComponent implements OnInit {
 
   saveWidget(): void {
     const widgetConfigs: WidgetConfigs = {
-      size: WidgetSize.ThreeColumns,
+      size: {
+        rows: 0,
+        cols: WidgetLength.ThreeColumns
+      },
+      position: {
+        x: 0,
+        y: 0
+      },
       title: this.selectedTitle,
       type: this.selectedType,
       criterias: this.selectedCriterias,

@@ -8,22 +8,6 @@
   border-radius: 15px;
   border: 1px solid gainsboro;
 
-  &.size-2 {
-    width: 120px;
-
-    &.total {
-      width: 510px;
-    }
-  }
-
-  &.size-3 {
-    width: 103px;
-
-    &.total {
-      width: 216px;
-    }
-  }
-
   .circle {
     display: flex;
     justify-content: center;
@@ -87,6 +71,26 @@
     margin-top: 5px;
     text-align: center;
     font-size: 12px;
+  }
+
+  &.size-2 {
+    width: 120px;
+
+    &.total {
+      width: 510px;
+    }
+
+    .month-label {
+      margin-top: 7px;
+    }
+  }
+
+  &.size-3 {
+    width: 103px;
+
+    &.total {
+      width: 216px;
+    }
   }
 }
 

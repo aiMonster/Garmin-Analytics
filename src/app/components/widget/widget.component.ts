@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
-import { CountType } from 'src/app/enums/count-type.enum';
-import { WidgetSize } from 'src/app/enums/widget-size.enum';
+import { filter, Observable } from 'rxjs';
+import { WidgetLength } from 'src/app/enums/widget-length.enum';
 import { WidgetType } from 'src/app/enums/widget-type.enum';
 import { IHeatmapConfigs } from 'src/app/interfaces/widget-configs/heatmap-configs.interface';
 import { IMonthlySummaryConfigs } from 'src/app/interfaces/widget-configs/monthly-summary-configs.interface';
 import { WidgetConfigs } from 'src/app/interfaces/widget-configs/widget-configs.type';
+import { IWidgetPosition } from 'src/app/interfaces/widget-configs/widget-position.interface';
+import { IWidgetSize } from 'src/app/interfaces/widget-configs/widget-size.interface';
 import { WidgetData } from 'src/app/interfaces/widget-data.type';
 import { IYearSummary } from 'src/app/interfaces/year-summary.interface';
 import { ActivitiesService } from 'src/app/services/activities.service';
@@ -18,12 +20,12 @@ import { SettingsService } from 'src/app/services/settings.service';
 })
 export class WidgetComponent implements OnInit {
   private readonly availableSizeOptions: {
-    [key in WidgetType]: WidgetSize[]
+    [key in WidgetType]: WidgetLength[]
   } = {
-    [WidgetType.StreakDays]: [WidgetSize.OneColumn, WidgetSize.TwoColumns, WidgetSize.ThreeColumns],
-    [WidgetType.Heatmap]: [WidgetSize.ThreeColumns],
-    [WidgetType.MonthlySummary]: [WidgetSize.TwoColumns, WidgetSize.ThreeColumns]
-  };
+      [WidgetType.StreakDays]: [WidgetLength.OneColumn, WidgetLength.TwoColumns, WidgetLength.ThreeColumns],
+      [WidgetType.Heatmap]: [WidgetLength.ThreeColumns],
+      [WidgetType.MonthlySummary]: [WidgetLength.TwoColumns, WidgetLength.ThreeColumns]
+    };
 
   private readonly ALL_YEARS_SELECTED_ID = -1;
 
@@ -31,13 +33,19 @@ export class WidgetComponent implements OnInit {
 
   @Input() configs: WidgetConfigs;
 
+  @Input() widgetPositionChange: Observable<{
+    widgetId: number,
+    position: IWidgetPosition
+  }>;
+
   @Output() removeWidget: EventEmitter<void> = new EventEmitter<void>();
+  @Output() widgetSizeChange = new EventEmitter<IWidgetSize>();
 
   data: WidgetData;
 
-  sizeOptions: WidgetSize[];
+  sizeOptions: WidgetLength[];
 
-  selectedSize: WidgetSize = WidgetSize.ThreeColumns;
+  selectedSize: WidgetLength = WidgetLength.ThreeColumns;
 
   yearOptions: {
     value: number,
@@ -50,27 +58,33 @@ export class WidgetComponent implements OnInit {
   constructor(
     private readonly activitiesService: ActivitiesService,
     private readonly settingsSevice: SettingsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.selectedSize = this.configs.size;
+    this.selectedSize = this.configs.size.cols;
     this.sizeOptions = this.availableSizeOptions[this.configs.type];
 
     this.initActivities();
+    this.setupWidgetHeight();
+
+    this.widgetPositionChange
+      .pipe(filter(item => item.widgetId === this.configs.id))
+      .subscribe((item) => {
+        this.configs = { ...this.configs, position: { ...item.position } };
+        this.settingsSevice.udpateWidgetAsync(this.configs);
+      });
   }
 
+  /** On widget size changed */
   widgetSizeChanged(): void {
-    this.configs = {
-      ...this.configs,
-      size: this.selectedSize
-    };
-
-    this.settingsSevice.udpateWidgetAsync(this.configs);
+    this.emitSizeChange({ ...this.configs.size, cols: this.selectedSize });
+    this.setupWidgetHeight();
   }
 
+  /** On year options changed */
   yearOptionsChanged(event: any): void {
     // Not supported on Streak Days
-    if (this.configs.type === WidgetType.StreakDays){
+    if (this.configs.type === WidgetType.StreakDays) {
       return;
     }
 
@@ -87,16 +101,17 @@ export class WidgetComponent implements OnInit {
       this.configs = { ...this.configs, yearsToDisplay: [] };
     } else {
       this.selectedYears = this.selectedYears.filter(selected => selected !== this.ALL_YEARS_SELECTED_ID);
-      this.configs = {...this.configs, yearsToDisplay: this.selectedYears };
+      this.configs = { ...this.configs, yearsToDisplay: this.selectedYears };
     }
 
     this.settingsSevice.udpateWidgetAsync(this.configs).then(() => {
       this.initActivities();
+      this.setupWidgetHeight();
     });
   }
 
   private initActivities(): void {
-    switch(this.configs.type){
+    switch (this.configs.type) {
       case WidgetType.Heatmap:
         this.setupHeatmapData(this.configs);
         break;
@@ -139,5 +154,53 @@ export class WidgetComponent implements OnInit {
       { label: 'ALL', value: this.ALL_YEARS_SELECTED_ID },
       ...yearSummaries.map((summary) => ({ label: summary.year.toString(), value: summary.year })).reverse()
     ];
+  }
+
+  private setupWidgetHeight(): void {
+    switch (this.configs.type) {
+      case WidgetType.Heatmap:
+        this.setupHeatmapHeight(this.configs.yearsToDisplay);
+        break;
+      case WidgetType.MonthlySummary:
+        this.setupMonthlySummaryHeight(this.configs.yearsToDisplay, this.configs.size.cols);
+        break;
+      case WidgetType.StreakDays:
+        this.setupStreakDaysHeight();
+        break;
+    }
+  }
+
+  private setupMonthlySummaryHeight(yearsToDisplay: number[], size: WidgetLength): void {
+    const itemsCount = !yearsToDisplay.length ? this.yearOptions.length - 1 : yearsToDisplay.length;
+
+    const x2 = 20 + (itemsCount - 1) * 18.5;
+    const x3 = 11 + (itemsCount - 1) * 9.5;
+
+    const height = size === WidgetLength.ThreeColumns ? x3 : x2;
+
+    this.emitSizeChange({ ...this.configs.size, rows: height });
+  }
+
+  private setupHeatmapHeight(yearsToDisplay: number[]): void {
+    const itemsCount = !yearsToDisplay.length ? this.yearOptions.length - 1 : yearsToDisplay.length;
+    const height = 6.5 + (itemsCount - 1) * 4.5;
+
+    this.emitSizeChange({ ...this.configs.size, rows: height });
+  }
+
+  private setupStreakDaysHeight(): void {
+    const height = 6.5;
+
+    this.emitSizeChange({ ...this.configs.size, rows: height });
+  }
+
+  private emitSizeChange(updatedSize: IWidgetSize): void {
+    const sizeChanged = updatedSize.cols !== this.configs.size.cols || updatedSize.rows !== this.configs.size.rows;
+
+    if (sizeChanged) {
+      this.configs = { ...this.configs, size: updatedSize };
+      this.widgetSizeChange.emit(updatedSize);
+      this.settingsSevice.udpateWidgetAsync(this.configs);
+    }
   }
 }

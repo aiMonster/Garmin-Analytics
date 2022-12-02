@@ -3,6 +3,11 @@
         <button (click)="openNewWidgetDialog()" pButton pRipple type="button" label="Add new widget" icon="pi pi-plus"
             class="p-button-outlined p-button-secondary"></button>
     </div>
-    <!-- <app-create-widget-dialog></app-create-widget-dialog> -->
-    <app-widget *ngFor="let widgetConfigs of widgets" [configs]="widgetConfigs" (removeWidget)="removeWidget(widgetConfigs.id)"></app-widget>
+    <gridster class="grid-view" [options]="gridOptions">
+        <gridster-item class="widget-item" [item]="widgetPosition[widget.id]" *ngFor="let widget of widgets">
+            <app-widget [configs]="widget" [widgetPositionChange]="widgetPositionChange$"
+                (removeWidget)="removeWidget(widget.id)" (widgetSizeChange)="widgetSizeChange(widget.id, $event)">
+            </app-widget>
+        </gridster-item>
+    </gridster>
 </div>

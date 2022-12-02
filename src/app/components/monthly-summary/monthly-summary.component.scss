@@ -1,9 +1,11 @@
 .monthly-summary-container {
+  margin-bottom: 2px;
+
   .year-line {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 15px;
+    margin: 4px 15px;
 
     .line {
       width: 100%;
