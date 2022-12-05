@@ -27,6 +27,11 @@ export class CreateWidgetDialogComponent implements OnInit {
       { value: ActivityType.Strength, label: 'Strength' },
       { value: ActivityType.Meditation, label: 'Meditation' },
       { value: ActivityType.Bike, label: 'Bike' },
+      { value: ActivityType.MountainBike, label: 'Mountain Bike' },
+      { value: ActivityType.Hike, label: 'Hike' },
+      { value: ActivityType.Kayak, label: 'Kayak' },
+      { value: ActivityType.Sup, label: 'Sup' },
+      { value: ActivityType.Ski, label: 'Ski' },
       { value: ActivityType.Swimming, label: 'Swimming' },
       { value: ActivityType.Other, label: 'Other' }
     ];
