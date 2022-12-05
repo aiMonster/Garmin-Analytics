@@ -75,13 +75,14 @@
 
   &.size-2 {
     width: 120px;
+    padding: 9px 10px;
 
     &.total {
       width: 510px;
-    }
 
-    .month-label {
-      margin-top: 7px;
+      .month-label {
+        margin-top: 6px;
+      }
     }
   }
 

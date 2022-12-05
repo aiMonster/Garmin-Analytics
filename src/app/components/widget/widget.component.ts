@@ -173,7 +173,7 @@ export class WidgetComponent implements OnInit {
   private setupMonthlySummaryHeight(yearsToDisplay: number[], size: WidgetLength): void {
     const itemsCount = !yearsToDisplay.length ? this.yearOptions.length - 1 : yearsToDisplay.length;
 
-    const x2 = 20 + (itemsCount - 1) * 18.5;
+    const x2 = 19.5 + (itemsCount - 1) * 18;
     const x3 = 11 + (itemsCount - 1) * 9.5;
 
     const height = size === WidgetLength.ThreeColumns ? x3 : x2;
