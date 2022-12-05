@@ -1,4 +1,4 @@
-<div class="monthly-summary-container">
+<div class="monthly-summary-container size-{{ configs.size.cols }}">
     <div *ngFor="let yearSummary of summaries; let lastItem = last">
         <div *ngIf="lastItem && summaries.length > 1" class="year-line">
             <div class="line"></div>

@@ -15,8 +15,8 @@ export const MAIN_GRID_CONFIGS: GridsterConfig = {
   resizable: {
     enabled: false
   },
-  swap: true,
-  pushItems: true,
+  swap: false,
+  pushItems: false,
   pushDirections: { north: true, east: true, south: true, west: true },
   displayGrid: DisplayGrid.None,
   disableWarnings: true

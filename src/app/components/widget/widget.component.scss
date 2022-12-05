@@ -3,18 +3,6 @@
     border: 1px solid gainsboro;
     border-radius: 15px;
 
-    &.size-1 {
-      width: 255px;
-    }
-
-    &.size-2 {
-      width: 525px;
-    }
-
-    &.size-3 {
-      width: 795px;
-    }
-
     .header {
       display: flex;
       justify-content: space-between;
