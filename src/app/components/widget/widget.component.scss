@@ -85,6 +85,12 @@
             padding: 2px 5px;
             font-size: 10px;
           }
+
+          &.single-item {
+            .p-buttonset .p-button {
+              border-radius: 6px;
+            }
+          }
         }
 
         .pi-trash {

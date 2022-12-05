@@ -17,4 +17,8 @@
             </app-progress-circle>
         </div>
     </div>
+
+    <div *ngIf="!summaries.length" class="no-data-message">
+        No data to display
+    </div>
 </div>

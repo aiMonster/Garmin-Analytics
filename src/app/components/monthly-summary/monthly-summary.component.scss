@@ -3,6 +3,11 @@
 
   &.size-2 {
     padding: 8px 0 7px 0;
+
+    .no-data-message {
+      text-align: center;
+      margin: 246.5px 0px;
+    }
   }
 
   .year-line {
@@ -28,6 +33,11 @@
   &.size-3 {
     .year-line {
       margin: -3.5px 15px;
+    }
+
+    .no-data-message {
+      text-align: center;
+      margin: 125px 0;
     }
   }
 

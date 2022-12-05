@@ -80,6 +80,14 @@ export class ActivitiesService {
     const activitiesDates = this.getActivitiesByCriteria(searchCriterias)
       .map(activity => activity.startTimeLocal.split(' ')[0]);
 
+    if (!activitiesDates.length) {
+      return {
+        max: 0,
+        current: 0,
+        maxDates: []
+      };
+    }
+
     const firstDate = new Date(activitiesDates[activitiesDates.length - 1]);
     const lastDate = new Date(activitiesDates[0]);
 

@@ -171,7 +171,7 @@ export class WidgetComponent implements OnInit {
   }
 
   private setupMonthlySummaryHeight(yearsToDisplay: number[], size: WidgetLength): void {
-    const itemsCount = !yearsToDisplay.length ? this.yearOptions.length - 1 : yearsToDisplay.length;
+    const itemsCount = (!yearsToDisplay.length ? this.yearOptions.length - 1 : yearsToDisplay.length) || 1;
 
     const x2 = 20 + (itemsCount - 1) * 18;
     const x3 = 11 + (itemsCount - 1) * 9;
@@ -182,7 +182,7 @@ export class WidgetComponent implements OnInit {
   }
 
   private setupHeatmapHeight(yearsToDisplay: number[]): void {
-    const itemsCount = !yearsToDisplay.length ? this.yearOptions.length - 1 : yearsToDisplay.length;
+    const itemsCount = (!yearsToDisplay.length ? this.yearOptions.length - 1 : yearsToDisplay.length) || 1;
     const height = 7 + (itemsCount - 1) * 4;
 
     this.emitSizeChange({ ...this.configs.size, rows: height });

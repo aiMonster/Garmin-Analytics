@@ -18,7 +18,8 @@
           </ng-template>
         </p-selectButton>
         <p-selectButton *ngIf="yearOptions.length" (onOptionClick)="yearOptionsChanged($event)" class="year-select"
-          [options]="yearOptions" [(ngModel)]="selectedYears" [multiple]="true" optionLabel="label" optionValue="value">
+          [options]="yearOptions" [(ngModel)]="selectedYears" [class.single-item]="yearOptions.length === 1"
+          [multiple]="true" optionLabel="label" optionValue="value">
         </p-selectButton>
         <i class="pi pi-trash" (click)="removeWidget.emit()"></i>
       </div>
