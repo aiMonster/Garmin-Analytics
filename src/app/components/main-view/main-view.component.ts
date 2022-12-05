@@ -21,7 +21,7 @@ export class MainViewComponent {
     position: IWidgetPosition
   }>(1);
 
-  readonly gridOptions: GridsterConfig = {
+  gridOptions: GridsterConfig = {
     ...MAIN_GRID_CONFIGS,
     itemChangeCallback: (item) => this.onItemPositionChanged(item)
   };
@@ -66,6 +66,8 @@ export class MainViewComponent {
   }
 
   openNewWidgetDialog(): void {
+    this.updateGridScrollOptions();
+    
     const dialogRef = this.dialogService.open(CreateWidgetDialogComponent, {
       header: 'Create new widget'
     });
@@ -82,6 +84,20 @@ export class MainViewComponent {
     });
   }
   
+  private updateGridScrollOptions(): void {
+    if (this.gridOptions.scrollToNewItems) {
+      return;
+    }
+
+    this.gridOptions = {
+      ...this.gridOptions,
+      scrollToNewItems: true
+    };
+
+    if (this.gridOptions.api && this.gridOptions.api.optionsChanged) {
+      this.gridOptions.api.optionsChanged();
+    }
+  }
   private onItemPositionChanged(item: GridsterItem): void {
     this.widgetPositionChange.next({
       widgetId: item['widgetId'],

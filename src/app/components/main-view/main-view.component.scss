@@ -1,6 +1,7 @@
 .main-view-container {
   height: calc(100vh - 55px);
-
+  padding-right: 15px;
+  
   .header-menu {
     display: flex;
     justify-content: flex-end;
