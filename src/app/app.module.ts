@@ -19,6 +19,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { GridsterModule } from 'angular-gridster2';
 import { DockModule } from 'primeng/dock';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { DockModule } from 'primeng/dock';
     InputNumberModule,
     SelectButtonModule,
     GridsterModule,
-    DockModule
+    DockModule,
+    ProgressSpinnerModule
   ],
   providers: [
     DialogService
