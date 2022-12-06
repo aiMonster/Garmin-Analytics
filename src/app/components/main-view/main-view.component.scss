@@ -1,17 +1,7 @@
 .main-view-container {
-  height: calc(100vh - 55px);
+  height: 100vh;
   padding-right: 15px;
   
-  .header-menu {
-    display: flex;
-    justify-content: flex-end;
-    margin: 10px;
-
-    .p-button-secondary {
-      height: 35px;
-    }
-  }
-
   .gridster-preview {
     border-radius: 15px;
   }
@@ -21,6 +11,27 @@
 
     .widget-item {
       border-radius: 15px;
+    }
+  }
+
+  .dock-menu {
+    .p-dock {
+      .p-dock-action {
+        width: 35px;
+        height: 35px;
+        cursor: pointer;
+      }
+
+      .p-dock-item {
+        padding-right: 3px;
+        padding-left: 5px;
+      }
+
+      .p-dock-list {
+        padding: 5px 0;
+        background-color: rgba(255, 255, 255, 0.9);;
+        border-color: lightgray;
+      }
     }
   }
 }

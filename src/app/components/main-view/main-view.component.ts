@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { GridsterConfig, GridsterItem } from 'angular-gridster2';
+import { MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ReplaySubject } from 'rxjs';
 import { MAIN_GRID_CONFIGS } from 'src/app/consts/main-grid-configs.const';
@@ -20,6 +21,37 @@ export class MainViewComponent {
     widgetId: number,
     position: IWidgetPosition
   }>(1);
+
+  readonly menuItems: MenuItem[] = [
+    {
+      label: 'Add widget',
+      icon: 'assets/icons/add-widget.png',
+      command: () => this.openNewWidgetDialog(),
+      tooltipOptions: {
+        tooltipLabel: 'Add widget',
+        tooltipPosition: 'left',
+        positionLeft: -25
+      }
+    },
+    {
+      label: 'Leave a feedback',
+      icon: 'assets/icons/feedback.png',
+      tooltipOptions: {
+        tooltipLabel: 'Leave a feedback',
+        tooltipPosition: 'left',
+        positionLeft: -25
+      }
+    },
+    {
+      label: 'About us',
+      icon: 'assets/icons/about-us.png',
+      tooltipOptions: {
+        tooltipLabel: 'About us',
+        tooltipPosition: 'left',
+        positionLeft: -25
+      }
+    }
+  ];
 
   gridOptions: GridsterConfig = {
     ...MAIN_GRID_CONFIGS,
@@ -98,6 +130,7 @@ export class MainViewComponent {
       this.gridOptions.api.optionsChanged();
     }
   }
+
   private onItemPositionChanged(item: GridsterItem): void {
     this.widgetPositionChange.next({
       widgetId: item['widgetId'],

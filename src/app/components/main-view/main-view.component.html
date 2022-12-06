@@ -1,8 +1,4 @@
 <div class="main-view-container">
-    <div class="header-menu">
-        <button (click)="openNewWidgetDialog()" pButton pRipple type="button" label="Add new widget" icon="pi pi-plus"
-            class="p-button-outlined p-button-secondary"></button>
-    </div>
     <gridster class="grid-view" [options]="gridOptions">
         <gridster-item class="widget-item" [item]="widgetPosition[widget.id]" *ngFor="let widget of widgets">
             <app-widget [configs]="widget" [widgetPositionChange]="widgetPositionChange$"
@@ -10,4 +6,9 @@
             </app-widget>
         </gridster-item>
     </gridster>
+    <p-dock [model]="menuItems" position="right" class="dock-menu">
+        <ng-template pTemplate="item" let-item>
+            <img [src]="item.icon" [alt]="item.label" width="75%">
+        </ng-template>
+    </p-dock>
 </div>
