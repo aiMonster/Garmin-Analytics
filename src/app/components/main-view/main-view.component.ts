@@ -29,8 +29,8 @@ export class MainViewComponent {
       command: () => this.openNewWidgetDialog(),
       tooltipOptions: {
         tooltipLabel: 'Add widget',
-        tooltipPosition: 'left',
-        positionLeft: -25
+        tooltipPosition: 'top',
+        positionTop: -5
       }
     },
     {
@@ -38,8 +38,8 @@ export class MainViewComponent {
       icon: 'assets/icons/feedback.png',
       tooltipOptions: {
         tooltipLabel: 'Leave a feedback',
-        tooltipPosition: 'left',
-        positionLeft: -25
+        tooltipPosition: 'top',
+        positionTop: -5
       }
     },
     {
@@ -47,8 +47,8 @@ export class MainViewComponent {
       icon: 'assets/icons/about-us.png',
       tooltipOptions: {
         tooltipLabel: 'About us',
-        tooltipPosition: 'left',
-        positionLeft: -25
+        tooltipPosition: 'top',
+        positionTop: -5
       }
     }
   ];

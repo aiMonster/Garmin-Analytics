@@ -18,6 +18,7 @@ export const MAIN_GRID_CONFIGS: GridsterConfig = {
   swap: false,
   pushItems: false,
   pushDirections: { north: true, east: true, south: true, west: true },
-  displayGrid: DisplayGrid.None,
-  disableWarnings: true
+  displayGrid: DisplayGrid.Always,
+  disableWarnings: true,
+  addEmptyRowsCount: 2
 };
