@@ -1,12 +1,12 @@
 <div class="main-view-container">
-    <gridster *ngIf="widgets?.length" class="grid-view" [options]="gridOptions">
+    <gridster *ngIf="widgets && widgets?.length" class="grid-view" [options]="gridOptions">
         <gridster-item class="widget-item" [item]="widgetPosition[widget.id]" *ngFor="let widget of widgets">
             <app-widget [configs]="widget" [widgetPositionChange]="widgetPositionChange$"
                 (removeWidget)="removeWidget(widget.id)" (widgetSizeChange)="widgetSizeChange(widget.id, $event)">
             </app-widget>
         </gridster-item>
     </gridster>
-    <div *ngIf="!widgets?.length" class="welcome-view">
+    <div *ngIf="widgets && !widgets?.length" class="welcome-view">
         <div class="welcome-title">Welcome to Garmin Analytics!</div>
         <div class="hints-container">
             <div class="hint">
