@@ -6,11 +6,17 @@
   font-size: 14px;
 
   .stand-with-us {
-    margin-bottom: 15px;
-    
-    img {
-      width: 25px;
-      margin-left: 15px;
+    margin-top: 15px;
+
+    .title {
+      border-bottom: 1px solid lightgray;
+      font-size: 12px;
+      padding: 0 3px;
+
+      img {
+        width: 25px;
+        margin-left: 10px;
+      }
     }
   }
 
