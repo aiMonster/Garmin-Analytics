@@ -20,6 +20,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { GridsterModule } from 'angular-gridster2';
 import { DockModule } from 'primeng/dock';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { AboutUsDialogComponent } from './components/about-us-dialog/about-us-dialog.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     CalendarHeatmapComponent,
     ProgressCircleComponent,
     WidgetComponent,
-    CreateWidgetDialogComponent
+    CreateWidgetDialogComponent,
+    AboutUsDialogComponent
   ],
   imports: [
     BrowserModule,

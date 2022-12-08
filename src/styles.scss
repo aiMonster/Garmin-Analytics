@@ -2,3 +2,7 @@
 .p-button:focus {
   box-shadow: none !important;
 }
+
+.p-dialog.p-dynamic-dialog .p-dialog-header {
+  padding-bottom: 10px;
+}

@@ -8,6 +8,7 @@ import { WidgetConfigs } from 'src/app/interfaces/widget-configs/widget-configs.
 import { IWidgetPosition } from 'src/app/interfaces/widget-configs/widget-position.interface';
 import { IWidgetSize } from 'src/app/interfaces/widget-configs/widget-size.interface';
 import { SettingsService } from 'src/app/services/settings.service';
+import { AboutUsDialogComponent } from '../about-us-dialog/about-us-dialog.component';
 import { CreateWidgetDialogComponent } from '../create-widget-dialog/create-widget-dialog.component';
 
 @Component({
@@ -45,6 +46,7 @@ export class MainViewComponent {
     {
       label: 'About us',
       icon: 'assets/icons/about-us.png',
+      command: () => this.openAboutUsDialog(),
       tooltipOptions: {
         tooltipLabel: 'About us',
         tooltipPosition: 'top',
@@ -97,7 +99,13 @@ export class MainViewComponent {
     };
   }
 
-  openNewWidgetDialog(): void {
+  private openAboutUsDialog(): void {
+    this.dialogService.open(AboutUsDialogComponent, {
+      header: 'About us'
+    });
+  }
+
+  private openNewWidgetDialog(): void {
     this.updateGridScrollOptions();
     
     const dialogRef = this.dialogService.open(CreateWidgetDialogComponent, {
