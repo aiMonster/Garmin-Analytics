@@ -21,6 +21,10 @@ import { GridsterModule } from 'angular-gridster2';
 import { DockModule } from 'primeng/dock';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { AboutUsDialogComponent } from './components/about-us-dialog/about-us-dialog.component';
+import { LeaveReviewDialogComponent } from './components/leave-review-dialog/leave-review-dialog.component';
+import { HttpClientModule } from '@angular/common/http';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,8 @@ import { AboutUsDialogComponent } from './components/about-us-dialog/about-us-di
     ProgressCircleComponent,
     WidgetComponent,
     CreateWidgetDialogComponent,
-    AboutUsDialogComponent
+    AboutUsDialogComponent,
+    LeaveReviewDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +53,10 @@ import { AboutUsDialogComponent } from './components/about-us-dialog/about-us-di
     SelectButtonModule,
     GridsterModule,
     DockModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    HttpClientModule,
+    InputTextareaModule,
+    ToastModule
   ],
   providers: [
     DialogService

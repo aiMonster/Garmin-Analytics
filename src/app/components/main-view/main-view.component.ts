@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { GridsterConfig, GridsterItem } from 'angular-gridster2';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ReplaySubject } from 'rxjs';
 import { MAIN_GRID_CONFIGS } from 'src/app/consts/main-grid-configs.const';
@@ -10,11 +10,13 @@ import { IWidgetSize } from 'src/app/interfaces/widget-configs/widget-size.inter
 import { SettingsService } from 'src/app/services/settings.service';
 import { AboutUsDialogComponent } from '../about-us-dialog/about-us-dialog.component';
 import { CreateWidgetDialogComponent } from '../create-widget-dialog/create-widget-dialog.component';
+import { LeaveReviewDialogComponent } from '../leave-review-dialog/leave-review-dialog.component';
 
 @Component({
   selector: 'app-main-view',
   templateUrl: './main-view.component.html',
   styleUrls: ['./main-view.component.scss'],
+  providers: [MessageService],
   encapsulation: ViewEncapsulation.None
 })
 export class MainViewComponent {
@@ -37,6 +39,7 @@ export class MainViewComponent {
     {
       label: 'Leave a feedback',
       icon: 'assets/icons/feedback.png',
+      command: () => this.openReviewDialog(),
       tooltipOptions: {
         tooltipLabel: 'Leave a feedback',
         tooltipPosition: 'top',
@@ -72,7 +75,8 @@ export class MainViewComponent {
   /** Constructor */
   constructor(
     private readonly settingsSevice: SettingsService,
-    private readonly dialogService: DialogService
+    private readonly dialogService: DialogService,
+    private messageService: MessageService,
   ) { }
 
   /** On Init */
@@ -97,6 +101,16 @@ export class MainViewComponent {
       ...this.widgetPosition[id],
       ...newSize
     };
+  }
+
+  private openReviewDialog(): void {
+    this.dialogService.open(LeaveReviewDialogComponent, {
+      header: 'Leave a feedback'
+    }).onClose.subscribe((success) => {
+      if (success) {
+        this.messageService.add({ severity:'success', summary:'Success', detail: 'Your review has been submitted' });
+      }
+    });
   }
 
   private openAboutUsDialog(): void {

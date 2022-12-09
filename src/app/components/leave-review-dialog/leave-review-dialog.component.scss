@@ -1,0 +1,34 @@
+.leave-review-container {
+  width: 500px;
+  height: 250px;
+  
+  .email-container {
+    margin-top: 20px;
+
+    input {
+      padding: 5px;
+      width: 300px;
+    }
+  }
+
+  .message-container {
+    margin-top: 25px;
+
+    textarea {
+      padding: 5px;
+      width: 100%;
+      height: 150px;
+      resize: none;
+    }
+  }
+
+  .actions-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+
+    .p-button-secondary {
+      height: 35px;
+    }
+  }
+}
