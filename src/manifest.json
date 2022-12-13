@@ -4,6 +4,11 @@
     "version": "0.1.0",
     "manifest_version": 3,
     "permissions": ["scripting"],
+    "icons": {
+      "16": "assets/icons/logo-16.png",
+      "48": "assets/icons/logo-48.png",
+      "128": "assets/icons/logo-128.png"
+    },
     "content_scripts": [
       {
         "matches": ["https://connect.garmin.com/modern/*"],
