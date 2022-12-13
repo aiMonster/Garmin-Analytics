@@ -1,7 +1,7 @@
 {
     "name": "Garmin Analytics",
-    "description": "Garmin Analytics Chrome extension",
-    "version": "0.1.0",
+    "description": "Enjoy your activities results with Garmin Analytics.",
+    "version": "1.0.0",
     "manifest_version": 3,
     "permissions": ["scripting"],
     "icons": {
@@ -13,11 +13,6 @@
       {
         "matches": ["https://connect.garmin.com/modern/*"],
         "js": ["background.garmin.js"],
-        "all_frames": true
-      },
-      {
-        "matches": ["https://www.strava.com/*"],
-        "js": ["background.strava.js"],
         "all_frames": true
       }
     ],
