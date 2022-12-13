@@ -1,10 +1,40 @@
 import { Injectable } from '@angular/core';
+import { IActivity } from '../interfaces/activity.interface';
+import { IUserProfile } from '../interfaces/user-profile.interface';
 import { WidgetConfigs } from '../interfaces/widget-configs/widget-configs.type';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SettingsService {
+  userProfile: IUserProfile;
+
+  async insertActivitiesAsync(activities: IActivity[]): Promise<void> {
+    const dbConnection = await this.setupDbConnectionAsync();
+
+    return new Promise((resolve) => {
+      const transaction = dbConnection.transaction("activities", "readwrite");
+      const store = transaction.objectStore("activities")
+
+      activities.forEach(activity => store.add(activity));
+
+      resolve();
+    });
+  }
+
+  async getActivitiesAsync(): Promise<IActivity[]> {
+    const dbConnection = await this.setupDbConnectionAsync();
+
+    return new Promise((resolve) => {
+      const transaction = dbConnection.transaction("activities", "readwrite");
+      const request = transaction.objectStore("activities").getAll();
+
+      request.onsuccess = () => {
+        resolve(request.result);
+      };
+    });
+  }
+
   async getAllWidgetsAsync(): Promise<WidgetConfigs[]> {
     const dbConnection = await this.setupDbConnectionAsync();
 
@@ -76,6 +106,7 @@ export class SettingsService {
 
       request.onupgradeneeded = function () {
         request.result.createObjectStore("widgets", { keyPath: "id", autoIncrement: true });
+        request.result.createObjectStore("activities", { keyPath: "startTimeLocal" });
       };
 
       request.onsuccess = function () {

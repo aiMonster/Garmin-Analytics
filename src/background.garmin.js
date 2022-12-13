@@ -56,16 +56,45 @@ function initAnalyticsPage() {
     contentContainer.innerHTML = '';
     contentContainer.appendChild(iframe);
 
-    loadDataAsync().then((data) => {
-        iframe.contentWindow.postMessage(data.reverse(), "*");
-    });    
+    window.addEventListener('message', (event) => {
+        handleMessage(iframe, JSON.parse(event.data));
+    });
+
+   
 }
 
-async function loadDataAsync() {
-    const dbConnection = await setupDbConnectionAsync();
-    const cachedItems = await getAllItemsAsync(dbConnection);
-    const lastCachedItemTime = cachedItems.length > 0 ? cachedItems[cachedItems.length - 1].startTimeLocal : null;
+function handleMessage(iframe, message) {
+    if (!message.sender || message.sender !== 'GarminAnalytics') {
+        return;
+    }
 
+    if (message.subject === 'initialLoadCompleted') {
+        loadDataAsync(message.lastCachedItem).then((data) => {        
+            const dataLoadedMessage = {
+                sender: 'GarminAnalyticsWeb',
+                subject: 'dataLoaded',
+                activities: data,
+                userInfo: getUserInfo()
+            };
+
+            iframe.contentWindow.postMessage(JSON.stringify(dataLoadedMessage), "*");
+        }); 
+    }
+}
+
+function getUserInfo() {
+    const profileNavItem = document.getElementsByClassName('header-nav-item user-profile')[0];
+
+    const userProfileId = profileNavItem.getElementsByClassName('header-nav-link')[0].href.split('/').pop();
+    const fullName = profileNavItem.getElementsByClassName('full-name')[0].innerText;
+
+    return {
+        id: userProfileId,
+        name: fullName
+    };
+}
+
+async function loadDataAsync(lastCachedItem) {
     let page = 1;
     let loadedActivities = [];
     let allPagesLoaded = false;
@@ -74,19 +103,15 @@ async function loadDataAsync() {
         const response = await loadPageDataAsync(page++);
         loadedActivities = [...loadedActivities, ...response];
 
-        const reachedCashedItems = lastCachedItemTime && response[response.length - 1].startTimeLocal <= lastCachedItemTime;
+        const reachedCashedItems = lastCachedItem && response[response.length - 1].startTimeLocal <= lastCachedItem;
         allPagesLoaded = response.length === 0 || reachedCashedItems;
     } while (!allPagesLoaded);
 
-    if (cachedItems.length > 0) {
-        loadedActivities = loadedActivities.filter((activity) => activity.startTimeLocal > lastCachedItemTime).reverse();
+    if (lastCachedItem) {
+        loadedActivities = loadedActivities.filter((activity) => activity.startTimeLocal > lastCachedItem);
     }
 
-    await insertItemsAsync(dbConnection,loadedActivities);
-
-    dbConnection.close();
-
-    return [...cachedItems, ...loadedActivities];
+    return loadedActivities.reverse();
 }
 
 async function loadPageDataAsync(page) {
@@ -104,45 +129,4 @@ async function loadPageDataAsync(page) {
     });
 
     return response.json();
-}
-
-function setupDbConnectionAsync() {
-    return new Promise((resolve) => {
-        const request = indexedDB.open("GarminAnalyticsDB", 1);
-
-        request.onerror = function (event) {
-            console.error("An error occurred with IndexedDB");
-            console.error(event);
-        };
-    
-        request.onupgradeneeded = function () {
-            request.result.createObjectStore("activities", { keyPath: "startTimeLocal" });
-        };
-    
-        request.onsuccess = function () {
-            resolve(request.result);
-        };
-    });
-}
-
-function getAllItemsAsync(connection) {
-    return new Promise((resolve) => {
-        const transaction = connection.transaction("activities", "readwrite");
-        const request = transaction.objectStore("activities").getAll();
-
-        request.onsuccess = () => {
-            resolve(request.result);
-        };
-    });
-}
-
-function insertItemsAsync(connection, items) {
-    return new Promise((resolve) => {
-        const transaction = connection.transaction("activities", "readwrite");
-        const store = transaction.objectStore("activities")
-
-        items.forEach(item => store.add(item));
-
-        resolve();
-    });
 }

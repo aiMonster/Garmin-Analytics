@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { IReview } from 'src/app/interfaces/review.interface';
 import { ReviewsService } from 'src/app/services/reviews.service';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-leave-review-dialog',
@@ -22,9 +23,11 @@ export class LeaveReviewDialogComponent implements OnInit {
   constructor(
     private readonly ref: DynamicDialogRef,
     private readonly reviewsService: ReviewsService,
+    private readonly settingsService: SettingsService
   ) { }
 
   ngOnInit(): void {
+    this.review.userProfile = this.settingsService.userProfile;
   }
 
   sendReview(): void {

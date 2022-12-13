@@ -21,7 +21,8 @@ export class ActivitiesService {
    * @param activities activities list
    */
   public initActivities(activities: IActivity[]): void {
-    this.activities = activities;
+    // Reverse to start from today to the first activity
+    this.activities = activities.reverse();
   }
 
   /**
