@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IActivity } from './interfaces/activity.interface';
-import { ActivitiesMock } from './mocks/activities.mock';
+// import { ActivitiesMock } from './mocks/activities.mock';
 import { ActivitiesService } from './services/activities.service';
 import { SettingsService } from './services/settings.service';
 
@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
       window.parent.postMessage(JSON.stringify(message), "*");
     });
 
-    this.setupMockData();
+    // this.setupMockData();
   }
 
   private handleEvent(message: any): void {
@@ -56,8 +56,8 @@ export class AppComponent implements OnInit {
   }
 
   /** Setups mock data for local testing */
-  private setupMockData(): void {
-    this.loading = false;
-    this.activitiesService.initActivities(ActivitiesMock);
-  }
+  // private setupMockData(): void {
+  //   this.loading = false;
+  //   this.activitiesService.initActivities(ActivitiesMock);
+  // }
 }

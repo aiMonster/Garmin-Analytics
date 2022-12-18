@@ -1,7 +1,7 @@
 {
     "name": "Garmin Analytics",
     "description": "Enjoy your activities results with Garmin Analytics.",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "manifest_version": 3,
     "permissions": [],
     "icons": {
