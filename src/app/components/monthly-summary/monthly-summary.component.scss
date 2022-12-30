@@ -1,0 +1,49 @@
+.monthly-summary-container {
+  margin-bottom: 2px;
+
+  &.size-2 {
+    padding: 8px 0 7px 0;
+
+    .no-data-message {
+      text-align: center;
+      margin: 246.5px 0px;
+    }
+  }
+
+  .year-line {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4px 15px;
+
+    .line {
+      width: 100%;
+      height: 1px;
+      background-color: lightgray;
+      margin: 3px 0;
+    }
+
+    .value {
+      color: gray;
+      font-size: 10px;
+      margin: 0 10px
+    }
+  }
+
+  &.size-3 {
+    .year-line {
+      margin: -3.5px 15px;
+    }
+
+    .no-data-message {
+      text-align: center;
+      margin: 125px 0;
+    }
+  }
+
+  .year-summary {
+    display: flex;
+    max-width: 800px;
+    flex-wrap: wrap;
+  }
+}

@@ -1,0 +1,102 @@
+:host {
+  margin: 5px;
+}
+
+.progress-circle-container {
+  position: relative;
+  padding: 10px;
+  border-radius: 15px;
+  border: 1px solid gainsboro;
+
+  .circle {
+    display: flex;
+    justify-content: center;
+
+    svg {
+      width: 76px;
+      height: 76px;
+    }
+
+    .bg {
+      fill: none;
+      stroke-width: 8px;
+      stroke: gainsboro;
+    }
+
+    .meter {
+      fill: none;
+      stroke-width: 8px;
+      stroke-linecap: round;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+      stroke-dasharray: 360;
+      stroke: mediumspringgreen;
+      animation: progress-frame 1s ease-out;
+    }
+
+    .icon-completed {
+      width: 20px;
+      position: absolute;
+      left: calc(50% - 9px);
+      top: 5px;
+    }
+
+    .circle-content {
+      position: absolute;
+      top: 25px;
+      left: calc(50% - 25px);
+      text-align: center;
+      width: 50px;
+
+      .activities-count {
+        font-weight: bold;
+        ;
+      }
+
+      .split-line {
+        width: 26px;
+        height: 3px;
+        margin-left: 12px;
+        border-radius: 99px;
+        background-color: mediumspringgreen;
+      }
+
+      .month-days {
+        font-size: 10px;
+      }
+    }
+  }
+
+  .month-label {
+    margin-top: 5px;
+    text-align: center;
+    font-size: 12px;
+  }
+
+  &.size-2 {
+    width: 120px;
+    padding: 9px 10px;
+
+    &.total {
+      width: 510px;
+
+      .month-label {
+        margin-top: 6px;
+      }
+    }
+  }
+
+  &.size-3 {
+    width: 103px;
+
+    &.total {
+      width: 216px;
+    }
+  }
+}
+
+@keyframes progress-frame {
+  from {
+    stroke-dashoffset: 360;
+  }
+}

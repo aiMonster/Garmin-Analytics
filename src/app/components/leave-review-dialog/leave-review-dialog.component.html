@@ -1,0 +1,16 @@
+<div class="leave-review-container">
+        <span class="p-float-label email-container">
+                <input id="email-input" type="text" pInputText [(ngModel)]="review.email">
+                <label for="email-input">Email (optional)</label>
+        </span>
+
+        <span class="p-float-label message-container">
+                <textarea id="message-area" pInputTextarea [(ngModel)]="review.message"></textarea>
+                <label for="message-area">Message</label>
+        </span>
+        <div class="actions-row">
+                <button pButton pRipple type="button" label="Send" (click)="sendReview()" icon="pi pi-send"
+                        iconPos="right" class="p-button-raised p-button-secondary p-button-text">
+                </button>
+        </div>
+</div>

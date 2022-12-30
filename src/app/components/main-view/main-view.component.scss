@@ -1,0 +1,80 @@
+.main-view-container {
+  height: 100vh;
+  padding-right: 15px;
+  
+  .gridster-preview {
+    border-radius: 15px;
+  }
+
+  .grid-view {
+    background-color: white;
+
+    .widget-item {
+      border-radius: 15px;
+    }
+  }
+
+  .dock-menu {
+    .p-dock {
+      .p-dock-action {
+        width: 35px;
+        height: 35px;
+        cursor: pointer;
+      }
+
+      .p-dock-item {
+        padding-bottom: 3px;
+        padding-top: 5px;
+      }
+
+      .p-dock-list {
+        padding: 0 5px;
+        background-color: rgba(255, 255, 255, 0.9);;
+        border-color: lightgray;
+      }
+    }
+  }
+
+  .welcome-view {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100vh;
+    width: 100vw;
+    align-items: center;
+    background-color: gainsboro;
+    color: lightslategray;
+
+    .welcome-title {
+      font-size: 32px;
+      margin-bottom: 75px
+    }
+
+    .hints-container {
+      display: flex;
+  
+      .hint {
+        width: 225px;
+        text-align: center;
+
+        .icon {
+          width: 45px;
+          margin-bottom: 10px;
+        }
+
+        .description {
+          padding: 3px;
+          font-size: 12px;
+          margin-top: 5px;    
+        }
+      }
+    }
+
+    .arrow {
+      width: 75px;
+      margin-bottom: 150px;
+      margin-top: 100px;
+    }
+  }
+  
+}

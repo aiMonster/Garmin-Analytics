@@ -1,0 +1,105 @@
+.widget-container {
+  .activity {
+    border: 1px solid gainsboro;
+    border-radius: 15px;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      padding: 7px;
+      background-color: whitesmoke;
+      border-radius: 15px 15px 0 0;
+      border-bottom: 1px solid gainsboro;
+      margin-bottom: 10px;
+
+      .left-corner {
+        display: flex;
+        align-items: center;
+
+        .title {
+          margin-left: 15px;
+        }
+
+        .pi-ellipsis-v {
+          font-size: 12px;
+          width: 5px;
+        }
+      }
+
+      .settings {
+        display: flex;
+        align-items: center;
+
+        .p-selectbutton .p-button.p-highlight {
+          background-color: slategray;
+          border-color: slategray;
+        }
+
+        .size-select {
+          margin-left: 15px;
+
+          .p-button {
+            padding: 2px 5px;
+            min-width: 25px;
+            justify-content: center;
+          }
+
+          .squares-container {
+            display: flex;
+
+            .square-icon {
+              width: 7px;
+              height: 5px;
+              margin: 5px 0.5px;
+              background-color: #495057;
+
+              &.item-1 {
+                border-radius: 2px 0 0 2px;
+              }
+
+              &.size-2.item-2, &.size-3.item-3  {
+                border-radius: 0 2px 2px 0;
+              }
+
+              &.size-1 {
+                border-radius: 2px;
+              }
+            }
+
+            &.selected .square-icon {
+              background-color: white;
+            }
+          }
+
+          &.single-item {
+            .p-buttonset .p-button {
+              border-radius: 6px;
+            }
+          }
+        }
+
+        .year-select {
+          margin-left: 15px;
+
+          .p-button {
+            padding: 2px 5px;
+            font-size: 10px;
+          }
+
+          &.single-item {
+            .p-buttonset .p-button {
+              border-radius: 6px;
+            }
+          }
+        }
+
+        .pi-trash {
+          margin-right: 15px;
+          margin-left: 15px;
+          font-size: 12px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

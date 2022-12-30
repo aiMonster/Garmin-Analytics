@@ -1,0 +1,74 @@
+.calendar-heatmap-container {
+    margin: 24px 15px 15px 15px;
+
+    .calendar-container {
+        width: fit-content;
+
+        .months-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            padding: 0 20px 0 60px;
+        }
+
+        .weeks-container {
+            display: flex;
+
+            .week-days {
+                font-size: 8px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                margin-right: 5px;
+                padding: 2px 0;
+            }
+
+            .cell {
+                height: 12px;
+                width: 12px;
+                background-color: gainsboro;
+                margin: 2px 1px;
+
+                &.with-activity {
+                    background-color: cornflowerblue;
+                }
+            }
+
+            .first-col {
+                display: flex;
+                flex-direction: column;
+                align-self: flex-end;
+                padding-bottom: 1px;
+
+                .cell {
+                    margin: 1px;
+                }
+            }
+        }
+
+        .year-line {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2.5px 0 2.5px 25px;
+
+            .line {
+                width: 100%;
+                height: 1px;
+                background-color: lightgray;
+                margin: 3px 0;
+            }
+
+            .value {
+                color: gray;
+                font-size: 10px;
+                margin: 0 10px
+            }
+        }
+    }
+    
+    .no-data-message {
+        text-align: center;
+        margin: 65px;
+    }
+}

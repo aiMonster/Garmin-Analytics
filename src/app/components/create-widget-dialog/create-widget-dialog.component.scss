@@ -1,0 +1,188 @@
+.create-widget-dialog-container {
+  width: 800px;
+  display: flex;
+
+  .widget-type-selector {
+    width: fit-content;
+    border-right: 1px solid gainsboro;
+    padding-right: 10px;
+
+    .sample-container {
+      margin: 5px 0;
+      border: 1px solid gainsboro;
+      border-radius: 15px;
+      padding: 20px 10px 10px 10px;
+      width: fit-content;
+
+      &:not(.selected) {
+        cursor: pointer;
+
+        &:hover {
+          box-shadow: 2px 2px gainsboro;
+        }
+      }
+
+      &.selected {
+        border-color: cornflowerblue;
+        box-shadow: 2px 2px cornflowerblue;
+      }
+
+      .title {
+        text-align: center;
+        font-size: 14px;
+        color: slategrey;
+        margin-top: 10px;
+      }
+    }
+  }
+
+  .widget-configs {
+    margin: 5px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+
+    .widget-title {
+      margin-top: 15px;
+
+      input {
+        width: 400px;
+        padding: 5px;
+      }
+    }
+
+    .activity-criterias {
+      margin-top: 20px;
+
+      .title {
+        color: slategrey;
+        margin-left: 2px;
+      }
+
+      .activity-type-select {
+        display: flex;
+        align-items: baseline;
+
+        .p-inputtext {
+          width: 200px;
+
+          &.p-dropdown-label {
+            width: 110px;
+          }
+          
+          padding: 5px 10px;
+        }
+
+        .and-label {
+          color: slategray;
+          margin: 5px;
+          font-size: 14px;
+        }
+
+        .remove-btn {
+          height: 44px;
+          margin-left: 5px;
+        }
+      }
+
+      .add-criteria-btn {
+        height: 30px;
+        margin-top: 10px;
+
+        .p-button-label {
+          font-weight: normal;
+        }
+      }
+    }
+
+    .streak-targets {
+      margin-top: 20px;
+
+      .title {
+        color: slategrey;
+        margin: 0 0 5px 2px;
+      }
+
+      .targets-list {
+        display: flex;
+        flex-wrap: wrap;
+
+        .target {
+          width: fit-content;
+          font-size: 14px;
+          background-color: palegreen;
+          padding: 4px 10px;
+          border-radius: 6px;
+          margin-right: 5px;
+          margin-bottom: 5px;
+  
+          .pi {
+            font-size: 12px;
+            margin-left: 5px;
+            cursor: pointer;
+          }
+        }
+
+        .new-target {
+          .p-button {
+            border-radius: 0 6px 6px 0;
+            padding: 5px 10px 4px 10px;
+  
+            .p-button-label {
+              font-size: 12px;
+            }
+          }
+          .p-inputtext {
+            border-radius: 6px 0 0 6px;
+            padding: 3px 10px;
+            width: 85px;
+            font-size: 14px;
+          }
+        }
+      }   
+    }
+
+    .count-type-selector {
+      margin-top: 20px;
+      display: flex;
+
+      .title {
+        color: slategrey;
+        margin: 3px 10px 5px 2px;
+      }
+
+      .p-button {
+        padding: 5px 10px;
+        .p-button-label {
+          font-size: 12px;
+        }
+      }
+    }
+
+    .target-times-selector {
+      margin-top: 20px;
+      display: flex;
+
+      .title {
+        color: slategrey;
+        margin: 3px 10px 5px 2px;
+      }
+
+      .p-inputtext {
+        width: 85px;
+        height: 30px;
+        font-size: 12px;
+      }
+    }
+
+    .actions-row {
+      display: flex;
+      justify-content: flex-end;
+
+      .p-button-secondary {
+        height: 35px;
+      }
+    }
+  }
+}

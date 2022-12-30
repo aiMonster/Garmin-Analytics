@@ -1,0 +1,86 @@
+.streak-days-container {
+  margin-top: -1px;
+  
+  .embeded-summary {
+    display: flex;
+    border-bottom: 1px solid gainsboro;
+    font-size: 13px;
+
+    .title {
+      margin-left: 25px;
+      display: flex;
+      height: 30px;
+
+      .icon {
+        height: 20px;
+        margin-right: 7px;
+      }
+    }
+  }
+
+  .standalone {
+    padding: 0 8px 10px 8px;
+    height: 115px;
+
+    .summary-container {
+      display: flex;
+      justify-content: space-around;
+
+      .section {
+        text-align: center;
+
+        .icon {
+          height: 16px;
+          margin-bottom: 5px;
+          margin-right: 5px;
+        }
+
+        .title {
+          text-transform: uppercase;
+          color: slategrey;
+          font-size: 14px;
+        }
+
+        .sub-title {
+          font-size: 14px;
+        }
+      }
+    }
+
+    .progress-line-container {
+      display: flex;
+      margin-top: 15px;
+      justify-content: space-between;
+      padding: 0 10px;
+      position: relative;
+
+      .progress-line {
+        height: 2px;
+        width: calc(100% - 55px);
+        position: absolute;
+        top: 13px;
+        left: 17px;
+        z-index: 0;
+      }
+
+      .point-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 1;
+
+        .icon {
+          height: 28px;
+          width: 28px;
+        }
+
+        .label {
+          font-size: 12px;
+          margin-top: 2px;
+          color: slategrey;
+        }
+      }
+
+    }
+  }
+}

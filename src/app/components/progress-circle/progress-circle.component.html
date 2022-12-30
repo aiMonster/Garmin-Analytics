@@ -1,0 +1,15 @@
+<div class="progress-circle-container size-{{ widgetSize }}" [class.total]="isTotal">
+  <div class="circle">
+    <img *ngIf="percent >= 100" src="assets/icons/accept.png" class="icon-completed">
+    <svg>
+      <circle class="bg" cx="38" cy="38" r="34" />
+      <circle [style.stroke-dashoffset]="circleOffset" class="meter" cx="38" cy="38" r="34" />
+    </svg>
+    <div class="circle-content">
+      <div class="activities-count">{{ value }}</div>
+      <div class="split-line"></div>
+      <div class="month-days">{{ subValue }}</div>
+    </div>
+  </div>
+  <div class="month-label">{{ title }}</div>
+</div>
