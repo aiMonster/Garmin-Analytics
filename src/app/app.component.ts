@@ -6,7 +6,7 @@ import { SettingsService } from './services/settings.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   loading: boolean = true;
@@ -28,14 +28,17 @@ export class AppComponent implements OnInit {
     this.settingsService.getActivitiesAsync().then((activities) => {
       this.cachedActivities = activities;
 
-      const lastCachedItemTime = activities.length > 0 ? activities[activities.length - 1].startTimeLocal : null;
+      const lastCachedItemTime =
+        activities.length > 0
+          ? activities[activities.length - 1].startTimeLocal
+          : null;
       const message = {
-        sender: "GarminAnalytics",
-        subject: "initialLoadCompleted",
-        lastCachedItem: lastCachedItemTime
+        sender: 'GarminAnalytics',
+        subject: 'initialLoadCompleted',
+        lastCachedItem: lastCachedItemTime,
       };
 
-      window.parent.postMessage(JSON.stringify(message), "*");
+      window.parent.postMessage(JSON.stringify(message), '*');
     });
   }
 
@@ -45,7 +48,11 @@ export class AppComponent implements OnInit {
     }
 
     if (message.subject === 'dataLoaded') {
-      this.activitiesService.initActivities([...this.cachedActivities, ...message.activities]);
+      this.activitiesService.initActivities([
+        ...this.cachedActivities,
+        ...message.activities,
+      ]);
+
       this.settingsService.insertActivitiesAsync(message.activities);
       this.settingsService.userProfile = message.userInfo;
       this.loading = false;

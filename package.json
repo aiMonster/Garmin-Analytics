@@ -19,9 +19,11 @@
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
     "angular-gridster2": "^14.1.2",
+    "ngx-csv-parser": "^1.2.0",
     "primeicons": "^6.0.1",
     "primeng": "^14.2.1",
     "rxjs": "~7.5.0",
+    "timezones-list": "^3.0.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

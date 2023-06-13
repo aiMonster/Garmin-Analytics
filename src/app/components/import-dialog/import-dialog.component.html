@@ -1,0 +1,83 @@
+<div class="import-container">
+  <div *ngIf="!uploadedActivities.length">
+    <p-fileUpload
+      mode="basic"
+      accept=".csv"
+      (onSelect)="onFileUploaded($event)"
+      [auto]="true"
+      chooseLabel="Select"
+      mode="basic"
+    ></p-fileUpload>
+  </div>
+  <div *ngIf="uploadedActivities.length">
+    <p-table
+      [value]="uploadedActivities"
+      [(selection)]="selectedActivities"
+      [scrollable]="true"
+      scrollHeight="445px"
+      compareSelectionBy="equals"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Type</th>
+          <th>Title</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-activity>
+        <tr>
+          <td><p-tableCheckbox [value]="activity"></p-tableCheckbox></td>
+          <td>{{ activity.startTimeLocal | date : "MMM dd YYYY" }}</td>
+          <td>{{ activity.startTimeLocal | date : "HH:mm:ss" }}</td>
+          <td>{{ activity.activityType.typeId | activityType }}</td>
+          <td>{{ activity.activityName }}</td>
+          <td>
+            <img
+              *ngIf="activity.duplicate"
+              class="warning-icon"
+              pTooltip="Duplicate"
+              tooltipPosition="left"
+              src="assets/icons/warning.png"
+            />
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <div class="actions-row">
+      <p-dropdown
+        [options]="timeZones"
+        [(ngModel)]="selectedTimeZone"
+        [filter]="true"
+        optionLabel="label"
+        filterBy="label"
+        placeholder="Select a timezone"
+        appendTo="body"
+        (onChange)="timeZoneChanged()"
+      >
+      </p-dropdown>
+      <div class="label-container">
+        {{ selectedActivities.length }} of
+        {{ uploadedActivities.length }} selected
+      </div>
+      <div class="label-container" *ngIf="duplicatesCount > 0">
+        <img class="warning-icon" src="assets/icons/warning.png" />
+        <span class="warnings-text">
+          {{ duplicatesCount }} duplicate{{ duplicatesCount > 1 ? "s" : "" }}
+          selected
+        </span>
+      </div>
+      <button
+        pButton
+        pRipple
+        type="button"
+        [disabled]="!selectedActivities.length"
+        label="Import Selected"
+        (click)="importSelected()"
+        class="p-button-raised p-button-secondary p-button-text"
+      ></button>
+    </div>
+  </div>
+</div>

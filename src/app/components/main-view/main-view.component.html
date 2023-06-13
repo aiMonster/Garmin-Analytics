@@ -1,38 +1,62 @@
 <div class="main-view-container">
-    <gridster *ngIf="widgets && widgets?.length" class="grid-view" [options]="gridOptions">
-        <gridster-item class="widget-item" [item]="widgetPosition[widget.id]" *ngFor="let widget of widgets">
-            <app-widget [configs]="widget" [widgetPositionChange]="widgetPositionChange$"
-                (removeWidget)="removeWidget(widget.id)" (widgetSizeChange)="widgetSizeChange(widget.id, $event)">
-            </app-widget>
-        </gridster-item>
-    </gridster>
-    <div *ngIf="widgets && !widgets?.length" class="welcome-view">
-        <div class="welcome-title">Welcome to Garmin Analytics!</div>
-        <div class="hints-container">
-            <div class="hint">
-                <img src="assets/icons/add-widget.png" class="icon">
-                <div>Add new widget</div>
-                <div class="description">Create your first widget and enjoy your results!</div>
-            </div>
-            <div class="hint">
-                <img src="assets/icons/feedback.png" class="icon">
-                <div>Leave a feedback</div>
-                <div class="description">Leave a feedback or submit a proposal and we will implement your feature!</div>
-            </div>
-            <div class="hint">
-                <img src="assets/icons/about-us.png" class="icon">
-                <div>About us</div>
-                <div class="description">Get more information about us and who we are!</div>
-            </div>
+  <gridster
+    *ngIf="widgets && widgets?.length"
+    class="grid-view"
+    [options]="gridOptions"
+  >
+    <gridster-item
+      class="widget-item"
+      [item]="widgetPosition[widget.id]"
+      *ngFor="let widget of widgets"
+    >
+      <app-widget
+        [configs]="widget"
+        [widgetPositionChange]="widgetPositionChange$"
+        (removeWidget)="removeWidget(widget.id)"
+        (widgetSizeChange)="widgetSizeChange(widget.id, $event)"
+      >
+      </app-widget>
+    </gridster-item>
+  </gridster>
+  <div *ngIf="widgets && !widgets?.length" class="welcome-view">
+    <div class="welcome-title">Welcome to Garmin Analytics!</div>
+    <div class="hints-container">
+      <div class="hint">
+        <img src="assets/icons/add-widget.png" class="icon" />
+        <div>Add new widget</div>
+        <div class="description">
+          Create your first widget and enjoy your results!
         </div>
-        <img src="assets/icons/curved-arrow.png" class="arrow">
-
-
+      </div>
+      <div class="hint">
+        <img src="assets/icons/feedback.png" class="icon" />
+        <div>Leave a feedback</div>
+        <div class="description">
+          Leave a feedback or submit a proposal and we will implement your
+          feature!
+        </div>
+      </div>
+      <div class="hint">
+        <img src="assets/icons/transfer.png" class="icon" />
+        <div>Import</div>
+        <div class="description">
+          Import activities data from other services, such as Strava!
+        </div>
+      </div>
+      <div class="hint">
+        <img src="assets/icons/about-us.png" class="icon" />
+        <div>About us</div>
+        <div class="description">
+          Get more information about us and who we are!
+        </div>
+      </div>
     </div>
-    <p-dock [model]="menuItems" position="bottom" class="dock-menu">
-        <ng-template pTemplate="item" let-item>
-            <img [src]="item.icon" [alt]="item.label" width="75%">
-        </ng-template>
-    </p-dock>
+    <img src="assets/icons/curved-arrow.png" class="arrow" />
+  </div>
+  <p-dock [model]="menuItems" position="bottom" class="dock-menu">
+    <ng-template pTemplate="item" let-item>
+      <img [src]="item.icon" [alt]="item.label" width="75%" />
+    </ng-template>
+  </p-dock>
 </div>
 <p-toast position="bottom-right"></p-toast>

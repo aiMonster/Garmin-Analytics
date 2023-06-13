@@ -10,6 +10,7 @@ import { IWidgetSize } from 'src/app/interfaces/widget-configs/widget-size.inter
 import { SettingsService } from 'src/app/services/settings.service';
 import { AboutUsDialogComponent } from '../about-us-dialog/about-us-dialog.component';
 import { CreateWidgetDialogComponent } from '../create-widget-dialog/create-widget-dialog.component';
+import { ImportDialogComponent } from '../import-dialog/import-dialog.component';
 import { LeaveReviewDialogComponent } from '../leave-review-dialog/leave-review-dialog.component';
 
 @Component({
@@ -17,12 +18,12 @@ import { LeaveReviewDialogComponent } from '../leave-review-dialog/leave-review-
   templateUrl: './main-view.component.html',
   styleUrls: ['./main-view.component.scss'],
   providers: [MessageService],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class MainViewComponent {
   private widgetPositionChange = new ReplaySubject<{
-    widgetId: number,
-    position: IWidgetPosition
+    widgetId: number;
+    position: IWidgetPosition;
   }>(1);
 
   readonly menuItems: MenuItem[] = [
@@ -33,8 +34,8 @@ export class MainViewComponent {
       tooltipOptions: {
         tooltipLabel: 'Add widget',
         tooltipPosition: 'top',
-        positionTop: -5
-      }
+        positionTop: -5,
+      },
     },
     {
       label: 'Leave a feedback',
@@ -43,8 +44,18 @@ export class MainViewComponent {
       tooltipOptions: {
         tooltipLabel: 'Leave a feedback',
         tooltipPosition: 'top',
-        positionTop: -5
-      }
+        positionTop: -5,
+      },
+    },
+    {
+      label: 'Import',
+      icon: 'assets/icons/transfer.png',
+      command: () => this.openImportDialog(),
+      tooltipOptions: {
+        tooltipLabel: 'Import',
+        tooltipPosition: 'top',
+        positionTop: -5,
+      },
     },
     {
       label: 'About us',
@@ -53,14 +64,14 @@ export class MainViewComponent {
       tooltipOptions: {
         tooltipLabel: 'About us',
         tooltipPosition: 'top',
-        positionTop: -5
-      }
-    }
+        positionTop: -5,
+      },
+    },
   ];
 
   gridOptions: GridsterConfig = {
     ...MAIN_GRID_CONFIGS,
-    itemChangeCallback: (item) => this.onItemPositionChanged(item)
+    itemChangeCallback: (item) => this.onItemPositionChanged(item),
   };
 
   /** Collection of widgets */
@@ -76,12 +87,12 @@ export class MainViewComponent {
   constructor(
     private readonly settingsSevice: SettingsService,
     private readonly dialogService: DialogService,
-    private messageService: MessageService,
-  ) { }
+    private messageService: MessageService
+  ) {}
 
   /** On Init */
   ngOnInit() {
-    this.settingsSevice.getAllWidgetsAsync().then(widgets => {
+    this.settingsSevice.getAllWidgetsAsync().then((widgets) => {
       widgets.forEach((widget) => {
         this.widgetPosition[widget.id!] = this.mapWidgetPosition(widget);
       });
@@ -99,31 +110,49 @@ export class MainViewComponent {
   widgetSizeChange(id: number, newSize: IWidgetSize): void {
     this.widgetPosition[id] = {
       ...this.widgetPosition[id],
-      ...newSize
+      ...newSize,
     };
   }
 
   private openReviewDialog(): void {
-    this.dialogService.open(LeaveReviewDialogComponent, {
-      header: 'Leave a feedback'
-    }).onClose.subscribe((success) => {
-      if (success) {
-        this.messageService.add({ severity:'success', summary:'Success', detail: 'Your review has been submitted' });
+    this.dialogService
+      .open(LeaveReviewDialogComponent, {
+        header: 'Leave a feedback',
+      })
+      .onClose.subscribe((success) => {
+        if (success) {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Your review has been submitted',
+          });
+        }
+      });
+  }
+
+  private openImportDialog(): void {
+    const dialogRef = this.dialogService.open(ImportDialogComponent, {
+      header: 'Import',
+    });
+
+    dialogRef.onClose.subscribe((result) => {
+      if (result?.imported) {
+        console.log('imorted');
       }
     });
   }
 
   private openAboutUsDialog(): void {
     this.dialogService.open(AboutUsDialogComponent, {
-      header: 'About us'
+      header: 'About us',
     });
   }
 
   private openNewWidgetDialog(): void {
     this.updateGridScrollOptions();
-    
+
     const dialogRef = this.dialogService.open(CreateWidgetDialogComponent, {
-      header: 'Create new widget'
+      header: 'Create new widget',
     });
 
     dialogRef.onClose.subscribe((result: WidgetConfigs | undefined) => {
@@ -137,7 +166,7 @@ export class MainViewComponent {
       }
     });
   }
-  
+
   private updateGridScrollOptions(): void {
     if (this.gridOptions.scrollToNewItems) {
       return;
@@ -145,7 +174,7 @@ export class MainViewComponent {
 
     this.gridOptions = {
       ...this.gridOptions,
-      scrollToNewItems: true
+      scrollToNewItems: true,
     };
 
     if (this.gridOptions.api && this.gridOptions.api.optionsChanged) {
@@ -156,7 +185,7 @@ export class MainViewComponent {
   private onItemPositionChanged(item: GridsterItem): void {
     this.widgetPositionChange.next({
       widgetId: item['widgetId'],
-      position: { x: item.x, y: item.y }
+      position: { x: item.x, y: item.y },
     });
   }
 
@@ -166,7 +195,7 @@ export class MainViewComponent {
       x: widget.position.x,
       y: widget.position.y,
       cols: widget.size.cols,
-      rows: widget.size.rows
+      rows: widget.size.rows,
     };
   }
 }

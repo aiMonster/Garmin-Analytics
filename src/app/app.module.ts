@@ -25,6 +25,11 @@ import { LeaveReviewDialogComponent } from './components/leave-review-dialog/lea
 import { HttpClientModule } from '@angular/common/http';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ToastModule } from 'primeng/toast';
+import { ImportDialogComponent } from './components/import-dialog/import-dialog.component';
+import { FileUploadModule } from 'primeng/fileupload';
+import { TableModule } from 'primeng/table';
+import { ActivityTypePipe } from './pipes/activity-type.pipe';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -37,7 +42,9 @@ import { ToastModule } from 'primeng/toast';
     WidgetComponent,
     CreateWidgetDialogComponent,
     AboutUsDialogComponent,
-    LeaveReviewDialogComponent
+    LeaveReviewDialogComponent,
+    ImportDialogComponent,
+    ActivityTypePipe,
   ],
   imports: [
     BrowserModule,
@@ -56,11 +63,12 @@ import { ToastModule } from 'primeng/toast';
     ProgressSpinnerModule,
     HttpClientModule,
     InputTextareaModule,
-    ToastModule
+    ToastModule,
+    FileUploadModule,
+    TableModule,
+    TooltipModule,
   ],
-  providers: [
-    DialogService
-  ],
-  bootstrap: [AppComponent]
+  providers: [DialogService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

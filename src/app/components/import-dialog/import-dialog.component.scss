@@ -1,0 +1,44 @@
+:host ::ng-deep.import-container {
+  width: 800px;
+  height: 500px;
+
+  .p-datatable .p-datatable-tbody > tr > td {
+    padding: 5px;
+  }
+
+  .p-datatable .p-datatable-thead > tr > th {
+    padding: 5px;
+  }
+
+  .warning-icon {
+    height: 20px;
+    vertical-align: text-bottom;
+  }
+
+  .actions-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 25px 0;
+    padding-left: 5px;
+
+    .label-container {
+      padding-top: 7px;
+    }
+
+    .warnings-text {
+      margin-left: 10px;
+    }
+
+    .p-button-secondary {
+      height: 35px;
+    }
+
+    .p-dropdown {
+      width: 200px;
+
+      .p-dropdown-label {
+        padding: 5px;
+      }
+    }
+  }
+}

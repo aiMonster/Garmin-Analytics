@@ -10,10 +10,9 @@ import { IYearSummary } from '../interfaces/year-summary.interface';
 import { DateUtils } from '../utils/date.utils';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ActivitiesService {
-
   private activities: IActivity[];
 
   /**
@@ -31,7 +30,11 @@ export class ActivitiesService {
    * @param countType either unique days should be calculated or activities times
    * @returns monthly summary grouped into years
    */
-  public getYearSummaryInfo(searchCriterias: IActivityCriteria[], countType: CountType, target?: number): IYearSummary[] {
+  public getYearSummaryInfo(
+    searchCriterias: IActivityCriteria[],
+    countType: CountType,
+    target?: number
+  ): IYearSummary[] {
     let activities = this.getActivitiesByCriteria(searchCriterias);
 
     if (activities.length === 0) {
@@ -40,34 +43,53 @@ export class ActivitiesService {
 
     if (countType === CountType.Days) {
       activities = activities.filter((activity, index, self) => {
-        return self.findIndex(value => DateUtils.getDate(value.startTimeLocal) === DateUtils.getDate(activity.startTimeLocal)) === index;
+        return (
+          self.findIndex(
+            (value) =>
+              DateUtils.getDate(value.startTimeLocal) ===
+              DateUtils.getDate(activity.startTimeLocal)
+          ) === index
+        );
       });
     }
 
-    const firstDate = new Date(activities[activities.length - 1].startTimeLocal);
+    const firstDate = new Date(
+      activities[activities.length - 1].startTimeLocal
+    );
     const lastDate = new Date(activities[0].startTimeLocal);
 
-    let yearsSummary = this.getYearsTemplate(firstDate.getFullYear(), lastDate.getFullYear()).reverse();
+    let yearsSummary = this.getYearsTemplate(
+      firstDate.getFullYear(),
+      lastDate.getFullYear()
+    ).reverse();
 
-    activities.forEach(activity => {
+    activities.forEach((activity) => {
       const date = DateUtils.getDate(activity.startTimeLocal);
       const activityYear = +date.split('-')[0];
       const activityMonth = +date.split('-')[1] - 1;
 
-      const yearSummary = yearsSummary.find(yearSummary => yearSummary.year === activityYear);
+      const yearSummary = yearsSummary.find(
+        (yearSummary) => yearSummary.year === activityYear
+      );
       yearSummary!.total += 1;
-      yearSummary!.months.find(month => month.index === activityMonth)!.value += 1;
+      yearSummary!.months.find(
+        (month) => month.index === activityMonth
+      )!.value += 1;
     });
 
     yearsSummary = yearsSummary.map((summary) => ({
       ...summary,
       months: summary.months.map((month) => ({
         ...month,
-        completedPercent: month.value * 100 / (countType === CountType.Days ? month.daysInMonth : target!)
+        completedPercent:
+          (month.value * 100) /
+          (countType === CountType.Days ? month.daysInMonth : target!),
       })),
       weeks: this.getWeeksSummary(summary.year, activities),
-      completedPercent: summary.total * 100 / (countType === CountType.Days ? summary.daysInYear : target! * 12)
-    }))
+      completedPercent:
+        (summary.total * 100) /
+        (countType === CountType.Days ? summary.daysInYear : target! * 12),
+    }));
 
     return yearsSummary;
   }
@@ -77,15 +99,18 @@ export class ActivitiesService {
    * @param searchCriterias creatria for activities to process
    * @returns streak days info
    */
-  public getStreakDaysInfo(searchCriterias: IActivityCriteria[]): IStreakDaysInfo {
-    const activitiesDates = this.getActivitiesByCriteria(searchCriterias)
-      .map(activity => activity.startTimeLocal.split(' ')[0]);
+  public getStreakDaysInfo(
+    searchCriterias: IActivityCriteria[]
+  ): IStreakDaysInfo {
+    const activitiesDates = this.getActivitiesByCriteria(searchCriterias).map(
+      (activity) => activity.startTimeLocal.split(' ')[0]
+    );
 
     if (!activitiesDates.length) {
       return {
         max: 0,
         current: 0,
-        maxDates: []
+        maxDates: [],
       };
     }
 
@@ -97,35 +122,44 @@ export class ActivitiesService {
     let sets: string[][] = [];
     let currentSet: string[] = [];
 
-    datesRange.map(date => DateUtils.convert(date)).forEach((date, index) => {
+    datesRange
+      .map((date) => DateUtils.convert(date))
+      .forEach((date, index) => {
         const activityExist = activitiesDates.indexOf(date) > -1;
         const lastItem = index === datesRange.length - 1;
 
         if (activityExist) {
-            currentSet = [...currentSet, date];
+          currentSet = [...currentSet, date];
         }
 
         if ((!activityExist || lastItem) && currentSet.length > 0) {
-            sets = [...sets, [...currentSet]];
-            currentSet = [];
+          sets = [...sets, [...currentSet]];
+          currentSet = [];
         }
-    });
+      });
 
-    const maxStreakDays = Math.max(...sets.map(set => set.length));
+    const maxStreakDays = Math.max(...sets.map((set) => set.length));
 
     const today = new Date();
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
 
+    // console.log(sets.sort((a, b) => (a.length > b.length ? 1 : -1)));
+
     const lastSet = sets[sets.length - 1];
-    const countLastSet = lastSet.includes(DateUtils.convert(yesterday))
-      || lastSet.includes(DateUtils.convert(today));
+    const countLastSet =
+      lastSet.includes(DateUtils.convert(yesterday)) ||
+      lastSet.includes(DateUtils.convert(today));
 
     const streakDaysInfo: IStreakDaysInfo = {
       current: countLastSet ? lastSet.length : 0,
       max: maxStreakDays,
-      maxDates: sets.filter(set => set.length === maxStreakDays)
-        .map(set => ({ start: new Date(set[0]), end: new Date(set[set.length - 1]) }))
+      maxDates: sets
+        .filter((set) => set.length === maxStreakDays)
+        .map((set) => ({
+          start: new Date(set[0]),
+          end: new Date(set[set.length - 1]),
+        })),
     };
 
     return streakDaysInfo;
@@ -137,11 +171,19 @@ export class ActivitiesService {
    * @param activities activities data group
    * @returns activitis for provided year groupped by week
    */
-  private getWeeksSummary(year: number, activities: IActivity[]): IWeekSummary[] {
-    const activitesDates = activities.map(activity => DateUtils.getDate(activity.startTimeLocal));
-    
-    const yearDates = DateUtils.getAllDatesInTheRange(new Date(year, 0, 1), new Date(year, 11, 31));
-    
+  private getWeeksSummary(
+    year: number,
+    activities: IActivity[]
+  ): IWeekSummary[] {
+    const activitesDates = activities.map((activity) =>
+      DateUtils.getDate(activity.startTimeLocal)
+    );
+
+    const yearDates = DateUtils.getAllDatesInTheRange(
+      new Date(year, 0, 1),
+      new Date(year, 11, 31)
+    );
+
     var yearSummary: IWeekSummary[] = [];
     var weekSummary: IDaySummary[] = [];
 
@@ -152,12 +194,17 @@ export class ActivitiesService {
         weekSummary = [];
       }
 
-      const activitiesCount = activitesDates.filter(activityDate => activityDate === DateUtils.convert(date)).length;
-      weekSummary = [...weekSummary, { activitiesCount, dateTooltip: DateUtils.formatDate(date) }];
+      const activitiesCount = activitesDates.filter(
+        (activityDate) => activityDate === DateUtils.convert(date)
+      ).length;
+      weekSummary = [
+        ...weekSummary,
+        { activitiesCount, dateTooltip: DateUtils.formatDate(date) },
+      ];
 
       // If the last item has been added
       if (index === yearDates.length - 1) {
-        yearSummary = [...yearSummary,{ days: [...weekSummary] }];
+        yearSummary = [...yearSummary, { days: [...weekSummary] }];
       }
     });
 
@@ -183,11 +230,14 @@ export class ActivitiesService {
         year: currentYear,
         months: monthsTemplate,
         weeks: [],
-        daysInYear: monthsTemplate.reduce((sum, month) => (sum += month.daysInMonth), 0)
-      }
+        daysInYear: monthsTemplate.reduce(
+          (sum, month) => (sum += month.daysInMonth),
+          0
+        ),
+      };
 
       summaries.push(yearSummary);
-    } while(currentYear++ < endYear);
+    } while (currentYear++ < endYear);
 
     return summaries;
   }
@@ -198,30 +248,35 @@ export class ActivitiesService {
    * @returns months array of provided year
    */
   private getMonthTemplate(year: number): IMonthSummary[] {
-    return Array.from({length: 12}, (x, i) => ({
+    return Array.from({ length: 12 }, (x, i) => ({
       index: i,
       value: 0,
       completedPercent: 0,
-      daysInMonth: new Date(year, i + 1, 0).getDate()
+      daysInMonth: new Date(year, i + 1, 0).getDate(),
     }));
   }
-  
+
   /**
    * Returns activities that match one of search criterias
    * @param searchCriterias activities search criterias
    * @returns activities that meet any of search criterias
    */
-  private getActivitiesByCriteria(searchCriterias: IActivityCriteria[]): IActivity[] {
-    const activities = this.activities
-      .filter((activity) => {
-        const matchCriteria = searchCriterias.find((criteria) => criteria.activityType === activity.activityType.typeId);
+  private getActivitiesByCriteria(
+    searchCriterias: IActivityCriteria[]
+  ): IActivity[] {
+    const activities = this.activities.filter((activity) => {
+      const matchCriteria = searchCriterias.find(
+        (criteria) => criteria.activityType === activity.activityType.typeId
+      );
 
-        if (!matchCriteria) {
-          return false
-        }
+      if (!matchCriteria) {
+        return false;
+      }
 
-        return matchCriteria.nameLike ? activity.activityName === matchCriteria.nameLike : true;
-      });
+      return matchCriteria.nameLike
+        ? activity.activityName === matchCriteria.nameLike
+        : true;
+    });
 
     return activities;
   }
