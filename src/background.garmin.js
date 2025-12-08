@@ -132,14 +132,13 @@ async function loadPageDataAsync(page) {
   const limit = 100;
   const start = (page - 1) * limit;
 
-  const url = `https://connect.garmin.com/activitylist-service/activities/search/activities?limit=${limit}&start=${start}`;
+  const url = `https://connect.garmin.com/gc-api/activitylist-service/activities/search/activities?limit=${limit}&start=${start}`;
+  const metaToken = document.querySelector('meta[name="csrf-token"]')?.content;
 
   const response = await fetch(url, {
     method: "GET",
     headers: {
-      "di-backend": "connectapi.garmin.com",
-      authorization:
-        "Bearer " + JSON.parse(localStorage.getItem("token")).access_token,
+      "connect-csrf-token": metaToken,
     },
   });
 
