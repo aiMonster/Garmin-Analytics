@@ -9,4 +9,14 @@ export interface IActivityCriteria {
 
   /** Activity name template */
   nameLike?: string | undefined;
+
+  /** Location filter - lat,lng,radius in meters */
+  nearLocation?: {
+    latitude: number;
+    longitude: number;
+    radiusMeters: number;
+  } | undefined;
+
+  /** Minimum distance filter in meters */
+  minDistanceMeters?: number | undefined;
 }

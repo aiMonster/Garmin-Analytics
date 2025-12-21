@@ -11,4 +11,13 @@ export interface IActivity {
 
     /** The activity time in format 'YYYY-MM-DD HH:MM:SS' */
     startTimeLocal: string;
+
+    /** The activity end latitude */
+    endLatitude?: number;
+
+    /** The activity end longitude */
+    endLongitude?: number;
+
+    /** The activity distance in meters */
+    distance?: number;
 }

@@ -63,6 +63,7 @@
       .activity-type-select {
         display: flex;
         align-items: baseline;
+        flex-wrap: wrap;
 
         .p-inputtext {
           width: 200px;
@@ -78,6 +79,17 @@
           color: slategray;
           margin: 5px;
           font-size: 14px;
+        }
+
+        .location-filter {
+          display: flex;
+          gap: 5px;
+          flex-wrap: wrap;
+
+          input {
+            width: 140px;
+            padding: 5px 10px;
+          }
         }
 
         .remove-btn {

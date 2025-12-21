@@ -32,6 +32,18 @@
           <div class="and-label">AND</div>
           <input type="text" pInputText [(ngModel)]="criteria.nameLike" class="p-inputtext-sm"
             placeholder="Name like (optional)">
+          <div class="and-label">AND</div>
+          <div class="location-filter">
+            <input type="number" pInputText [ngModel]="criteria.nearLocation?.latitude" (ngModelChange)="updateLocationLatitude(index, $event)" class="p-inputtext-sm"
+              placeholder="Latitude (optional)" step="0.000001">
+            <input type="number" pInputText [ngModel]="criteria.nearLocation?.longitude" (ngModelChange)="updateLocationLongitude(index, $event)" class="p-inputtext-sm"
+              placeholder="Longitude (optional)" step="0.000001">
+            <input type="number" pInputText [ngModel]="criteria.nearLocation?.radiusMeters" (ngModelChange)="updateLocationRadius(index, $event)" class="p-inputtext-sm"
+              placeholder="Radius (m)" [disabled]="!criteria.nearLocation?.latitude || !criteria.nearLocation?.longitude">
+          </div>
+          <div class="and-label">AND</div>
+          <input type="number" pInputText [ngModel]="getMinDistanceKm(index)" (ngModelChange)="updateMinDistance(index, $event)" class="p-inputtext-sm"
+            placeholder="Min distance km (optional)" step="0.1">
           <button *ngIf="selectedCriterias.length > 1" pButton pRipple type="button" icon="pi pi-trash" (click)="removeCriteria(index)"
             class="remove-btn p-button-secondary p-button-text"></button>
         </div>

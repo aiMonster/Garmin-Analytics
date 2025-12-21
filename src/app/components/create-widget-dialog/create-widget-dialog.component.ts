@@ -52,7 +52,9 @@ export class CreateWidgetDialogComponent implements OnInit {
 
   /** Selected widget criterias */
   selectedCriterias: IActivityCriteria[] = [
-    { activityType: ActivityType.Run }
+    { 
+      activityType: ActivityType.Run
+    }
   ];
 
   /** Selected targets for Streak Days widget */
@@ -91,10 +93,47 @@ export class CreateWidgetDialogComponent implements OnInit {
     this.selectedCriterias.splice(index, 1);
   }
 
+  updateLocationLatitude(index: number, value: number): void {
+    if (!this.selectedCriterias[index].nearLocation) {
+      this.selectedCriterias[index].nearLocation = { latitude: value, longitude: 0, radiusMeters: 50 };
+    } else {
+      this.selectedCriterias[index].nearLocation!.latitude = value;
+    }
+  }
+
+  updateLocationLongitude(index: number, value: number): void {
+    if (!this.selectedCriterias[index].nearLocation) {
+      this.selectedCriterias[index].nearLocation = { latitude: 0, longitude: value, radiusMeters: 50 };
+    } else {
+      this.selectedCriterias[index].nearLocation!.longitude = value;
+    }
+  }
+
+  updateLocationRadius(index: number, value: number): void {
+    if (this.selectedCriterias[index].nearLocation) {
+      this.selectedCriterias[index].nearLocation!.radiusMeters = value;
+    }
+  }
+
+  getMinDistanceKm(index: number): number | undefined {
+    const meters = this.selectedCriterias[index].minDistanceMeters;
+    return meters !== undefined && meters !== null ? meters / 1000 : undefined;
+  }
+
+  updateMinDistance(index: number, valueKm: number): void {
+    if (valueKm !== undefined && valueKm !== null && valueKm > 0) {
+      this.selectedCriterias[index].minDistanceMeters = valueKm * 1000;
+    } else {
+      this.selectedCriterias[index].minDistanceMeters = undefined;
+    }
+  }
+
   addNewCriteria(): void {
     this.selectedCriterias = [
       ...this.selectedCriterias,
-      { activityType: ActivityType.Run }
+      { 
+        activityType: ActivityType.Run
+      }
     ];
   }
 
@@ -105,6 +144,23 @@ export class CreateWidgetDialogComponent implements OnInit {
   }
 
   saveWidget(): void {
+    // Clean up criteria before saving - remove location filter if not fully configured
+    const cleanedCriterias = this.selectedCriterias.map(criteria => {
+      const cleaned = { ...criteria };
+      
+      // Remove location filter if latitude or longitude is not set (or is 0)
+      if (!cleaned.nearLocation?.latitude || !cleaned.nearLocation?.longitude) {
+        delete cleaned.nearLocation;
+      }
+
+      // Remove minDistanceMeters if not set or is 0
+      if (!cleaned.minDistanceMeters || cleaned.minDistanceMeters <= 0) {
+        delete cleaned.minDistanceMeters;
+      }
+      
+      return cleaned;
+    });
+
     const widgetConfigs: WidgetConfigs = {
       size: {
         rows: 0,
@@ -116,7 +172,7 @@ export class CreateWidgetDialogComponent implements OnInit {
       },
       title: this.selectedTitle,
       type: this.selectedType,
-      criterias: this.selectedCriterias,
+      criterias: cleanedCriterias,
       targets: this.selectedTargets,
       countType: this.selectedCountType,
       yearsToDisplay: [],
