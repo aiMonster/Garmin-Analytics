@@ -22,7 +22,12 @@ export class AppComponent implements OnInit {
   /** On Init */
   ngOnInit(): void {
     window.addEventListener('message', (event: MessageEvent) => {
-      this.handleEvent(JSON.parse(event.data));
+      try {
+        this.handleEvent(JSON.parse(event.data));
+      } catch (error) {
+        console.log('event', event);
+        console.error('Error parsing event.data', error);
+      }
     });
 
     this.settingsService.getActivitiesAsync().then((activities) => {
