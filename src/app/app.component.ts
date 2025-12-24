@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
         this.handleEvent(JSON.parse(event.data));
       } catch (error) {
         console.log('event', event);
-        console.error('Error parsing event.data', error);
+        console.log('error parsing event.data', error);
       }
     });
 
