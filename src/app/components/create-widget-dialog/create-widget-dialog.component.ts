@@ -24,6 +24,7 @@ export class CreateWidgetDialogComponent implements OnInit {
     label: string
   }[] = [
       { value: ActivityType.Run, label: 'Running' },
+      { value: ActivityType.Walk, label: 'Walk' },
       { value: ActivityType.Strength, label: 'Strength' },
       { value: ActivityType.Meditation, label: 'Meditation' },
       { value: ActivityType.Bike, label: 'Bike' },
