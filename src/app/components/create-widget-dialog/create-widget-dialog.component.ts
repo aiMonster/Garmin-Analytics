@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ActivityType } from 'src/app/enums/activity-type.enum';
 import { CountType } from 'src/app/enums/count-type.enum';
+import { DisplayMode } from 'src/app/enums/display-mode.enum';
 import { WidgetLength } from 'src/app/enums/widget-length.enum';
 import { WidgetType } from 'src/app/enums/widget-type.enum';
 import { IActivityCriteria } from 'src/app/interfaces/activity-criteria.interface';
@@ -199,7 +200,8 @@ export class CreateWidgetDialogComponent implements OnInit {
       targets: this.selectedTargets,
       countType: this.selectedCountType,
       yearsToDisplay: [],
-      target: this.selectedTargetTimes
+      target: this.selectedTargetTimes,
+      displayMode: DisplayMode.Times
     };
 
     this.ref.close(widgetConfigs);

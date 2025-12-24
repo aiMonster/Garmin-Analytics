@@ -7,6 +7,12 @@
         <div class="title gridster-item-content">{{ configs.title }}</div>
       </div>
       <div class="settings gridster-item-content">
+        <p-selectButton *ngIf="configs.type === widgetType.MonthlySummary" class="display-mode-select"
+          [options]="displayModeOptions" [(ngModel)]="selectedDisplayMode" (onChange)="displayModeChanged()">
+          <ng-template let-item>
+            <span>{{ item === displayModeEnum.Times ? 'Times' : 'Percent' }}</span>
+          </ng-template>
+        </p-selectButton>
         <p-selectButton class="size-select" [class.single-item]="sizeOptions.length === 1" [options]="sizeOptions"
           [(ngModel)]="selectedSize" (onChange)="widgetSizeChanged()">
           <ng-template let-item>

@@ -35,6 +35,15 @@
           border-color: slategray;
         }
 
+        .display-mode-select {
+          margin-left: 15px;
+
+          .p-button {
+            padding: 2px 5px;
+            font-size: 10px;
+          }
+        }
+
         .size-select {
           margin-left: 15px;
 

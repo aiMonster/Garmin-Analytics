@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { filter, Observable } from 'rxjs';
+import { DisplayMode } from 'src/app/enums/display-mode.enum';
 import { WidgetLength } from 'src/app/enums/widget-length.enum';
 import { WidgetType } from 'src/app/enums/widget-type.enum';
 import { IHeatmapConfigs } from 'src/app/interfaces/widget-configs/heatmap-configs.interface';
@@ -54,6 +55,12 @@ export class WidgetComponent implements OnInit {
 
   selectedYears: number[] = [];
 
+  displayModeOptions: DisplayMode[] = [DisplayMode.Times, DisplayMode.Percent];
+
+  selectedDisplayMode: DisplayMode = DisplayMode.Times;
+
+  readonly displayModeEnum: typeof DisplayMode = DisplayMode;
+
   /** Constructor */
   constructor(
     private readonly activitiesService: ActivitiesService,
@@ -63,6 +70,10 @@ export class WidgetComponent implements OnInit {
   ngOnInit(): void {
     this.selectedSize = this.configs.size.cols;
     this.sizeOptions = this.availableSizeOptions[this.configs.type];
+
+    if (this.configs.type === WidgetType.MonthlySummary) {
+      this.selectedDisplayMode = this.configs.displayMode || DisplayMode.Times;
+    }
 
     this.initActivities();
     this.setupWidgetHeight();
@@ -108,6 +119,14 @@ export class WidgetComponent implements OnInit {
       this.initActivities();
       this.setupWidgetHeight();
     });
+  }
+
+  /** On display mode changed */
+  displayModeChanged(): void {
+    if (this.configs.type === WidgetType.MonthlySummary) {
+      this.configs = { ...this.configs, displayMode: this.selectedDisplayMode };
+      this.settingsSevice.udpateWidgetAsync(this.configs);
+    }
   }
 
   private initActivities(): void {

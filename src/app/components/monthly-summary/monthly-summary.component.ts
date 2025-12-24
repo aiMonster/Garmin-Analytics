@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CountType } from 'src/app/enums/count-type.enum';
+import { DisplayMode } from 'src/app/enums/display-mode.enum';
 import { IMonthlySummaryConfigs } from 'src/app/interfaces/widget-configs/monthly-summary-configs.interface';
 import { IYearSummary } from 'src/app/interfaces/year-summary.interface';
 import { DateUtils } from 'src/app/utils/date.utils';
@@ -19,4 +20,5 @@ export class MonthlySummaryComponent {
   @Input() configs: IMonthlySummaryConfigs;
 
   readonly countType: typeof CountType = CountType;
+  readonly displayMode: typeof DisplayMode = DisplayMode;
 }
