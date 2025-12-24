@@ -17,6 +17,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { CalendarModule } from 'primeng/calendar';
 import { GridsterModule } from 'angular-gridster2';
 import { DockModule } from 'primeng/dock';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
@@ -51,6 +52,7 @@ import { ToastModule } from 'primeng/toast';
     ScrollPanelModule,
     InputNumberModule,
     SelectButtonModule,
+    CalendarModule,
     GridsterModule,
     DockModule,
     ProgressSpinnerModule,

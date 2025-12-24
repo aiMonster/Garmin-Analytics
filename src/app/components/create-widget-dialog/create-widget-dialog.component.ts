@@ -58,6 +58,9 @@ export class CreateWidgetDialogComponent implements OnInit {
     }
   ];
 
+  /** Time picker date objects for each criteria */
+  timePickerDates: (Date | undefined)[] = [undefined];
+
   /** Selected targets for Streak Days widget */
   selectedTargets: number[] = [3, 7, 14];
   enteredTarget: number | null;
@@ -92,6 +95,7 @@ export class CreateWidgetDialogComponent implements OnInit {
 
   removeCriteria(index: number): void {
     this.selectedCriterias.splice(index, 1);
+    this.timePickerDates.splice(index, 1);
   }
 
   updateLocationLatitude(index: number, value: number): void {
@@ -129,6 +133,18 @@ export class CreateWidgetDialogComponent implements OnInit {
     }
   }
 
+  updateMinStartTime(index: number, date: Date | null): void {
+    this.timePickerDates[index] = date || undefined;
+    
+    if (date) {
+      const hours = date.getHours().toString().padStart(2, '0');
+      const minutes = date.getMinutes().toString().padStart(2, '0');
+      this.selectedCriterias[index].minStartTime = `${hours}:${minutes}`;
+    } else {
+      this.selectedCriterias[index].minStartTime = undefined;
+    }
+  }
+
   addNewCriteria(): void {
     this.selectedCriterias = [
       ...this.selectedCriterias,
@@ -136,6 +152,7 @@ export class CreateWidgetDialogComponent implements OnInit {
         activityType: ActivityType.Run
       }
     ];
+    this.timePickerDates.push(undefined);
   }
 
   changeWidgetType(type: WidgetType): void {
@@ -157,6 +174,11 @@ export class CreateWidgetDialogComponent implements OnInit {
       // Remove minDistanceMeters if not set or is 0
       if (!cleaned.minDistanceMeters || cleaned.minDistanceMeters <= 0) {
         delete cleaned.minDistanceMeters;
+      }
+
+      // Remove minStartTime if not set
+      if (!cleaned.minStartTime || cleaned.minStartTime.trim() === '') {
+        delete cleaned.minStartTime;
       }
       
       return cleaned;

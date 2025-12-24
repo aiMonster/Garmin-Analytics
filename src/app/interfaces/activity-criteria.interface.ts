@@ -19,4 +19,7 @@ export interface IActivityCriteria {
 
   /** Minimum distance filter in meters */
   minDistanceMeters?: number | undefined;
+
+  /** Minimum start time filter in HH:MM format */
+  minStartTime?: string | undefined;
 }

@@ -250,6 +250,14 @@ export class ActivitiesService {
           }
         }
 
+        // Check minimum start time filter (keeps activities starting before this time)
+        if (matchCriteria.minStartTime) {
+          const activityTime = this.extractTime(activity.startTimeLocal);
+          if (activityTime >= matchCriteria.minStartTime) {
+            return false;
+          }
+        }
+
         return true;
       });
 
@@ -277,5 +285,17 @@ export class ActivitiesService {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
     return R * c;
+  }
+
+  /**
+   * Extracts time in HH:MM format from datetime string
+   * @param dateTimeString Date time string in format 'YYYY-MM-DD HH:MM:SS'
+   * @returns Time in HH:MM format
+   */
+  private extractTime(dateTimeString: string): string {
+    // Format: "2025-12-22 06:39:14"
+    const timePart = dateTimeString.split(' ')[1]; // "06:39:14"
+    const [hours, minutes] = timePart.split(':');
+    return `${hours}:${minutes}`; // "06:39"
   }
 }

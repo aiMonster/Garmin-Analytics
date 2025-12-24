@@ -44,6 +44,11 @@
           <div class="and-label">AND</div>
           <input type="number" pInputText [ngModel]="getMinDistanceKm(index)" (ngModelChange)="updateMinDistance(index, $event)" class="p-inputtext-sm"
             placeholder="Min distance km (optional)" step="0.1">
+          <div class="and-label">AND</div>
+          <p-calendar [(ngModel)]="timePickerDates[index]" (ngModelChange)="updateMinStartTime(index, $event)" 
+            [timeOnly]="true" [showTime]="true" hourFormat="24" 
+            placeholder="Start before time (optional)" class="p-inputtext-sm time-picker">
+          </p-calendar>
           <button *ngIf="selectedCriterias.length > 1" pButton pRipple type="button" icon="pi pi-trash" (click)="removeCriteria(index)"
             class="remove-btn p-button-secondary p-button-text"></button>
         </div>

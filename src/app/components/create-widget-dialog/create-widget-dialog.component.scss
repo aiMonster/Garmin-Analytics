@@ -92,6 +92,13 @@
           }
         }
 
+        .time-picker {
+          ::ng-deep .p-inputtext {
+            width: 180px;
+            padding: 5px 10px;
+          }
+        }
+
         .remove-btn {
           height: 44px;
           margin-left: 5px;
