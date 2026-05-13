@@ -1,4 +1,4 @@
-const ANALYTICS_URL = "https://connect.garmin.com/modern/analytics";
+const ANALYTICS_URL = "https://connect.garmin.com/app/analytics";
 const ANALYTICS_PAGE_SELECTED = window.location.href === ANALYTICS_URL;
 
 const initialPageLoadInterval = setInterval(function () {
@@ -39,7 +39,7 @@ function addAnalyticsMenuItem(menuElement) {
   const analyticsItem = document.createElement("li");
   analyticsItem.classList.add("MenuItem_menuItem__HyydK");
   analyticsItem.innerHTML = `
-        <a href="/modern/analytics" target class="main-nav-link ${activeTabStyleClass}">
+        <a href="/app/analytics" target class="main-nav-link ${activeTabStyleClass}">
             <i class="nav-icon fa fa-bar-chart" aria-hidden="true" style="color: rgb(17, 169, 237);"></i>
             <span class="nav-text">Analytics</span>
         </a>

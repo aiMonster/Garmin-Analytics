@@ -11,7 +11,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://connect.garmin.com/modern/*"],
+      "matches": ["https://connect.garmin.com/app/*"],
       "js": ["background.garmin.js"],
       "all_frames": true
     }
