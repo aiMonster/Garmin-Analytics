@@ -87,20 +87,9 @@ function handleMessage(iframe, message) {
 }
 
 function getUserInfo() {
-  const profileNavItem = document.getElementsByClassName(
-    "header-nav-item user-profile"
-  )[0];
-
-  const userProfileId = profileNavItem
-    .getElementsByClassName("header-nav-link")[0]
-    .href.split("/")
-    .pop();
-  const fullName =
-    profileNavItem.getElementsByClassName("full-name")[0].innerText;
-
   return {
-    id: userProfileId,
-    name: fullName,
+    id: "mock-user-id",
+    name: "Mock User",
   };
 }
 
