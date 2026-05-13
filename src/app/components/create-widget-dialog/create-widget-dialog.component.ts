@@ -12,39 +12,42 @@ import { WidgetConfigs } from 'src/app/interfaces/widget-configs/widget-configs.
   selector: 'app-create-widget-dialog',
   templateUrl: './create-widget-dialog.component.html',
   styleUrls: ['./create-widget-dialog.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class CreateWidgetDialogComponent implements OnInit {
   readonly maxStreakTargets = 8;
   readonly widgetType = WidgetType;
   readonly countType = CountType;
-  readonly widgetTypes: WidgetType[] = Object.values(WidgetType).filter(value => !isNaN(Number(value))).map(value => +value);
+  readonly widgetTypes: WidgetType[] = Object.values(WidgetType)
+    .filter((value) => !isNaN(Number(value)))
+    .map((value) => +value);
 
   readonly activityTypes: {
-    value: ActivityType,
-    label: string
+    value: ActivityType;
+    label: string;
   }[] = [
-      { value: ActivityType.Run, label: 'Running' },
-      { value: ActivityType.Walk, label: 'Walk' },
-      { value: ActivityType.Strength, label: 'Strength' },
-      { value: ActivityType.Meditation, label: 'Meditation' },
-      { value: ActivityType.Bike, label: 'Bike' },
-      { value: ActivityType.MountainBike, label: 'Mountain Bike' },
-      { value: ActivityType.Hike, label: 'Hike' },
-      { value: ActivityType.Kayak, label: 'Kayak' },
-      { value: ActivityType.Sup, label: 'Sup' },
-      { value: ActivityType.Ski, label: 'Ski' },
-      { value: ActivityType.Swimming, label: 'Swimming' },
-      { value: ActivityType.Other, label: 'Other' }
-    ];
+    { value: ActivityType.Run, label: 'Running' },
+    { value: ActivityType.Walk, label: 'Walk' },
+    { value: ActivityType.Strength, label: 'Strength' },
+    { value: ActivityType.Meditation, label: 'Meditation' },
+    { value: ActivityType.Meditation2, label: 'Meditation (IQ)' },
+    { value: ActivityType.Bike, label: 'Bike' },
+    { value: ActivityType.MountainBike, label: 'Mountain Bike' },
+    { value: ActivityType.Hike, label: 'Hike' },
+    { value: ActivityType.Kayak, label: 'Kayak' },
+    { value: ActivityType.Sup, label: 'Sup' },
+    { value: ActivityType.Ski, label: 'Ski' },
+    { value: ActivityType.Swimming, label: 'Swimming' },
+    { value: ActivityType.Other, label: 'Other' },
+  ];
 
   readonly countTypes: {
-    value: CountType,
-    label: string
+    value: CountType;
+    label: string;
   }[] = [
-      { value: CountType.Days, label: 'Days' },
-      { value: CountType.Times, label: 'Times' }
-    ];
+    { value: CountType.Days, label: 'Days' },
+    { value: CountType.Times, label: 'Times' },
+  ];
 
   /** Selected widget type */
   selectedType: WidgetType = WidgetType.Heatmap;
@@ -54,9 +57,9 @@ export class CreateWidgetDialogComponent implements OnInit {
 
   /** Selected widget criterias */
   selectedCriterias: IActivityCriteria[] = [
-    { 
-      activityType: ActivityType.Run
-    }
+    {
+      activityType: ActivityType.Run,
+    },
   ];
 
   /** Time picker date objects for each criteria */
@@ -72,11 +75,9 @@ export class CreateWidgetDialogComponent implements OnInit {
   /** Selected target times for Monthly Summary */
   selectedTargetTimes: number;
 
-  constructor(private readonly ref: DynamicDialogRef) { }
+  constructor(private readonly ref: DynamicDialogRef) {}
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   removeTarget(index: number): void {
     this.selectedTargets.splice(index, 1);
@@ -87,9 +88,9 @@ export class CreateWidgetDialogComponent implements OnInit {
       return;
     }
 
-    this.selectedTargets = [
-      ...this.selectedTargets, this.enteredTarget!
-    ].sort((a, b) => a - b);
+    this.selectedTargets = [...this.selectedTargets, this.enteredTarget!].sort(
+      (a, b) => a - b,
+    );
 
     this.enteredTarget = null;
   }
@@ -101,7 +102,11 @@ export class CreateWidgetDialogComponent implements OnInit {
 
   updateLocationLatitude(index: number, value: number): void {
     if (!this.selectedCriterias[index].nearLocation) {
-      this.selectedCriterias[index].nearLocation = { latitude: value, longitude: 0, radiusMeters: 50 };
+      this.selectedCriterias[index].nearLocation = {
+        latitude: value,
+        longitude: 0,
+        radiusMeters: 50,
+      };
     } else {
       this.selectedCriterias[index].nearLocation!.latitude = value;
     }
@@ -109,7 +114,11 @@ export class CreateWidgetDialogComponent implements OnInit {
 
   updateLocationLongitude(index: number, value: number): void {
     if (!this.selectedCriterias[index].nearLocation) {
-      this.selectedCriterias[index].nearLocation = { latitude: 0, longitude: value, radiusMeters: 50 };
+      this.selectedCriterias[index].nearLocation = {
+        latitude: 0,
+        longitude: value,
+        radiusMeters: 50,
+      };
     } else {
       this.selectedCriterias[index].nearLocation!.longitude = value;
     }
@@ -136,7 +145,7 @@ export class CreateWidgetDialogComponent implements OnInit {
 
   updateMinStartTime(index: number, date: Date | null): void {
     this.timePickerDates[index] = date || undefined;
-    
+
     if (date) {
       const hours = date.getHours().toString().padStart(2, '0');
       const minutes = date.getMinutes().toString().padStart(2, '0');
@@ -149,9 +158,9 @@ export class CreateWidgetDialogComponent implements OnInit {
   addNewCriteria(): void {
     this.selectedCriterias = [
       ...this.selectedCriterias,
-      { 
-        activityType: ActivityType.Run
-      }
+      {
+        activityType: ActivityType.Run,
+      },
     ];
     this.timePickerDates.push(undefined);
   }
@@ -164,9 +173,9 @@ export class CreateWidgetDialogComponent implements OnInit {
 
   saveWidget(): void {
     // Clean up criteria before saving - remove location filter if not fully configured
-    const cleanedCriterias = this.selectedCriterias.map(criteria => {
+    const cleanedCriterias = this.selectedCriterias.map((criteria) => {
       const cleaned = { ...criteria };
-      
+
       // Remove location filter if latitude or longitude is not set (or is 0)
       if (!cleaned.nearLocation?.latitude || !cleaned.nearLocation?.longitude) {
         delete cleaned.nearLocation;
@@ -181,18 +190,18 @@ export class CreateWidgetDialogComponent implements OnInit {
       if (!cleaned.minStartTime || cleaned.minStartTime.trim() === '') {
         delete cleaned.minStartTime;
       }
-      
+
       return cleaned;
     });
 
     const widgetConfigs: WidgetConfigs = {
       size: {
         rows: 0,
-        cols: WidgetLength.ThreeColumns
+        cols: WidgetLength.ThreeColumns,
       },
       position: {
         x: 0,
-        y: 0
+        y: 0,
       },
       title: this.selectedTitle,
       type: this.selectedType,
@@ -201,7 +210,7 @@ export class CreateWidgetDialogComponent implements OnInit {
       countType: this.selectedCountType,
       yearsToDisplay: [],
       target: this.selectedTargetTimes,
-      displayMode: DisplayMode.Times
+      displayMode: DisplayMode.Times,
     };
 
     this.ref.close(widgetConfigs);
